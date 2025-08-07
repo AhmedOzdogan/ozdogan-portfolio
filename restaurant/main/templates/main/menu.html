@@ -1,0 +1,106 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Menu{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/menu.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="menu-nav">
+  <a href="{% url 'main:menu' %}?category=starters" class="{% if request.GET.category == 'starters' %}active{% endif %}">Starters</a>
+  <a href="{% url 'main:menu' %}?category=main-courses" class="{% if request.GET.category == 'main-courses' %}active{% endif %}">Main Courses</a>
+  <a href="{% url 'main:menu' %}?category=desserts" class="{% if request.GET.category == 'desserts' %}active{% endif %}">Desserts</a>
+  <a href="{% url 'main:menu' %}?category=drinks" class="{% if request.GET.category == 'drinks' %}active{% endif %}">Drinks</a>
+</nav>
+<section class="menu-section">
+  <h1>Our Menu</h1>
+  <div id="menu-container">
+    <!-- Categories and items will be rendered here -->
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById('menu-container');
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get('category'); // e.g. "starters"
+
+    const categoryMap = {
+      'starters': 'Starters',
+      'main-courses': 'Main Course',
+      'desserts': 'Desserts',
+      'drinks': 'Drinks'
+    };
+
+    fetch('/api/menu/')
+      .then(response => response.json())
+      .then(data => {
+        container.innerHTML = "";
+
+        if (data.length === 0) {
+          container.innerHTML = "<p>No menu items available.</p>";
+          return;
+        }
+
+        // Group items by category
+        const categories = {};
+
+        data.forEach(item => {
+          const cat = item.category.name;
+          if (!categories[cat]) categories[cat] = [];
+          categories[cat].push(item);
+        });
+
+        // If filter is active, show only that one category
+        const filteredCategories = selectedCategory && categoryMap[selectedCategory]
+          ? { [categoryMap[selectedCategory]]: categories[categoryMap[selectedCategory]] || [] }
+          : categories;
+
+        // Render each category
+        for (const [category, items] of Object.entries(filteredCategories)) {
+          if (!items.length) continue;
+
+          const section = document.createElement('section');
+          section.classList.add('menu-category');
+
+          const heading = document.createElement('h2');
+          heading.textContent = category;
+          section.appendChild(heading);
+
+          const grid = document.createElement('div');
+          grid.classList.add('menu-grid');
+
+          items.forEach(item => {
+            const imagePath = `/static/main/img/menu/${item.name.toLowerCase().replace(/\s+/g, "-")}.png`;
+
+            const card = document.createElement('div');
+            card.classList.add('menu-item');
+
+            card.innerHTML = `
+              <img src="${imagePath}" alt="${item.name}">
+              <a href="/menu/${item.slug}/">
+                  <h3>${item.name}</h3>
+              </a>
+              <h3><span>$${item.price}</span></h3>
+              <p>${item.description}</p>
+            `;
+
+            grid.appendChild(card);
+          });
+
+          section.appendChild(grid);
+          container.appendChild(section);
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching menu:", error);
+        container.innerHTML = "<p>Error loading menu.</p>";
+      });
+  });
+</script>
+{% endblock %}
+

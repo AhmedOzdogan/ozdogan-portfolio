@@ -1,0 +1,35 @@
+{% load static %}
+<div class="htmlmenu-wrapper">
+  <div class="htmlmenu-header">
+    <div class="htmlmenu-container">
+      <div class="htmlmenu-logo">
+        <a href="/">
+          <img id="logo" src="{% static 'main/img/logo.png' %}" alt="htmlmenu">
+        </a>
+      </div>
+      <input type="checkbox" id="htmlmenu-toggle" class="htmlmenu-toggle">
+      <label for="htmlmenu-toggle"><span></span><span></span><span></span></label>
+      <nav class="htmlmenu-menu htmlmenu-menu-style-2 htmlmenu-submenu-slide-down" role="navigation">
+        <ul>
+          <li class="{% if request.path == '/' %}htmlmenu-menu-current{% endif %}">
+            <a href="{% url 'main:index' %}">Home</a>
+          </li>
+          <li class="{% if request.path == '/menu/' %}htmlmenu-menu-current{% endif %}">
+            <a href="{% url 'main:menu' %}">Menu</a>
+          </li>
+          <li class="{% if request.path == '/reservations/' %}htmlmenu-menu-current{% endif %}">
+            <a href="{% url 'main:reservations' %}">Reservations</a>
+          </li>
+          <li class="{% if request.path == '/about/' %}htmlmenu-menu-current{% endif %}">
+            <a href="{% url 'main:about' %}">About</a>
+          </li>
+          <li class="{% if request.path == '/contact/' %}htmlmenu-menu-current{% endif %}">
+            <a href="{% url 'main:contact' %}">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="htmlmenu-header-shadow"></div>
+  </div>
+  <div class="htmlmenu-header-spacer"></div>
+</div>

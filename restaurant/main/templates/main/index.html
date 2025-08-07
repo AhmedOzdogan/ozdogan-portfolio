@@ -1,0 +1,85 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block title %}Home - Simple Restaurant{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Welcome to Simple Restaurant</h1>
+    <p>Delicious Food & Cozy Vibes</p>
+    <a href="{% url 'main:menu' %}" class="btn">View Menu</a>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about">
+  <div class="about-container">
+    <img src="{% static 'main/img/about.png' %}" alt="Dining Area">
+    <div class="about-text">
+      <h2>Our Story</h2>
+      <p>Welcome to Simple Restaurant, where food meets soul. We believe in crafting not just meals, but moments — through fresh ingredients, time-honored recipes, and genuine hospitality.</p>
+      <p>Our chefs take pride in blending tradition and creativity, serving dishes that delight both the palate and the eye. Whether you’re here for a quick bite or a family dinner, we’ve got something special for you.</p>
+      <a href="{% url 'main:about' %}" class="btn">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- Top Picks Section -->
+<section class="top-picks">
+  <h2>Top Picks from Our Menu</h2>
+  <div id="top-picks-container" class="top-picks-container"></div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+  <h2>Ready to Dine With Us?</h2>
+  <a href="{% url 'main:reservations' %}" class="btn">Make a Reservation</a>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('/api/menu/')
+    .then(response => response.json())
+    .then(data => {
+      const menuContainer = document.getElementById('top-picks-container');
+      if (!data.length) {
+        menuContainer.innerHTML = "<p>No menu items available.</p>";
+        return;
+      }
+
+      // Shuffle array and select first 3 items
+      const shuffled = data.sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 3);
+
+      console.log('Selected top picks:', selected);
+
+      selected.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('dish-card');
+
+        const imagePath = `/static/main/img/menu/${item.name.toLowerCase().replace(/\s+/g, "-")}.png`;
+
+        card.innerHTML = `
+          <img src="${imagePath}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <span class="price">$${item.price}</span>
+        `;
+
+        menuContainer.appendChild(card);
+      });
+    })
+    .catch(error => console.error('Error fetching menu:', error));
+});
+</script>
+{% endblock %}
+
