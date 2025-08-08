@@ -29,3 +29,13 @@ class Menu(models.Model):
 
     def __str__(self):
         return f"{self.name} - ${self.price}"
+    
+    
+class Messages(models.Model):
+
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField(max_length=500)
+    
+    def __str__(self):
+        return f"Message from {self.name} ({self.email}): {self.message[:50]}..."
