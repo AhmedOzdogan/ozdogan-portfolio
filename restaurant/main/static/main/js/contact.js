@@ -1,4 +1,3 @@
-console.log("js is ready")
 function handleSubmit(event) {
   event.preventDefault();
 

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import Menu
-from .forms import MessagesForm
+from .forms import MessagesForm, ReservationsForm
 
 def index(request):
     return render(request, 'main/index.html')
@@ -16,7 +16,8 @@ def about(request):
     return HttpResponse('success')
 
 def reservations(request):
-    return HttpResponse('success')
+    form = ReservationsForm()  #(no POST handling)
+    return render(request, 'main/reservations.html', {'form': form})
 
 def contact(request):
     form = MessagesForm(request.POST or None)

@@ -39,3 +39,14 @@ class Messages(models.Model):
     
     def __str__(self):
         return f"Message from {self.name} ({self.email}): {self.message[:50]}..."
+
+class Reservations(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    reservation_date = models.DateTimeField()
+    number_of_guests = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"Reservation for {self.name} on {self.reservation_date} for {self.number_of_guests} guests"
+
