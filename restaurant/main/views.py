@@ -13,7 +13,7 @@ def menu_item(request, slug):
     return render(request, "main/menu_item.html", {"item_slug": slug})
 
 def about(request):
-    return HttpResponse('success')
+    return render(request, 'main/about.html')
 
 def reservations(request):
     form = ReservationsForm()  #(no POST handling)

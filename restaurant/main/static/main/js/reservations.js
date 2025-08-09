@@ -87,9 +87,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  flatpickr("#reservation_date", {
-    enableTime: true,
-    dateFormat: "Y-m-d H:i",
-    time_24hr: true,
-    minuteIncrement: 30
-  });

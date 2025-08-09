@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+  About
+{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'main/css/about.css' %}">
+  <script src="{% static 'main/js/about.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<header>
+    <h1>Restaurant</h1>
+    <p>Serving Excellence Since 1975</p>
+</header>
+
+<main>
+    <div>
+        <h2>Our Story</h2>
+        <p>
+            For over 50 years, Golden Spoon Restaurant has been a cornerstone of fine dining in our community.
+            Founded in 1975 by the Mehmet family, our mission has always been simple: to serve delicious,
+            freshly prepared meals made from the highest quality ingredients.
+        </p>
+    </div>
+
+    <div>
+        <img id="interior-image1" src="{% static 'main/img/interior1.png' %}" alt="Dining Area" class="about-image">
+    </div>
+
+    
+    <div>
+        <img id="interior-image2" src="{% static 'main/img/interior2.png' %}" alt="Dining Area" class="about-image">
+    </div>
+
+    <div>
+        <h2>Our Philosophy</h2>
+        <p>
+            We believe that great food brings people together. Whether it’s a family celebration, a romantic dinner,
+            or a casual lunch with friends, our warm atmosphere and attentive staff make every meal a memorable experience.
+        Our menu combines traditional recipes passed down through generations with modern culinary creativity.
+        </p>
+    </div>
+
+    <div>
+        <h2>Looking Forward</h2>
+        <p>
+            As we step into the future, our goal remains unchanged: to continue delighting our guests
+            with exceptional food and unforgettable service. We are grateful for the loyalty of our customers
+        and excited to welcome new faces to the Golden Spoon family.
+        </p>
+    </div>
+
+    
+    <div>
+        <img id="interior-image3" src="{% static 'main/img/interior3.png' %}" alt="Dining Area" class="about-image">
+    </div>
+</main>
+
+{% endblock %}

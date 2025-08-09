@@ -1,6 +1,5 @@
 .hero {
-    background-image: url('../img/hero.png');
-    /* Replace with your image */
+    background-image: url('static/main/img/hero2.png?v=2');
     background-size: cover;
     background-position: center;
     padding: 100px 20px;
