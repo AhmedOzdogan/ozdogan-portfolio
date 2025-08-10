@@ -3,19 +3,19 @@
   <div class="footer-container">
     <div class="footer-section">
       <h4>About Us</h4>
-      <p>We serve delicious meals made with fresh ingredients. Book a table or order online!</p>
+      <p>We serve delicious meals made with fresh ingredients. Book a table today!</p>
     </div>
     <div class="footer-section">
       <h4>Quick Links</h4>
       <ul>
         <li><a href="{% url 'main:index' %}">Home</a></li>
-        <li><a href="#">Menu</a></li>
-        <li><a href="#">Reservations</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url 'main:menu' %}">Menu</a></li>
+        <li><a href="{% url 'main:reservations' %}">Reservations</a></li>
+        <li><a href="{% url 'main:contact' %}">Contact</a></li>
       </ul>
     </div>
-    <div class="footer-section">
-      <h4>Contact</h4>
+    <div class="footer-section2">
+      <a href="{% url 'main:contact' %}">Contact</a>
       <p>Email: info@restaurant.com</p>
       <p>Phone: +1 (555) 123-4567</p>
     </div>

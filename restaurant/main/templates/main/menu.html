@@ -8,14 +8,18 @@
 {% endblock %}
 
 {% block content %}
+<div class="menu-header">
+  <h1>Our Menu</h1>
+</div>
+
 <nav class="menu-nav">
   <a href="{% url 'main:menu' %}?category=starters" class="{% if request.GET.category == 'starters' %}active{% endif %}">Starters</a>
   <a href="{% url 'main:menu' %}?category=main-courses" class="{% if request.GET.category == 'main-courses' %}active{% endif %}">Main Courses</a>
   <a href="{% url 'main:menu' %}?category=desserts" class="{% if request.GET.category == 'desserts' %}active{% endif %}">Desserts</a>
   <a href="{% url 'main:menu' %}?category=drinks" class="{% if request.GET.category == 'drinks' %}active{% endif %}">Drinks</a>
+  <a href="{% url 'main:menu' %}" class="{% if not request.GET.category %}active{% endif %}">All</a>
 </nav>
 <section class="menu-section">
-  <h1>Our Menu</h1>
   <div id="menu-container">
     <!-- Categories and items will be rendered here -->
   </div>

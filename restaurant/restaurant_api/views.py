@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,11 +13,8 @@ class MenuListAPIView(APIView):
     
 class MenuItemAPIView(APIView):
     def get(self, request, slug):
-        menu_item = Menu.objects.filter(slug=slug, available=True).first()
-        if menu_item:
-            serializer = MenuSerializer(menu_item)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({"detail": "Menu item not found."}, status=status.HTTP_404_NOT_FOUND)
+        menu_item = get_object_or_404(Menu, slug=slug, available=True)
+        return Response(MenuSerializer(menu_item).data)
     
 class ReservationAPIView(APIView):
     def post(self, request):

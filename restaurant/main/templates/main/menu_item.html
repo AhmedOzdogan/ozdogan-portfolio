@@ -4,19 +4,27 @@
 {% block title %}Menu - {{ item_slug|title }}{% endblock %}
 
 {% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="{% static 'main/css/menu_item.css' %}">
 {% endblock %}
+
 
 {% block content %}
 <section class="menu-section">
   <h1>Item Details</h1>
-  <div id="item-container">
+  <div id="item-container" >
     <!-- Item details will be rendered here -->
   </div>
 
+
   <br>
-    <br>
-      <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 
 </section>
 {% endblock %}
@@ -28,6 +36,10 @@
 
     fetch(`/api/menu/${itemSlug}/`)  // <-- this is correct for your endpoint
       .then(response => {
+        if (response.status === 404) {
+          window.location.href = "/404/";
+          return Promise.reject();
+        }
         if (!response.ok) {
           throw new Error("Item not found");
         }
@@ -49,16 +61,23 @@
             <p><strong>Category:</strong> ${data.category.name}</p>
             <p>${data.description}</p>
         </div>
+        <button id="back-button" onclick="window.history.back();">
+            Back <i class="bi bi-escape"></i>
+        </button>
         `;
 
 
 
         container.appendChild(card);
       })
-      .catch(error => {
-        console.error('Error fetching item:', error);
-        document.getElementById('item-container').innerHTML = "<p>Item not found or failed to load.</p>";
-      });
+    .catch(err => {
+      if (err) {
+        // for non-404 errors, show a nicer fallback
+        document.getElementById("item-container").innerHTML =
+          "<p>Sorry, something went wrong loading this item.</p>";
+      }
+    });
   });
+
 </script>
 {% endblock %}

@@ -4,23 +4,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Restaurant{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'main/css/header.css' %}">
   <link rel="stylesheet" href="{% static 'main/css/footer.css' %}">
+  <link rel="stylesheet" href="{% static 'main/css/base.css' %}">
   <script src="{% static 'main/js/header.js' %}" defer></script>
   {% block extra_head %}{% endblock %}
 </head>
 
 <body>
-
   {% include "main/header.html" %}
 
-  {% block content %}
-  {% endblock %}
+  <main class="page-content">
+    {% block content %}{% endblock %}
+  </main>
 
   {% include "main/footer.html" %}
 
-  {% block extra_js %}
-  {% endblock %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

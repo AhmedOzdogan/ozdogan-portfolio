@@ -39,8 +39,39 @@
 
 <!-- CTA Section -->
 <section class="cta">
-  <h2>Ready to Dine With Us?</h2>
-  <a href="{% url 'main:reservations' %}" class="btn">Make a Reservation</a>
+  <div>
+    <h2>Ready to Dine With Us?</h2>
+  </div>
+  <div class="cta-details">
+    <div>
+      <p id=>Our tables are so comfy, you might just forget you came 
+      for the food! Sink into plush seating designed for relaxation, 
+      and let the warm ambiance set the tone for a memorable meal. Whether you’re 
+      catching up with friends or enjoying a quiet dinner, comfort is always on the menu.</p>
+      <img id="cta-img1" src="{% static 'main/img/interior1.png' %}" alt="Comfy Tables">
+    </div>
+
+    <div>
+      <p>Rumor has it, our chef can juggle tomatoes (but only on weekends).
+       Beyond culinary skills, our kitchen is filled with laughter and creativity, 
+       ensuring every dish is prepared with a dash of fun. Come by and see what surprises 
+       await—sometimes the entertainment is as delightful as the food!</p>
+      <img id="cta-img2" src="{% static 'main/img/interior2.png' %}" alt="Chef Juggling">
+    </div>
+
+    <div>
+      <p>Every reservation comes with a complimentary smile from our staff. 
+      From the moment you walk in, our team is dedicated to making you feel 
+      welcome and valued. We believe great service is the secret ingredient 
+      to every dining experience, and we’re always happy to see you. Hope
+      to see you soon :)</p>
+      <img id="cta-img3" src="{% static 'main/img/interior3.png' %}" alt="Comfy Tables">
+    </div>
+  </div>
+  <div>
+    <a href="{% url 'main:reservations' %}" class="btn">Make a Reservation</a>
+  </div>
+
 </section>
 {% endblock %}
 
