@@ -1,0 +1,3 @@
+[submodule "SchedEye"]
+	path = SchedEye
+	url = https://github.com/AhmedOzdogan/SchedEye
