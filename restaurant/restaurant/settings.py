@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure--prz=!=u@432h($*$_%_!ksaftylbt0=57$d7uw^p##i7dhgnj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
 
 
@@ -121,7 +124,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"   # for collectstatic
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Prefix-based namespace to avoid collisions with the other project
+STATICFILES_DIRS = [
+    ("restaurant_main", BASE_DIR / "main" / "static" / "main"),
+]
+
+# (Optional, explicit; these are Django defaults)
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

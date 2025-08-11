@@ -1,0 +1,155 @@
+/* No page gaps */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Footer: span full grid width and fill edges */
+.site-footer {
+    /* if parent uses CSS Grid, this forces full row span */
+    grid-column: 1 / -1 !important;
+
+    background-color: #2d2d2d;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+
+    width: 100%;
+    margin: 0;
+    padding: 30px 0 15px;
+
+    /* kill the old 100vw trick that caused shifting */
+    position: static;
+    left: auto;
+    right: auto;
+    transform: none;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* keeps columns apart */
+    align-items: flex-start;
+    /* vertical centering */
+    gap: 20px;
+
+    width: 100%;
+    max-width: 900px;
+    /* limit how wide they spread */
+    margin: 0 auto;
+    /* center the group horizontally */
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Columns */
+.footer-section,
+.footer-section2 {
+    flex: 1 1 260px;
+    min-width: 220px;
+}
+
+/* Headings & text */
+.footer-section h4,
+.footer-section2 a {
+    margin: 0 0 10px;
+    color: #f5a623;
+    font-size: 1.1rem;
+    /* match heading size */
+    font-weight: bold;
+    /* match heading weight */
+    text-decoration: none;
+    /* remove underline for the link */
+}
+
+.footer-section2 a:hover {
+    text-decoration: underline;
+    /* optional hover effect */
+}
+.footer-section p,
+.footer-section2 p {
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+/* Lists & links */
+.footer-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 6px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Bottom bar */
+.footer-bottom {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #444;
+    margin-top: 20px;
+    font-size: 0.9em;
+    opacity: 0.85;
+}
+
+/* Mobile stack */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: stretch;
+        /* full-width sections */
+        gap: 14px;
+
+        max-width: 100%;
+        /* remove 900px cap on phones */
+        width: 100%;
+        margin: 0;
+        /* no auto-centering margin */
+        padding: 0 16px;
+        /* small side padding */
+    }
+
+    .footer-section,
+    .footer-section2 {
+        flex: 1 1 100%;
+        min-width: 0;
+        /* allow shrinking */
+    }
+
+    .footer-section h4,
+    .footer-section2 a {
+        font-size: 1rem;
+        /* slightly smaller headings */
+        margin-bottom: 8px;
+    }
+
+    .footer-section p,
+    .footer-section2 p,
+    .footer-section ul li {
+        font-size: 0.95rem;
+    }
+
+    .footer-bottom {
+        margin-top: 12px;
+        padding-top: 12px;
+        font-size: 0.85em;
+    }
+}
+
+/* Extra-small phones */
+@media (max-width: 420px) {
+    .footer-container {
+        padding: 0 12px;
+    }
+}
