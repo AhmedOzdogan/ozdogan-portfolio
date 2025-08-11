@@ -20,7 +20,7 @@ It helps freelance teachers organize weekly lessons, track payments, and monitor
 - Secure MySQL database with parameterized queries
 - Simple SQL.txt configuration for connection settings
 
-[🔗 View Schedule Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/scheduele_Project)
+[🔗 View Schedule Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/Schedule_Project)
 
 ---
 
@@ -51,7 +51,7 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 - Intuitive tools for daily teaching workflows
 - Accessible from any device
 
-[🔗 View SchedEye on GitHub](https://github.com/AhmedOzdogan/SchedEye)  
+[🔗 View SchedEye on GitHub](https://github.com/AhmedOzdogan/SchedEye/tree/1137a154fea578f2488507c04b71834c89f4a4af)  
 [🌐 Visit SchedEye Website](https://www.schedeye.com)
 
 ---
