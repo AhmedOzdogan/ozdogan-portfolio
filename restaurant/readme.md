@@ -86,11 +86,25 @@ python manage.py runserver
 ---
 
 ## 📸 Screenshots & Demo
+## 📸 Screenshots
 
-- **Home page:** `docs/screens/home.png`
-- **Menu grid:** `docs/screens/menu.png`
-- **Reservation form:** `docs/screens/reservation.png`
-- **Video demo:** `docs/demo.mp4` or [YouTube link](#)
+Explore the look and feel of the restaurant website with these sample screenshots, showcasing both desktop and mobile experiences. All images are available in the `screenshots/` directory.
+
+| File Name                | Description                                         |
+|------------------------- |----------------------------------------------------|
+| `a.png`                  | General page capture (unspecified/test view)        |
+| `contact.png`            | Contact page with form and restaurant details       |
+| `index.png`              | Home page (desktop view)                            |
+| `index_(iPhone XR).png`  | Home page (mobile view, iPhone XR resolution)       |
+| `menu.png`               | Full menu page (desktop view)                       |
+| `menu_(iPhone XR).png`   | Menu page (mobile view, iPhone XR resolution)       |
+| `menu-item.png`          | Single menu item detail page                        |
+| `menu-api.png`           | Menu API endpoint output (JSON view)                |
+| `reservation.png`        | Reservation form page (desktop view)                |
+| `reservation-check.png`  | Reservation confirmation/check page                 |
+| `reservations.png`       | Reservations page                              |
+
+These previews highlight the responsive design and key features, giving you a quick visual tour of the application.
 
 ---
 
