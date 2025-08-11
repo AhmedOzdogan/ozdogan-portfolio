@@ -1,0 +1,290 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Bakery
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- TOp-Header -->
+<div class="top-header">
+  <div class="hero-content">
+    <h1>Freshly Baked, Every Day</h1>
+    <p class="text-white">Handmade breads, cakes, and cookies from our oven to your table.</p>
+  </div>
+</div>
+
+<!-- Facts -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-6 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <div class="card-body p-4">
+            <i class="bi bi-award fs-1 text-primary d-block mb-3"></i>
+            <p class="text-muted mb-1">Years Experience</p>
+            <div class="h1 mb-0">50</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <div class="card-body p-4">
+            <i class="bi bi-people fs-1 text-primary d-block mb-3"></i>
+            <p class="text-muted mb-1">Skilled Professionals</p>
+            <div class="h1 mb-0">175</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <div class="card-body p-4">
+            <i class="bi bi-bag-heart fs-1 text-primary d-block mb-3"></i>
+            <p class="text-muted mb-1">Total Products</p>
+            <div class="h1 mb-0">135</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <div class="card-body p-4">
+            <i class="bi bi-cart-plus fs-1 text-primary d-block mb-3"></i>
+            <p class="text-muted mb-1">Orders Everyday</p>
+            <div class="h1 mb-0">9,357</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Services -->
+<section class="container-xxl py-5">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      
+      <!-- Copy + feature list -->
+      <div class="col-lg-6">
+        <p class="text-primary text-uppercase small mb-2">// Our Services</p>
+        <h2 class="mb-3">What We Offer</h2>
+        <p class="text-muted mb-4">
+          Freshly baked goods made daily, personalized to your taste, with easy ordering and fast delivery.
+        </p>
+
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="service-card d-flex align-items-center p-3">
+              <div class="service-icon me-3">
+                <i class="bi bi-award"></i>
+              </div>
+              <div>
+                <h6 class="mb-1">Quality Products</h6>
+                <small class="text-muted">Premium ingredients, daily bake</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="service-card d-flex align-items-center p-3">
+              <div class="service-icon me-3">
+                <i class="bi bi-pencil-square"></i>
+              </div>
+              <div>
+                <h6 class="mb-1">Custom Products</h6>
+                <small class="text-muted">Designs & flavors your way</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="service-card d-flex align-items-center p-3">
+              <div class="service-icon me-3">
+                <i class="bi bi-cart-plus"></i>
+              </div>
+              <div>
+                <h6 class="mb-1">Online Order</h6>
+                <small class="text-muted">Fast & secure checkout</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="service-card d-flex align-items-center p-3">
+              <div class="service-icon me-3">
+                <i class="bi bi-truck"></i>
+              </div>
+              <div>
+                <h6 class="mb-1">Home Delivery</h6>
+                <small class="text-muted">Fresh to your doorstep</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos -->
+      <div class="col-lg-6">
+        <div class="row g-3">
+          <!-- Overlapped service photos -->
+            <div class="service-stack">
+            <figure class="stack-item item-1">
+                <img src="{% static 'main/img/service-1.jpg' %}" alt="Fresh muffins" />
+            </figure>
+
+            <figure class="stack-item item-2">
+                <img src="{% static 'main/img/service-2.jpg' %}" alt="Artisan breads" />
+            </figure>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Team -->
+<section class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center mx-auto mb-4" style="max-width:500px;">
+      <p class="text-primary text-uppercase mb-2">// Our Team</p>
+      <h2 class="mb-0">We're Super Professional At Our Skills</h2>
+    </div>
+
+    <div class="row g-4">
+      <!-- Member -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <img src="{% static 'main/img/team-1.jpg' %}" class="card-img-top team-photo" alt="Member 1">
+          <div class="card-team">
+            <h5 class="card-title mb-1">Full Name</h5>
+            <p class="text-muted mb-0">Designation</p>
+          </div>
+          <!-- Optional socials (Bootstrap Icons) -->
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-body-secondary"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Duplicate blocks as needed -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <img src="{% static 'main/img/team-2.jpg' %}" class="card-img-top team-photo" alt="Member 2">
+          <div class="card-team">
+            <h5 class="card-title mb-1">Full Name</h5>
+            <p class="text-muted mb-0">Designation</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-body-secondary"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <img src="{% static 'main/img/team-3.jpg' %}" class="card-img-top team-photo" alt="Member 3">
+          <div class="card-team">
+            <h5 class="card-title mb-1">Full Name</h5>
+            <p class="text-muted mb-0">Designation</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-body-secondary"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 text-center border-0 shadow-sm">
+          <img src="{% static 'main/img/team-4.jpg' %}" class="card-img-top team-photo" alt="Member 4">
+          <div class="card-team">
+            <h5 class="card-title mb-1">Full Name</h5>
+            <p class="text-muted mb-0">Designation</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 pb-3">
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-body-secondary me-2"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-body-secondary"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="container-xxl py-5 bg-light">
+  <div class="container">
+
+    <div class="text-center mx-auto mb-4" style="max-width:520px;">
+      <p class="text-primary text-uppercase mb-2">// Bakery Products</p>
+      <h2 class="mb-2">Explore Our Categories</h2>
+      <p class="text-muted mb-0">Pick a category and request personalization.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Bread -->
+      <div class="card-main col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img src="{% static 'main/img/product-2.jpg' %}" class="card-img-top product-thumb" alt="Assorted fresh breads">
+          <div class="card-product text-center">
+            <h5 class="card-title mb-2 mt-4">Bread</h5>
+            <p class="text-muted mb-4">Sourdough, wholegrain, baguettes—baked daily.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <a href="{% url 'main:menu' %}?category=breads" class="btn btn-primary btn-bg">Menu-Bread</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cookies -->
+      <div class="card-main col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img src="{% static 'main/img/product-3.jpg' %}" class="card-img-top product-thumb" alt="Cookies assortment">
+          <div class="card-product text-center">
+            <h5 class="card-title mb-2 mt-4">Cookies</h5>
+            <p class="text-muted mb-4">Chewy, buttery, and customizable by flavor.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <a href="{% url 'main:menu' %}?category=Cookies" class="btn btn-primary btn-bg">Menu-Cookies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cakes -->
+      <div class="card-main col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <img src="{% static 'main/img/product-1.jpg' %}" class="card-img-top product-thumb" alt="Decorated cake">
+          <div class="card-product text-center">
+            <h5 class="card-title mb-2 mt-4">Cakes</h5>
+            <p class="text-muted mb-4">Celebration cakes tailored to your theme.</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <a href="{% url 'main:menu' %}?category=Cakes" class="btn btn-primary btn-bg">Menu-Cakes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,189 @@
+/* ===========================
+   Header (Topbar + Navbar)
+   =========================== */
+
+/* Tunables */
+:root{
+  --header-topbar-height: 48px;   /* desktop topbar height */
+  --header-navbar-height: 60px;   /* navbar height */
+  --header-primary: var(--bs-primary, #0d6efd);
+  --topbar-h: 50px;
+  --navbar-h: 56px;
+}
+
+/* Topbar */
+.site-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  z-index: 1041;
+  font-size: 0.9rem;
+  color: #fff;
+  background-color: #363636;
+  transform: translateY(0);
+  transition: transform .3s ease;
+}
+
+.site-navbar {
+  position: fixed;
+  top: var(--topbar-h);
+  left: 0;
+  right: 0;
+  z-index: 1040;
+  transition: top .3s ease;
+}
+
+
+@media (min-width: 992px) {
+  body {
+    padding-top: calc(var(--topbar-h) + var(--navbar-h));
+  }
+}
+
+
+@media (max-width: 991.98px) {
+  .site-topbar {
+    position: static;
+    height: auto;
+  }
+
+  .site-navbar {
+    top: 0;
+  }
+
+  body {
+    padding-top: var(--navbar-h);
+  }
+}
+
+
+body.topbar-hidden .site-topbar {
+  transform: translateY(-100%);
+}
+
+@media (min-width: 992px) {
+  body.topbar-hidden .site-navbar {
+    top: 0;
+  }
+
+  body.topbar-hidden {
+    padding-top: var(--navbar-h);
+  }
+}
+
+.navbar .dropdown-menu {
+  z-index: 1100;
+}
+
+.site-topbar .topbar-row{
+  min-height: var(--header-topbar-height);
+  display: flex;
+  align-items: center;
+}
+
+
+/* Breadcrumb styling */
+.topbar-breadcrumb{
+  background: none;
+  margin: 0;
+  padding: 0;
+}
+.topbar-breadcrumb .breadcrumb-item + .breadcrumb-item::before{
+  color: rgba(255,255,255,.55);
+}
+.topbar-breadcrumb .breadcrumb-item a{
+  color: #cfcfcf;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.topbar-breadcrumb .breadcrumb-item a:hover{
+  color: var(--header-primary);
+}
+
+/* Social icons */
+.follow-label{ font-weight: 500; }
+
+.social-icons .social-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--header-primary);
+  text-decoration: none;
+  transition: background-color .2s, color .2s;
+}
+.social-icons .social-btn:hover{
+  background-color: var(--header-primary);
+  color: #fff;
+}
+.social-icons .social-btn.border-end{
+  border-right: 1px solid rgba(255,255,255,.2);
+}
+
+/* Make topbar fixed only on desktop (since it's hidden on mobile via d-none d-lg-flex) */
+@media (min-width: 992px){
+  .site-topbar{
+    position: fixed;
+    top: 0; left: 0; right: 0;
+  }
+}
+
+/* ---------- Navbar ---------- */
+.site-navbar{
+  z-index: 1040; /* just under the topbar */
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  min-height: 100px;
+}
+
+/* Space the links a bit and highlight interactions */
+.site-navbar .nav-link{
+  padding: .75rem 1rem;
+  transition: color .2s ease;
+}
+.site-navbar .nav-link:hover,
+.site-navbar .nav-link:focus,
+.site-navbar .nav-link.active{
+  color: var(--header-primary) !important;
+}
+
+/* Brand micro-tweak */
+.site-navbar .navbar-brand .text-primary{
+  letter-spacing: .4px;
+}
+
+/* Phone circle */
+.site-navbar .btn-lg-square{
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Toggler cleanup */
+.navbar-toggler{ border: none; }
+.navbar-toggler:focus{ box-shadow: none; }
+
+/* ---------- Stacking / Offsets ---------- */
+/* Desktop: topbar fixed at top, navbar sits below it, body gets padding for both */
+@media (min-width: 992px){
+  .site-navbar{ top: var(--header-topbar-height); position: fixed; left: 0; right: 0; }
+  body{ padding-top: calc(var(--header-topbar-height) + var(--header-navbar-height)); }
+}
+
+/* Mobile: topbar is hidden by your markup (d-none d-lg-flex), so only pad for navbar */
+@media (max-width: 991.98px){
+  .site-navbar{ top: 0; position: fixed; left: 0; right: 0; }
+  body{ padding-top: var(--header-navbar-height); }
+}
+
+/* Optional: slightly darker bg when using .bg-dark (keeps consistency across themes) */
+.site-topbar.bg-dark,
+.site-navbar.bg-dark{
+  background-color: #111 !important;
+}

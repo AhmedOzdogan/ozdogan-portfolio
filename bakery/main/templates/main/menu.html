@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Menu
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/menu.css' %}">
+<script src="{% static 'main/js/menu.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="menu-header">
+  <h1>Our Menu</h1>
+</div>
+
+<nav class="menu-nav">
+  <a href="{% url 'main:menu' %}?category=cookies" class="{% if request.GET.category == 'cookies' %}active{% endif %}">Cookies</a>
+  <a href="{% url 'main:menu' %}?category=cakes" class="{% if request.GET.category == 'cakes' %}active{% endif %}">Cakes</a>
+  <a href="{% url 'main:menu' %}?category=breads" class="{% if request.GET.category == 'breads' %}active{% endif %}">Breads</a>
+  <a href="{% url 'main:menu' %}" class="{% if not request.GET.category %}active{% endif %}">All</a>
+</nav>
+<section class="menu-section">
+  <div id="menu-container">
+    <!-- Categories and items will be rendered here -->
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+
+{% endblock %}

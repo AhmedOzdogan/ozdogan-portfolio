@@ -1,0 +1,96 @@
+<!-- Topbar -->
+<div class="site-topbar text-light">
+  <div class="container-fluid">
+    <div class="row gx-0 align-items-center d-none d-lg-flex" style="min-height:48px">
+      <div class="col-lg-6 px-4 text-start">
+        <ol class="breadcrumb mb-0 topbar-breadcrumb">
+          <li class="breadcrumb-item"><a class="small text-light" href="#">Home</a></li>
+          <li class="breadcrumb-item"><a class="small text-light" href="#">Career</a></li>
+          <li class="breadcrumb-item"><a class="small text-light" href="#">Terms</a></li>
+          <li class="breadcrumb-item"><a class="small text-light" href="#">Privacy</a></li>
+        </ol>
+      </div>
+      <div class="col-lg-6 px-4 text-end">
+        <small class="follow-label me-2">Follow us:</small>
+        <span class="social-icons d-inline-flex align-items-center">
+          <a class="social-btn border-end" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn border-end" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="social-btn border-end" href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark site-navbar fixed-top">
+  <div class="container-fluid px-lg-5">
+    <a href="index.html" class="navbar-brand ms-2 ms-lg-0">
+      <span class="text-primary h3 mb-0">Baker</span>
+    </a>
+
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mx-auto p-3 p-lg-0">
+        <li class="nav-item">
+          <a href="{% url 'main:index' %}" class="nav-link active">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="about.html" class="nav-link">About</a>
+        </li>
+
+        <!-- Menu dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="menuDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+          </a>
+          <ul class="dropdown-menu m-0" aria-labelledby="menuDropdown">
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Menu</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Cookies</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Breads</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Cakes</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="product.html" class="nav-link">Products</a>
+        </li>
+
+        <!-- Pages dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Pages
+          </a>
+          <ul class="dropdown-menu m-0" aria-labelledby="pagesDropdown">
+            <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+            <li><a class="dropdown-item" href="testimonial.html">Testimonial</a></li>
+            <li><a class="dropdown-item" href="404.html">404 Page</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="contact.html" class="nav-link">Contact</a>
+        </li>
+      </ul>
+    </div>
+
+
+      <div class="d-none d-lg-flex align-items-center">
+        <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width:44px;height:44px">
+          <i class="fa fa-phone text-primary"></i>
+        </div>
+        <div class="ps-3">
+          <small class="text-primary mb-0 d-block">Call Us</small>
+          <span class="text-light fs-6">+012 345 6789</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,35 @@
+Yes — adding account management will make it look much more professional without making it overwhelming.
+
+Here’s how the Online Cake & Bakery Ordering App with Accounts could work:
+
+Features (with Accounts):
+
+User Registration & Login (Django auth or django-allauth for social login)
+
+Profile page with order history, saved addresses, and payment preferences
+
+Product catalog with categories (cakes, pastries, cookies, bread, etc.)
+
+Custom cake builder (choose size, flavor, icing, decorations)
+
+Shopping cart & checkout flow
+
+Payment integration using Stripe or PayPal Sandbox
+
+Order tracking via profile or by order ID/email for guests
+
+Admin panel to manage products, users, and orders
+
+Mobile-first responsive design
+
+Extra touches for portfolio impact:
+
+Add a "Reorder" button in order history for quick repeat orders
+
+Include wishlist/favorites feature
+
+Email confirmation for account registration and successful order
+
+Show different homepage banners for logged-in vs guest users
+
+Allow guest checkout but prompt for signup after payment
