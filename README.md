@@ -55,5 +55,3 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 [🌐 Visit SchedEye Website](https://www.schedeye.com)
 
 ---
-git submodule add https://github.com/AhmedOzdogan/SchedEye SchedEye
-git commit -m "Add SchedEye as submodule"
