@@ -28,7 +28,7 @@ Bakery
           <div class="card-body p-4">
             <i class="bi bi-award fs-1 text-primary d-block mb-3"></i>
             <p class="text-muted mb-1">Years Experience</p>
-            <div class="h1 mb-0">50</div>
+            <div class="h1 mb-0">10</div>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ Bakery
           <div class="card-body p-4">
             <i class="bi bi-people fs-1 text-primary d-block mb-3"></i>
             <p class="text-muted mb-1">Skilled Professionals</p>
-            <div class="h1 mb-0">175</div>
+            <div class="h1 mb-0">25</div>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@ Bakery
           <div class="card-body p-4">
             <i class="bi bi-bag-heart fs-1 text-primary d-block mb-3"></i>
             <p class="text-muted mb-1">Total Products</p>
-            <div class="h1 mb-0">135</div>
+            <div class="h1 mb-0">30</div>
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@ Bakery
           <div class="card-body p-4">
             <i class="bi bi-cart-plus fs-1 text-primary d-block mb-3"></i>
             <p class="text-muted mb-1">Orders Everyday</p>
-            <div class="h1 mb-0">9,357</div>
+            <div class="h1 mb-0">128</div>
           </div>
         </div>
       </div>
@@ -166,8 +166,8 @@ Bakery
         <div class="card h-100 text-center border-0 shadow-sm">
           <img src="{% static 'main/img/team-1.jpg' %}" class="card-img-top team-photo" alt="Member 1">
           <div class="card-team">
-            <h5 class="card-title mb-1">Full Name</h5>
-            <p class="text-muted mb-0">Designation</p>
+            <h5 class="card-title mb-1">Jack Sparrow</h5>
+            <p class="text-muted mb-0">Pastry Chef</p>
           </div>
           <!-- Optional socials (Bootstrap Icons) -->
           <div class="card-footer bg-transparent border-0 pb-3">
@@ -183,8 +183,8 @@ Bakery
         <div class="card h-100 text-center border-0 shadow-sm">
           <img src="{% static 'main/img/team-2.jpg' %}" class="card-img-top team-photo" alt="Member 2">
           <div class="card-team">
-            <h5 class="card-title mb-1">Full Name</h5>
-            <p class="text-muted mb-0">Designation</p>
+            <h5 class="card-title mb-1">Jonas Weber</h5>
+            <p class="text-muted mb-0">Head Baker</p>
           </div>
           <div class="card-footer bg-transparent border-0 pb-3">
             <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
@@ -198,8 +198,8 @@ Bakery
         <div class="card h-100 text-center border-0 shadow-sm">
           <img src="{% static 'main/img/team-3.jpg' %}" class="card-img-top team-photo" alt="Member 3">
           <div class="card-team">
-            <h5 class="card-title mb-1">Full Name</h5>
-            <p class="text-muted mb-0">Designation</p>
+            <h5 class="card-title mb-1">Donald Duck</h5>
+            <p class="text-muted mb-0">Pastry Chef</p>
           </div>
           <div class="card-footer bg-transparent border-0 pb-3">
             <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
@@ -213,8 +213,8 @@ Bakery
         <div class="card h-100 text-center border-0 shadow-sm">
           <img src="{% static 'main/img/team-4.jpg' %}" class="card-img-top team-photo" alt="Member 4">
           <div class="card-team">
-            <h5 class="card-title mb-1">Full Name</h5>
-            <p class="text-muted mb-0">Designation</p>
+            <h5 class="card-title mb-1">Lukas Schneider</h5>
+            <p class="text-muted mb-0">Store Manager</p>
           </div>
           <div class="card-footer bg-transparent border-0 pb-3">
             <a href="#" class="text-body-secondary me-2"><i class="bi bi-twitter"></i></a>
@@ -286,5 +286,32 @@ Bakery
   </div>
 </section>
 
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('random-products');
+  if (!container) return;
+
+  fetch('/api/products/')
+    .then(data => data.json())
+    .then(data => {
+      const take = Math.min(3, data.length);
+      const picked = new Set();
+      while (picked.size < take) picked.add(Math.floor(Math.random() * data.length));
+
+      container.innerHTML = '';
+      picked.forEach(i => {
+        const p = data[i];
+        container.innerHTML += `
+          <div class="col-6 col-md-4 mb-3">
+            <img class="w-100 h-100 rounded object-fit-cover" src="${p.picture}" alt="${p.name}" loading="lazy">
+          </div>`;
+      });
+    });
+});
+</script>
 
 {% endblock %}

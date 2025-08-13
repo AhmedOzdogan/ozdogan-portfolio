@@ -26,7 +26,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark site-navbar fixed-top">
   <div class="container-fluid px-lg-5">
-    <a href="index.html" class="navbar-brand ms-2 ms-lg-0">
+    <a href="{% url 'main:index' %}" class="navbar-brand ms-2 ms-lg-0">
       <span class="text-primary h3 mb-0">Baker</span>
     </a>
 
@@ -82,15 +82,54 @@
     </div>
 
 
-      <div class="d-none d-lg-flex align-items-center">
-        <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width:44px;height:44px">
-          <i class="fa fa-phone text-primary"></i>
-        </div>
-        <div class="ps-3">
-          <small class="text-primary mb-0 d-block">Call Us</small>
-          <span class="text-light fs-6">+012 345 6789</span>
-        </div>
+    <div class="button-cart-group d-none d-lg-flex align-items-center">
+      <div class="button-group">
+        <button class="login btn btn-primary">Login</button>
+        <button class="sign-up btn btn-outline-light ms-2">Sign Up</button>
       </div>
+
+
+        <!-- Price pill as dropdown toggle -->
+        <div class="cart-group btn-group dropdown-center">
+        
+          <button
+            class="cart-price-box dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <span id="cartTotal">0.00</span>
+          </button>
+
+          <ul class="dropdown-menu cart-dropdown">
+            <li class="dropdown-header">Your cart</li>
+            <li id="cartItems"><div class="px-3 py-2 text-muted small">Your cart is empty</div></li>
+          </ul>
+        </div>
+
+        <!-- Dropdown -->
+        <ul class="dropdown-menu dropdown-menu-end cart-dropdown" aria-labelledby="cartIconBtn">
+          <li class="dropdown-header">Your cart</li>
+
+          <!-- Items will render into this container -->
+          <li id="cartItems">
+            <div class="px-3 py-2 text-muted small">Your cart is empty</div>
+          </li>
+
+          <li><hr class="dropdown-divider"></li>
+
+          <li class="px-3 py-2 d-flex justify-content-between align-items-center">
+            <span class="text-muted">Subtotal</span>
+            <strong id="cartSubtotal">$0.00</strong>
+          </li>
+
+          <li class="p-2">
+            <div class="d-grid gap-2">
+              <a href="/cart/" class="btn btn-primary btn-sm">View cart</a>
+              <a href="/checkout/" class="btn btn-success btn-sm">Checkout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </div>
 </nav>

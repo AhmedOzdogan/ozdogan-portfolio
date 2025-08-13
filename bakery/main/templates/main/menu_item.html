@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Menu
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/menu_item.css' %}">
+<script src="{% static 'main/js/menu_item.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="item-section">
+  <div id="item-container">
+    <!-- Categories and items will be rendered here -->
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+
+{% endblock %}

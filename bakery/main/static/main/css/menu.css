@@ -26,6 +26,9 @@
     --menu-accent: #d8ac72;
 }
 
+#menu-container {
+    width: 100%;
+}
 /* ===== Menu bar ===== */
 .menu-nav {
     display: flex;
@@ -113,7 +116,7 @@
 
 /* ============ Wrapper ============ */
 .menu-section {
-    max-width: 1200px;
+    max-width: 1500px;
     /* center the whole section */
     margin: 0 auto;
     padding: 24px 16px;
@@ -126,7 +129,8 @@
     padding: 18px 0 8px;
     border-bottom: 1px solid var(--menu-border);
     text-align: center;
-    /* headings centered */
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
 }
 
 .menu-category:last-child {
@@ -155,10 +159,10 @@
 /* ============ Grid of items ============ */
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
     align-items: stretch;
-    justify-items: stretch;
+    justify-items: center;
 }
 
 @media (max-width: 1200px) {
@@ -184,14 +188,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* center content in the card */
     text-align: center;
-    padding: 12px 12px 16px;
+    padding: 16px;
+    /* a bit more padding for larger size */
     background: var(--menu-card);
     border: 1px solid var(--menu-border);
     border-radius: 12px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
     transition: transform .2s ease, box-shadow .2s ease;
+
+    /* REMOVE the fixed width: 250px */
+    width: 100%;
+    max-width: 320px;
+    /* optional cap so they don’t stretch too much on wide screens */
+    margin: 0 auto;
+    /* center inside the grid cell */
 }
 
 .menu-item:hover {
@@ -210,12 +221,19 @@
     margin-bottom: 10px;
 }
 
+.menu-item a{
+    text-decoration: none;
+}
+
+.menu-item a:hover {
+    text-decoration: underline;
+}
 /* Title */
 .menu-item h3 {
-    margin: 4px 0 6px;
-    font-size: 1.07rem;
+    margin: 8px 0 10px;
+    font-size: 1.22rem;
     color: var(--menu-ink);
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 /* Description */
@@ -232,9 +250,26 @@
     margin-top: 2px;
     font-weight: 700;
     color: var(--menu-ink);
-    font-size: 1rem;
+    font-size: 1.18rem;
     background: rgba(216, 172, 114, .12);
     border: 1px solid rgba(216, 172, 114, .35);
     border-radius: 999px;
-    padding: 4px, 10px;
+    padding: 6px 14px;
+}
+
+#add-to-cart {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--menu-accent);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-decoration: none;
+}
+
+#add-to-cart:hover {
+    background: #b07c3a;
 }

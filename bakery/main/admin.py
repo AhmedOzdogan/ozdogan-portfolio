@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Address
+from .models import Category, Product, Address, AddOn
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "price", "stock", "created_at", "updated_at")
+    list_display = ("name", "category", "price", "stock","created_at", "updated_at")
     list_filter = ("category", "created_at")
     search_fields = ("name", "slug", "description")
     autocomplete_fields = ("category",)
@@ -29,3 +29,9 @@ class AddressAdmin(admin.ModelAdmin):
     autocomplete_fields = ("user",)
     readonly_fields = ("created_at", "updated_at")
 
+@admin.register(AddOn)
+class AddOnAdmin(admin.ModelAdmin):
+    list_display = ("name", "category", "price", "is_active",)
+    list_filter = ("category", "is_active")
+    search_fields = ("name",)
+    ordering = ("category__name", "name")

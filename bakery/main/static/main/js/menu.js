@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("menu-container");
   if (!container) return;
 
-  // tiny slugify helper for names like "Red Velvet"
   const slugify = (s) =>
     String(s || "")
       .trim()
@@ -10,23 +9,20 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
-  // normalize category -> { key: "cakes", label: "Cakes" }
   const getCategory = (item) => {
     const c = item.category;
     if (!c) return { key: "uncategorized", label: "Uncategorized" };
-
     if (typeof c === "string") {
       const key = slugify(c);
       return { key, label: c.charAt(0).toUpperCase() + c.slice(1) };
     }
-    // object case
     const key = c.slug ? String(c.slug).toLowerCase() : slugify(c.name);
     const label = c.name || c.slug || "Uncategorized";
     return { key, label };
   };
 
   const urlParams = new URLSearchParams(window.location.search);
-  const selected = (urlParams.get("category") || "").toLowerCase(); // e.g. "cakes"
+  const selected = (urlParams.get("category") || "").toLowerCase();
 
   fetch("/api/products/")
     .then((r) => {
@@ -34,14 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return r.json();
     })
     .then((data) => {
-      container.innerHTML = "";
-
       if (!Array.isArray(data) || data.length === 0) {
         container.innerHTML = "<p>No menu items available.</p>";
         return;
       }
 
-      // Group by normalized category key
       const groups = {};
       for (const item of data) {
         const { key, label } = getCategory(item);
@@ -49,10 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
         groups[key].items.push(item);
       }
 
-      // Filter by ?category= if present
       const entries = Object.entries(groups)
         .filter(([key]) => !selected || key === selected)
-        // optional: sort by label
         .sort((a, b) => a[1].label.localeCompare(b[1].label));
 
       if (entries.length === 0) {
@@ -60,24 +51,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Build all HTML first to minimize DOM updates
+      let html = "";
       for (const [key, group] of entries) {
-        const section = document.createElement("section");
-        section.className = "menu-category";
-
-        const heading = document.createElement("h2");
-        heading.textContent = group.label.toUpperCase();
-        section.appendChild(heading);
-
-        const grid = document.createElement("div");
-        grid.className = "menu-grid";
+        html += `<section class="menu-category">`;
+        html += `<h2>${group.label.toUpperCase()}</h2>`;
+        html += `<div class="menu-grid">`;
 
         for (const item of group.items) {
-          // prefer image field if your serializer exposes it
-          const imgField = item.image || item.thumbnail || null;
-          const fallback = `/static/main/img/menu/${slugify(item.name)}.png`;
-          const imgSrc = imgField || fallback;
-
-          // price can be string or number
+          const imgSrc = item.picture || `/static/main/img/menu_items/${slugify(item.name)}.png`;
           const rawPrice = item.price;
           const price =
             typeof rawPrice === "number"
@@ -86,23 +68,28 @@ document.addEventListener("DOMContentLoaded", () => {
               ? Number(rawPrice).toFixed(2)
               : rawPrice;
 
-          const card = document.createElement("div");
-          card.className = "menu-item";
-          card.innerHTML = `
-            <img src="${imgSrc}" alt="${item.name}"
-                 onerror="this.onerror=null;this.src='/static/main/img/menu/placeholder.png';">
-            <a href="/menu/products/${item.id}/">
-              <h3>${item.name}</h3>
-            </a>
-            <h3><span>$${price}</span></h3>
-            <p>${item.description || ""}</p>
+          html += `
+            <div class="menu-item">
+              <img src="${imgSrc}" alt="${item.name}" 
+              width="320" height="240"
+              loading="lazy" decoding="async"
+              style="object-fit:cover">
+              <a href="/menu/${item.id}/">
+                <h3>${item.name}</h3>
+              </a>
+              <h3><span>$${price}</span></h3>
+              <p>${item.description || ""}</p>
+
+              <a href='/menu/${item.id}/' id="add-to-cart" type="button">Add to cart</a>
+            </div>
           `;
-          grid.appendChild(card);
         }
 
-        section.appendChild(grid);
-        container.appendChild(section);
+        html += `</div></section>`;
       }
+
+      // Inject into DOM once
+      container.innerHTML = html;
     })
     .catch((err) => {
       console.error("Error fetching menu:", err);

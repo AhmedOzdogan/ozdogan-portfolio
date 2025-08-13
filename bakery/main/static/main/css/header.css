@@ -137,7 +137,7 @@ body.topbar-hidden .site-topbar {
 .site-navbar{
   z-index: 1040; /* just under the topbar */
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
-  min-height: 100px;
+  min-height: 130px;
 }
 
 /* Space the links a bit and highlight interactions */
@@ -187,3 +187,21 @@ body.topbar-hidden .site-topbar {
 .site-navbar.bg-dark{
   background-color: #111 !important;
 }
+
+.button-cart-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 15px;
+}
+
+
+.login,
+.sign-up,
+.cart-price-box {
+  width: 100px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+

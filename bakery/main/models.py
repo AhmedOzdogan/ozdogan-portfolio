@@ -1,7 +1,10 @@
 # models.py
+import os
 from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
+from PIL import Image
+from pathlib import Path
 
 
 class TimeStampedModel(models.Model):
@@ -44,7 +47,33 @@ class Product(TimeStampedModel):
     slug = models.SlugField(max_length=160, blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    picture = models.ImageField(upload_to="products/", blank=True)
     stock = models.PositiveIntegerField(default=0)
+    
+    def _shrink_image(self, path, max_width=1200, quality=82):
+        try:
+            img = Image.open(path)
+        except Exception:
+            return  # not an image, or corrupt
+
+        # Ensure RGB mode
+        if img.mode not in ("RGB", "L"):
+            img = img.convert("RGB")
+
+        # Resize if too wide
+        w, h = img.size
+        if w > max_width:
+            ratio = max_width / w
+            img = img.resize((max_width, int(h * ratio)), Image.Resampling.LANCZOS)
+
+        # Overwrite the file with optimized version
+        ext = os.path.splitext(path)[1].lower()
+        if ext in (".jpg", ".jpeg"):
+            img.save(path, "JPEG", quality=quality, optimize=True, progressive=True)
+        elif ext == ".png":
+            img.save(path, "PNG", optimize=True)
+        elif ext == ".webp":
+            img.save(path, "WEBP", quality=quality, method=6)
 
     class Meta:
         constraints = [
@@ -79,6 +108,18 @@ class Product(TimeStampedModel):
                     qs = qs.exclude(pk=self.pk)
             self.slug = slug
         super().save(*args, **kwargs)
+        
+class AddOn (TimeStampedModel):
+        category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, related_name="addons"
+    )
+        name = models.CharField(max_length=150)
+        price = models.DecimalField(max_digits=10, decimal_places=2)
+        is_active = models.BooleanField(default=True)
+        
+        
+        def __str__(self):
+            return self.name
 
 
 class Address(TimeStampedModel):
