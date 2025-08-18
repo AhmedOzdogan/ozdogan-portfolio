@@ -4,7 +4,7 @@
     <div class="row gx-0 align-items-center d-none d-lg-flex" style="min-height:48px">
       <div class="col-lg-6 px-4 text-start">
         <ol class="breadcrumb mb-0 topbar-breadcrumb">
-          <li class="breadcrumb-item"><a class="small text-light" href="#">Home</a></li>
+          <li class="breadcrumb-item"><a class="small text-light" href="{% url 'main:index' %}">Home</a></li>
           <li class="breadcrumb-item"><a class="small text-light" href="#">Career</a></li>
           <li class="breadcrumb-item"><a class="small text-light" href="#">Terms</a></li>
           <li class="breadcrumb-item"><a class="small text-light" href="#">Privacy</a></li>
@@ -40,94 +40,73 @@
           <a href="{% url 'main:index' %}" class="nav-link active">Home</a>
         </li>
 
-        <li class="nav-item">
-          <a href="about.html" class="nav-link">About</a>
-        </li>
-
         <!-- Menu dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="menuDropdown" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
+            Products
           </a>
           <ul class="dropdown-menu m-0" aria-labelledby="menuDropdown">
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Menu</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Cookies</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Breads</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}">Cakes</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}">All Products</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=cookies">Cookies</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=breads">Breads</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=cakes">Cakes</a></li>
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a href="product.html" class="nav-link">Products</a>
-        </li>
 
-        <!-- Pages dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Pages
-          </a>
-          <ul class="dropdown-menu m-0" aria-labelledby="pagesDropdown">
-            <li><a class="dropdown-item" href="team.html">Our Team</a></li>
-            <li><a class="dropdown-item" href="testimonial.html">Testimonial</a></li>
-            <li><a class="dropdown-item" href="404.html">404 Page</a></li>
-          </ul>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">About</a>
         </li>
 
         <li class="nav-item">
-          <a href="contact.html" class="nav-link">Contact</a>
+          <a href="#" class="nav-link">Contact</a>
         </li>
       </ul>
     </div>
 
 
-    <div class="button-cart-group d-none d-lg-flex align-items-center">
-      <div class="button-group">
-        <button class="login btn btn-primary">Login</button>
-        <button class="sign-up btn btn-outline-light ms-2">Sign Up</button>
+    <div class="button-cart-group d-none d-lg-flex align-items-center m-0">
+    {% if request.user.is_authenticated %}
+      <div class="user-dropdown dropdown">  <!-- add .dropdown for bootstrap behaviour -->
+        <button
+          class="dropdown-toggle nav-control"
+          id="userMenuBtn"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Hello {{ request.user.first_name }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="userMenuBtn">
+          <li><a class="dropdown-item" href="{% url 'main:profile' %}">Profile</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:address_list' %}">Address List</a></li>
+          <li><a class="dropdown-item" href="{% url 'shop:order_list' %}">Orders</a></li>
+          <li><a class="dropdown-item" href="{% url 'main:logout' %}">Logout</a></li>
+        </ul>
       </div>
+    {% else %}
+      <div class="button-group">
+        <a href="{% url 'main:login' %}" class="login btn btn-primary">Login</a>
+        <a href="{% url 'main:signup' %}" class="sign-up btn btn-outline-light ms-2">Sign Up</a>
+      </div>
+    {% endif %}
 
 
-        <!-- Price pill as dropdown toggle -->
-        <div class="cart-group btn-group dropdown-center">
-        
+        <<div class="cart-group btn-group dropdown-center">
           <button
-            class="cart-price-box dropdown-toggle"
+            class="cart-price-box dropdown-toggle nav-control" 
+            id="cartPriceBtn"        
             data-bs-toggle="dropdown"
             aria-expanded="false">
-            <span id="cartTotal">0.00</span>
+            <span id="cartTotal"></span>
           </button>
 
-          <ul class="dropdown-menu cart-dropdown">
+          <!-- keep ONE dropdown menu and bind it to the button's id -->
+          <ul class="dropdown-menu cart-dropdown" aria-labelledby="cartPriceBtn">
             <li class="dropdown-header">Your cart</li>
             <li id="cartItems"><div class="px-3 py-2 text-muted small">Your cart is empty</div></li>
           </ul>
         </div>
-
-        <!-- Dropdown -->
-        <ul class="dropdown-menu dropdown-menu-end cart-dropdown" aria-labelledby="cartIconBtn">
-          <li class="dropdown-header">Your cart</li>
-
-          <!-- Items will render into this container -->
-          <li id="cartItems">
-            <div class="px-3 py-2 text-muted small">Your cart is empty</div>
-          </li>
-
-          <li><hr class="dropdown-divider"></li>
-
-          <li class="px-3 py-2 d-flex justify-content-between align-items-center">
-            <span class="text-muted">Subtotal</span>
-            <strong id="cartSubtotal">$0.00</strong>
-          </li>
-
-          <li class="p-2">
-            <div class="d-grid gap-2">
-              <a href="/cart/" class="btn btn-primary btn-sm">View cart</a>
-              <a href="/checkout/" class="btn btn-success btn-sm">Checkout</a>
-            </div>
-          </li>
-        </ul>
       </div>
 
     </div>

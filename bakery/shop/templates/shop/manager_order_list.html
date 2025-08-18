@@ -1,0 +1,150 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Manage Orders{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'shop/css/order_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container order-page">
+  <div class="order-card">
+    <div class="order-header">
+      <div class="oh-left">
+        <h1 class="mb-0">All Orders</h1>
+        <div class="oh-sub">
+          <span class="text-muted">Total: {{ orders|length }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-body">
+      {% for order in orders %}
+        <div class="panel mb-3">
+          <div class="panel-h d-flex justify-content-between align-items-center">
+            <div>
+              <div>
+                <strong>Order ID:</strong> {{ order.id }},
+                <strong>Total:</strong> ${{ order.total|floatformat:2 }},
+                <strong>Customer:</strong> {{ order.user.get_full_name|default:order.user.username }}
+              </div>
+              <div class="text-muted small">
+                Placed on {{ order.created_at|date:"M d, Y H:i" }} •
+                Shipping: {{ order.get_shipping_method_display }} (${{ order.shipping_fee|floatformat:2 }})
+              </div>
+              <div class="text-muted small">
+                Address:
+                {{ order.shipping_address.full_name }},
+                {{ order.shipping_address.line1 }}{% if order.shipping_address.line2 %}, {{ order.shipping_address.line2 }}{% endif %},
+                {{ order.shipping_address.city }} {{ order.shipping_address.postal_code }},
+                {{ order.shipping_address.country }}
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              {% if order.order_status == "Pending shipment" %}
+                <span class="badge-status badge-pending">Pending shipment</span>
+              {% elif order.order_status == "On the way" %}
+                <span class="badge-status badge-onway">On the way</span>
+              {% elif order.order_status == "Completed" %}
+                <span class="badge-status badge-completed">Completed</span>
+              {% elif order.order_status == "Canceled" %}
+                <span class="badge-status badge-canceled">Canceled</span>
+              {% else %}
+                <span class="badge-status">{{ order.order_status }}</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="panel-b">
+            <div class="table-order-wrapper">
+              <table class="table table-hover align-middle mb-0 table-order">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Addons</th>
+                    <th class="text-center" style="width:110px;">Qty</th>
+                    <th class="text-end" style="width:140px;">Unit Price</th>
+                    <th class="text-end" style="width:160px;">Line Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for it in order.items.all %}
+                    <tr>
+                      <td>
+                        {% if it.product %}
+                          <a href="/menu/{{ it.product.id }}/" class="product-name fw-semibold">{{ it.product_name }}</a>
+                        {% else %}
+                          <span class="product-name fw-semibold">{{ it.product_name }}</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if it.addons_list %}
+                          {% for a in it.addons_list %}
+                            <span class="addon-badge d-inline-flex align-items-center gap-1">
+                              {{ a.name }} × {{ a.quantity|default:1 }}
+                              <span class="text-muted small">(${{ a.unit_price }})</span>
+                            </span>
+                          {% endfor %}
+                        {% else %}
+                          <span class="text-muted">—</span>
+                        {% endif %}
+                      </td>
+                      <td class="text-center">{{ it.quantity }}</td>
+                      <td class="text-end"><span class="price">${{ it.unit_price|floatformat:2 }}</span></td>
+                      <td class="text-end fw-semibold">
+                        <span class="price">
+                          {% if it.line_total %} ${{ it.line_total|floatformat:2 }}
+                          {% else %} ${{ it.unit_price|floatformat:2 }} × {{ it.quantity }}
+                          {% endif %}
+                        </span>
+                      </td>
+                    </tr>
+                  {% empty %}
+                    <tr><td colspan="5" class="text-center text-muted py-4">No items</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-3 d-flex flex-wrap gap-2 justify-content-between">
+              <div class="text-muted">
+                Subtotal: <span class="price">${{ order.subtotal|floatformat:2 }}</span> •
+                Tax: <span class="price">${{ order.tax_amount|floatformat:2 }}</span> •
+                Total: <strong class="price">${{ order.total|floatformat:2 }}</strong>
+              </div>
+
+              <div class="d-flex gap-2">
+                <a class="btn btn-sm btn-outline-secondary" href="#">View Detail</a>
+
+                <form method="post" action="{% url 'shop:update_order_status' order.id %}" class="d-inline-flex align-items-center gap-2">
+                  {% csrf_token %}
+                  <input type="hidden" name="order_id" value="{{ order.id }}">
+                  <select name="order_status" class="form-select form-select-sm">
+                    {% for value,label in status_choices %}
+                      <option value="{{ value }}" {% if value == order.order_status %}selected{% endif %}>
+                        {{ label }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                  <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="panel">
+          <div class="panel-b text-center py-5">
+            <h5 class="mb-1">No orders</h5>
+            <p class="text-muted mb-3">New orders will appear here.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -8,6 +8,8 @@ django = "*"
 djangorestframework = "*"
 pillow = "*"
 pathlib = "*"
+stripe = "*"
+django-environ = "*"
 
 [dev-packages]
 

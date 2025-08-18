@@ -1,17 +1,15 @@
-/* ===========================
-   Header (Topbar + Navbar)
-   =========================== */
+/* ========== Header (Topbar + Navbar) ========== */
 
-/* Tunables */
-:root{
-  --header-topbar-height: 48px;   /* desktop topbar height */
-  --header-navbar-height: 60px;   /* navbar height */
+/* vars */
+:root {
+  --header-topbar-height: 48px;
+  --header-navbar-height: 60px;
   --header-primary: var(--bs-primary, #0d6efd);
   --topbar-h: 50px;
   --navbar-h: 56px;
 }
 
-/* Topbar */
+/* topbar */
 .site-topbar {
   position: fixed;
   top: 0;
@@ -28,6 +26,7 @@
   transition: transform .3s ease;
 }
 
+/* navbar */
 .site-navbar {
   position: fixed;
   top: var(--topbar-h);
@@ -37,14 +36,14 @@
   transition: top .3s ease;
 }
 
-
+/* body offset desktop */
 @media (min-width: 992px) {
   body {
     padding-top: calc(var(--topbar-h) + var(--navbar-h));
   }
 }
 
-
+/* body offset mobile */
 @media (max-width: 991.98px) {
   .site-topbar {
     position: static;
@@ -60,7 +59,7 @@
   }
 }
 
-
+/* hide topbar on scroll */
 body.topbar-hidden .site-topbar {
   transform: translateY(-100%);
 }
@@ -75,39 +74,45 @@ body.topbar-hidden .site-topbar {
   }
 }
 
+/* dropdown stacking */
 .navbar .dropdown-menu {
   z-index: 1100;
 }
 
-.site-topbar .topbar-row{
+/* topbar row */
+.site-topbar .topbar-row {
   min-height: var(--header-topbar-height);
   display: flex;
   align-items: center;
 }
 
-
-/* Breadcrumb styling */
-.topbar-breadcrumb{
+/* breadcrumb */
+.topbar-breadcrumb {
   background: none;
   margin: 0;
   padding: 0;
 }
-.topbar-breadcrumb .breadcrumb-item + .breadcrumb-item::before{
-  color: rgba(255,255,255,.55);
+
+.topbar-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+  color: rgba(255, 255, 255, .55);
 }
-.topbar-breadcrumb .breadcrumb-item a{
+
+.topbar-breadcrumb .breadcrumb-item a {
   color: #cfcfcf;
   text-decoration: none;
   transition: color .2s ease;
 }
-.topbar-breadcrumb .breadcrumb-item a:hover{
+
+.topbar-breadcrumb .breadcrumb-item a:hover {
   color: var(--header-primary);
 }
 
-/* Social icons */
-.follow-label{ font-weight: 500; }
+/* social icons */
+.follow-label {
+  font-weight: 500;
+}
 
-.social-icons .social-btn{
+.social-icons .social-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,47 +122,56 @@ body.topbar-hidden .site-topbar {
   text-decoration: none;
   transition: background-color .2s, color .2s;
 }
-.social-icons .social-btn:hover{
+
+.social-icons .social-btn:hover {
   background-color: var(--header-primary);
   color: #fff;
 }
-.social-icons .social-btn.border-end{
-  border-right: 1px solid rgba(255,255,255,.2);
+
+.social-icons .social-btn.border-end {
+  border-right: 1px solid rgba(255, 255, 255, .2);
 }
 
-/* Make topbar fixed only on desktop (since it's hidden on mobile via d-none d-lg-flex) */
-@media (min-width: 992px){
-  .site-topbar{
+/* topbar fixed desktop only */
+@media (min-width: 992px) {
+  .site-topbar {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 }
 
-/* ---------- Navbar ---------- */
-.site-navbar{
-  z-index: 1040; /* just under the topbar */
-  box-shadow: 0 2px 8px rgba(0,0,0,.12);
-  min-height: 130px;
+/* navbar look */
+.site-navbar {
+  z-index: 1040;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+  min-height: 100px;
 }
 
-/* Space the links a bit and highlight interactions */
-.site-navbar .nav-link{
+/* navbar links */
+.site-navbar .nav-link {
   padding: .75rem 1rem;
   transition: color .2s ease;
 }
+
 .site-navbar .nav-link:hover,
-.site-navbar .nav-link:focus,
-.site-navbar .nav-link.active{
+.site-navbar .nav-link:focus {
   color: var(--header-primary) !important;
 }
 
-/* Brand micro-tweak */
-.site-navbar .navbar-brand .text-primary{
+.nav-item:hover .dropdown-menu,
+.nav-item:focus-within .dropdown-menu {
+  display: block;
+}
+
+/* brand */
+.site-navbar .navbar-brand .text-primary {
   letter-spacing: .4px;
 }
 
-/* Phone circle */
-.site-navbar .btn-lg-square{
+/* phone icon */
+.site-navbar .btn-lg-square {
   width: 44px;
   height: 44px;
   display: inline-flex;
@@ -165,38 +179,74 @@ body.topbar-hidden .site-topbar {
   justify-content: center;
 }
 
-/* Toggler cleanup */
-.navbar-toggler{ border: none; }
-.navbar-toggler:focus{ box-shadow: none; }
-
-/* ---------- Stacking / Offsets ---------- */
-/* Desktop: topbar fixed at top, navbar sits below it, body gets padding for both */
-@media (min-width: 992px){
-  .site-navbar{ top: var(--header-topbar-height); position: fixed; left: 0; right: 0; }
-  body{ padding-top: calc(var(--header-topbar-height) + var(--header-navbar-height)); }
+/* toggler */
+.navbar-toggler {
+  border: none;
 }
 
-/* Mobile: topbar is hidden by your markup (d-none d-lg-flex), so only pad for navbar */
-@media (max-width: 991.98px){
-  .site-navbar{ top: 0; position: fixed; left: 0; right: 0; }
-  body{ padding-top: var(--header-navbar-height); }
+.navbar-toggler:focus {
+  box-shadow: none;
 }
 
-/* Optional: slightly darker bg when using .bg-dark (keeps consistency across themes) */
+/* stacking offsets desktop */
+@media (min-width: 992px) {
+  .site-navbar {
+    top: var(--header-topbar-height);
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  body {
+    padding-top: calc(var(--header-topbar-height) + var(--header-navbar-height));
+  }
+}
+
+/* stacking offsets mobile */
+@media (max-width: 991.98px) {
+  .site-navbar {
+    top: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  body {
+    padding-top: var(--header-navbar-height);
+  }
+}
+
+/* dark variant */
 .site-topbar.bg-dark,
-.site-navbar.bg-dark{
+.site-navbar.bg-dark {
   background-color: #111 !important;
 }
 
-.button-cart-group {
+/* navbar login buttons */
+.cart-price-box {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 40px;
+  padding: 0;
+  margin: 0 !important;
+  border-width: 1px;
+  font-size: 16px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #000;
+  border: 1px solid #ccc;
+  text-align: center;
 }
 
+/* generic dropdown width in group */
+.cart-group .dropdown-menu {
+  min-width: 100%;
+}
 
+/* auth buttons */
 .login,
 .sign-up,
 .cart-price-box {
@@ -205,3 +255,139 @@ body.topbar-hidden .site-topbar {
   margin-right: 10px;
 }
 
+/* ========== Cart (header dropdown) ========== */
+
+/* anchor */
+.cart-group {
+    position: relative;
+    display: inline-block;
+    align-items: center;
+    vertical-align: top;
+    gap: 0;
+}
+
+.cart-group .dropdown-menu.cart-dropdown {
+  position: absolute;
+  right: 0 !important;
+  left: auto !important;
+  transform: none !important;
+
+  /* remove Bootstrap's default top margin (spacer) */
+  --bs-dropdown-spacer: 0;
+  margin: 0 !important;
+
+  /* overlap the button border so there's zero visible gap */
+  top: calc(100% - 1px) !important;
+  /* if your button has 2px border, use -2px */
+
+  min-width: 240px !important;
+  z-index: 1100;
+
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+
+/* narrow screens */
+@media (max-width: 420px) {
+  .cart-group .dropdown-menu.cart-dropdown {
+    min-width: 200px !important;
+  }
+}
+
+/* scroll area */
+.cart-group .dropdown-menu.cart-dropdown .cart-items-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* item row */
+.cart-dropdown .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.cart-dropdown .cart-item:last-child {
+  border-bottom: none;
+}
+
+/* item text */
+.cart-dropdown .cart-item .ci-name {
+  flex: 1 1 auto;
+  color: #333;
+  font-weight: 500;
+  min-width: 0;
+}
+
+/* item price */
+.cart-dropdown .cart-item .ci-price {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+}
+
+/* total row */
+.cart-dropdown .cart-total {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 2px solid #ddd;
+  text-align: right;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* view cart button */
+.cart-dropdown .cart-actions .btn-view-cart,
+.cart-dropdown a.btn-view-cart {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 10px;
+  text-align: center;
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cart-dropdown .btn-view-cart:hover {
+  background: #0b5ed7;
+}
+
+/* empty state */
+.cart-dropdown .cart-empty {
+  padding: 8px 0;
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+}
+
+.dropdown-menu .dropdown-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  background: #e67e22;
+  color: #fff;
+  text-align: center;
+}
+
+.dropdown-menu .dropdown-header .cart-details {
+  font-size: 13px;
+  font-weight: 400;
+  color: #cfcfcf;
+  margin-top: 4px;
+}

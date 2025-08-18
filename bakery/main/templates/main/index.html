@@ -261,7 +261,7 @@ Bakery
             <h5 class="card-title mb-2 mt-4">Cookies</h5>
             <p class="text-muted mb-4">Chewy, buttery, and customizable by flavor.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <a href="{% url 'main:menu' %}?category=Cookies" class="btn btn-primary btn-bg">Menu-Cookies</a>
+              <a href="{% url 'main:menu' %}?category=cookies" class="btn btn-primary btn-bg">Menu-Cookies</a>
             </div>
           </div>
         </div>
@@ -275,7 +275,7 @@ Bakery
             <h5 class="card-title mb-2 mt-4">Cakes</h5>
             <p class="text-muted mb-4">Celebration cakes tailored to your theme.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <a href="{% url 'main:menu' %}?category=Cakes" class="btn btn-primary btn-bg">Menu-Cakes</a>
+              <a href="{% url 'main:menu' %}?category=cakes" class="btn btn-primary btn-bg">Menu-Cakes</a>
             </div>
           </div>
         </div>
@@ -289,29 +289,3 @@ Bakery
 
 {% endblock %}
 
-{% block extra_scripts %}
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('random-products');
-  if (!container) return;
-
-  fetch('/api/products/')
-    .then(data => data.json())
-    .then(data => {
-      const take = Math.min(3, data.length);
-      const picked = new Set();
-      while (picked.size < take) picked.add(Math.floor(Math.random() * data.length));
-
-      container.innerHTML = '';
-      picked.forEach(i => {
-        const p = data[i];
-        container.innerHTML += `
-          <div class="col-6 col-md-4 mb-3">
-            <img class="w-100 h-100 rounded object-fit-cover" src="${p.picture}" alt="${p.name}" loading="lazy">
-          </div>`;
-      });
-    });
-});
-</script>
-
-{% endblock %}

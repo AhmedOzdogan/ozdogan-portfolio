@@ -1,0 +1,64 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Address List{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'main/css/address_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="addresses">
+  <div class="addr-header">
+    <h5 class="m-0">My Addresses</h5>
+    <a href="{% url 'main:add_address' %}" class="btn btn-sm btn-primary btn-add-addr">Add New Address</a>
+  </div>
+
+  <div class="addr-wrapper">
+    <ul class="addr-grid">
+      {% if addresses %}
+        {% for address in addresses %}
+          <li class="addr-card">
+            <div class="addr-card-body">
+              <div class="addr-top">
+                <strong class="addr-name">{{ address.full_name }}</strong>
+                {% if address.is_default %}
+                  <span class="badge-default">Default</span>
+                {% endif %}
+              </div>
+
+              <div class="addr-lines">
+                <div>{{ address.line1 }}{% if address.line2 %}, {{ address.line2 }}{% endif %}</div>
+                <div>{{ address.city }} — {{ address.postal_code }}</div>
+                <div>{{ address.country }}</div>
+              </div>
+
+              <div class="addr-actions">
+                <a class="btn btn-outline-secondary btn-sm"
+                   href="{% url 'main:edit_address' address.id %}">Edit</a>
+
+                <form method="post"
+                      action="{% url 'main:delete_address' address.id %}"
+                      class="d-inline"
+                      onsubmit="return confirm('Delete this address?');">
+                  {% csrf_token %}
+                  <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                </form>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li class="addr-card addr-card--empty">
+          <div class="addr-card-body text-center">
+            <strong>No Address Found</strong>
+            <p class="text-muted mb-0">Add your first address to speed up checkout.</p>
+          </div>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

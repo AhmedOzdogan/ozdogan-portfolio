@@ -21,6 +21,55 @@
     <link href="{% static 'main/css/header.css' %}" rel="stylesheet">
     <link href="{% static 'main/css/footer.css' %}" rel="stylesheet">
 
+    <style>
+      /* Container */
+      /* User dropdown */
+      /* User dropdown */
+      .user-dropdown {
+          position: relative;
+          display: inline-block;
+          background: #0055aa;
+          border-radius: 8px;
+          width: 200px;  
+          box-sizing: border-box;
+      }
+
+      /* Force same width/height for user dropdown button */
+      .user-dropdown .dropdown-toggle {
+          width: 200px;        /* match cart width */
+          height: 40px;        /* match cart height */
+          padding: 0 12px;
+          font-size: 16px;
+          border-radius: 8px;
+          box-sizing: border-box;
+          background: #0055aa;
+          color: #e7e7e7;
+          border: 1px solid transparent;
+      }
+
+      /* Make menu match button width */
+      .user-dropdown .dropdown-menu {
+          min-width: 100%;
+      }
+      /* Dropdown links */
+      .user-dropdown .dropdown-menu a {
+          display: block;
+          padding: 8px 12px;
+          text-decoration: none;
+          color: #333;
+      }
+
+      .user-dropdown .dropdown-menu a:hover {
+          background: #f0f0f0;
+      }
+
+      /* Show menu on hover */
+      .user-dropdown:hover .dropdown-menu {
+          display: block;
+      }
+      </style>
+
+
     {% block extra_head %}
     {% endblock %}
 </head>
@@ -38,27 +87,115 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
 {% block extra_scripts %}
+
 <script>
   (function(){
     let lastY = window.scrollY || 0;
     const threshold = 10;
-
     function onScroll(){
       const y = window.scrollY || 0;
       const goingDown = y > lastY + threshold;
       const goingUp   = y < lastY - threshold;
-
-      if (goingDown && y > 80){
-        document.body.classList.add('topbar-hidden');
-      } else if (goingUp || y <= 0){
-        document.body.classList.remove('topbar-hidden');
-      }
+      if (goingDown && y > 80) document.body.classList.add('topbar-hidden');
+      else if (goingUp || y <= 0) document.body.classList.remove('topbar-hidden');
       lastY = y;
     }
-
     window.addEventListener('scroll', onScroll, { passive: true });
   })();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // ----- Random products (only if container exists)
+    const productsEl = document.getElementById('random-products');
+    if (productsEl) {
+      fetch('/api/products/')
+        .then(res => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(data => {
+          const take = Math.min(3, data.length || 0);
+          const picked = new Set();
+          while (picked.size < take) picked.add(Math.floor(Math.random() * data.length));
+          productsEl.innerHTML = '';
+          picked.forEach(i => {
+            const p = data[i];
+            productsEl.innerHTML += `
+              <div class="col-6 col-md-4 mb-3">
+                <img class="w-100 h-100 rounded object-fit-cover" src="${p.picture}" alt="${p.name}" loading="lazy">
+              </div>`;
+          });
+        })
+        .catch(err => console.error('Products error:', err));
+    }
+
+    // ----- Cart header (only if elements exist)
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    function renderCart(data){
+      if (cartTotalEl) {
+        const total = Number(data?.total ?? 0);
+        cartTotalEl.textContent = `$${total.toFixed(2)}`;
+      }
+      if (cartItemsEl) {
+        cartItemsEl.innerHTML = '';
+        const items = data?.items || [];
+        if (!items.length) {
+          cartItemsEl.innerHTML = '<div class="px-3 py-2 text-muted small">Your cart is empty</div>';
+        } else {
+          items.forEach(it => {
+            const row = document.createElement('div');
+            row.className = 'cart-item d-flex justify-content-between small py-1';
+            const name = `${it.name} × ${it.qty}`;
+            const price = Number(it.line_total).toFixed(2);
+            row.innerHTML = `<span class="ci-name">${name}</span><span class="ci-price">$${price}</span>`;
+            cartItemsEl.appendChild(row);
+          });
+          const totalRow = document.createElement('div');
+          totalRow.className = 'cart-total pt-2 mt-2 border-top fw-bold text-end';
+          totalRow.textContent = `Total: $${Number(data?.total ?? 0).toFixed(2)}`;
+          cartItemsEl.appendChild(totalRow);
+
+          const viewLink = document.createElement('a');
+          viewLink.href = '/shop/cart/';
+          viewLink.textContent = 'View Cart';
+          viewLink.className = 'btn btn-primary mt-2 w-100';
+          cartItemsEl.appendChild(viewLink);
+        }
+      }
+    }
+
+    // fetch cart snapshot only if at least one cart element is present
+    if (cartItemsEl || cartTotalEl) {
+      fetch('/cart/snapshot/?t=' + Date.now(), { credentials: 'same-origin' })
+        .then(res => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(renderCart)
+        .catch(err => {
+          console.error('Error loading cart:', err);
+          if (cartItemsEl) cartItemsEl.innerHTML = '<p>Could not load cart.</p>';
+        });
+
+      // expose refreshCartHeader globally
+      window.refreshCartHeader = function refreshCartHeader(){
+        return fetch('/cart/snapshot/?t=' + Date.now(), { credentials: 'same-origin' })
+          .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(renderCart)
+          .catch(err => console.error('Error refreshing cart header:', err));
+      };
+
+      document.addEventListener('cart:updated', () => { window.refreshCartHeader(); });
+    }
+  });
 </script>
+
+
 {% endblock %}
 </html>

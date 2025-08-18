@@ -1,0 +1,120 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
+  <script src="{% static 'shop/js/cart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="container cart-page">
+  <div class="cart-card">
+    <div class="cart-header">
+      <h1>Your Cart</h1>
+      {% if items %}
+        <span class="text-muted">Items: {{ items|length }}</span>
+      {% endif %}
+    </div>
+
+    <div class="cart-body">
+      {% if items %}
+        <div class="table-cart-wrapper">
+          <table class="table table-hover align-middle table-cart mb-0">
+            <thead>
+              <tr>
+                <th style="min-width: 220px;">Item</th>
+                <th style="min-width: 220px;">Add-ons</th>
+                <th class="text-center" style="width: 120px;">Qty</th>
+                <th class="text-end" style="width: 120px;">Price</th>
+                <th class="text-end" style="width: 120px;">Total</th>
+                <th class="text-center" style="width: 100px;">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for it in items %}
+              <tr>
+                <td>
+                  <a href="/menu/{{ it.product.id }}/" class="product-name fw-semibold">{{ it.product.name }}</a>
+                </td>
+
+                <td>
+                  {% with addlist=it.addons.all %}
+                    {% if addlist %}
+                      {% for a in addlist %}
+                        <span class="addon-badge d-inline-flex align-items-center gap-1">
+                          {{ a.name }}
+                          <form action="{% url 'shop:remove_addons' it.id a.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <button type="submit"
+                                    class="btn btn-sm btn-link p-0 m-0 text-danger remove-addon-btn"
+                                    style="line-height:1; font-size:0.85rem;"
+                                    aria-label="Remove {{ a.name }} from {{ it.product }}">
+                              &times;
+                            </button>
+                          </form>
+                        </span>
+                      {% endfor %}
+                    {% else %}
+                      <span class="text-muted">—</span>
+                    {% endif %}
+                  {% endwith %}
+                </td>
+
+                <td class="text-center">
+                  <form action="{% url 'shop:update_cart_item' it.id %}" method="post" class="d-inline-flex align-items-center gap-2">
+                    {% csrf_token %}
+                    <input type="number" name="qty" value="{{ it.quantity }}" min="0" class="quantity-form form-control form-control-sm qty-input">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Update</button>
+                  </form>
+                </td>
+
+                <td class="text-end price">${{ it.item_total }}</td>
+                <td class="text-end price fw-semibold">${{ it.line_total }}</td>
+
+                <td class="text-center">
+                  <form action="{% url 'shop:remove_from_cart' it.id %}" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                      Remove
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="cart-empty">
+          <h5 class="mb-2">Your cart is empty</h5>
+          <p class="mb-0">Browse our menu and add something tasty!</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        Subtotal: <span class="price">${{ subtotal }}</span>
+      </div>
+      <div class="d-flex ms-auto gap-2">
+        {% if items %}
+          <form action="{% url 'shop:empty_cart' %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Clear Cart</button>
+          </form>
+        {% endif %}
+        <a href="{% url 'main:menu' %}" class="btn btn-outline-secondary">Continue Shopping</a>
+        <a href="{% if user.is_authenticated %}{% url 'shop:checkout' %}{% else %}{% url 'main:login' %}{% endif %}" class="btn btn-primary btn-checkout">Checkout</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

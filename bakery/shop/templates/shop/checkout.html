@@ -1,0 +1,245 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-page">
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="pc-header">
+        <h2 class="pc-title">Checkout</h2>
+        <div class="pc-actions">
+          <a href="{% url 'shop:cart_detail' %}" class="btn btn-outline-secondary btn-sm">Back to Cart</a>
+        </div>
+      </div>
+
+      <div class="pc-body" style="grid-template-columns: 1fr;">
+
+        {# ===== 1) Items ===== #}
+        <div class="checkout-items">
+          <h5 class="section-title">Items</h5>
+          <div class="pc-divider"></div>
+
+          {% if items %}
+            <ul class="list-unstyled m-0">
+              {% for item in items %}
+                <li class="py-3 border-bottom"  style="display:grid;
+                    grid-template-columns:80px 1fr 1fr auto;
+                    gap:16px;
+                    align-items:center;">
+                  <div style="
+                    width:80px;
+                    height:80px;
+                    border-radius:10px;
+                    overflow:hidden;
+                    background:#f6f8fb;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    ">
+                    {% if item.product.picture %}
+                        <img src="{{ item.product.picture.url }}"
+                            alt="{{ item.product.name }}"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    {% else %}
+                        <span class="text-muted" style="font-size:.8rem;">No image</span>
+                    {% endif %}
+                    </div>
+                  <div>
+                    <div class="fw-semibold">{{ item.product.name }}</div>
+                    <div class="text-muted" style="font-size:.9rem;">
+                      Qty: {{ item.quantity }} × {{ item.unit_price|floatformat:2 }} $
+                    </div>
+                  </div>
+
+                  <div>
+                    <ul class="list-unstyled">
+                      {% if item.addons.all %}
+                        {% for addon in item.addons.all %}
+                          <li>{{ addon.name }} × {{ addon.price|floatformat:2 }} $</li>
+                        {% endfor %}
+                      {% else %}
+                        <li class="text-muted">No add-ons</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+
+                  <div class="text-end fw-bold">
+                    <div class="text-end fw-bold">
+                      {{ item.line_total|floatformat:2 }} $
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="text-muted">Your cart is empty.</div>
+          {% endif %}
+        </div>
+
+        {# ===== 2) Shipping Address ===== #}
+        <div class="addresses" style="margin-top:20px;">
+          <div class="addr-header">
+            <h5 class="m-0">Shipping Address</h5>
+            <div class="d-flex gap-2">
+              <a href="{% url 'main:add_address' %}" class="btn btn-sm btn-primary btn-add-addr">Add</a>
+              <a href="{% url 'main:profile' %}#addresses" class="btn btn-sm btn-outline-secondary">Manage</a>
+            </div>
+          </div>
+
+          {% if default_address %}
+            <div class="addr-item">
+              <div class="addr-lines">
+                <strong>{{ default_address.full_name }}</strong>
+                {% if default_address.is_default %}
+                  <span class="badge-default">Default</span>
+                {% endif %}
+                <div class="meta">
+                  {{ default_address.line1 }}{% if default_address.line2 %}, {{ default_address.line2 }}{% endif %} <br>
+                  {{ default_address.city }} — {{ default_address.postal_code }} <br>
+                  {{ default_address.country }}
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="text-muted">No default address set. Please add one to continue.</div>
+          {% endif %}
+        </div>
+
+        {# ===== 3) Order Summary (with tax + shipping options) ===== #}
+        <div class="card" id="order-summary" style="padding:14px; margin-top:20px;"
+             data-subtotal="{{ subtotal|floatformat:2 }}" data-taxrate="0.20">
+          <h6 class="m-0">Order Summary</h6>
+          <div class="pc-divider" style="margin:10px 0;"></div>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Subtotal</span>
+            <span id="os-subtotal">{{ subtotal|floatformat:2 }} $</span>
+          </div>
+
+          <div class="pc-divider" style="margin:10px 0;"></div>
+
+          <div class="mb-2">
+            <div class="text-muted mb-1">Shipping</div>
+                <div class="list-group mb-3">
+                    <label class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                        <input class="form-check-input me-2" type="radio" name="shipping_choice" value="regular" data-fee="9.99" checked>
+                        <span>Regular - One Week</span>
+                        </div>
+                        <span class="fw-semibold">9.99 $</span>
+                    </label>
+
+                    <label class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                        <input class="form-check-input me-2" type="radio" name="shipping_choice" value="fast" data-fee="24.99">
+                        <span>Fast - Within Two Days</span>
+                        </div>
+                        <span class="fw-semibold">24.99 $</span>
+                    </label>
+                </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between mb-0">
+            <span class="text-muted">Shipping</span>
+            <span id="os-shipping">10.00</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-0">
+            <span class="text-muted">Tax (20%)</span>
+            <span id="os-tax">0.00</span>
+          </div>
+
+          <div class="pc-divider" style="margin:10px 0;"></div>
+
+          <div class="d-flex justify-content-between fw-bold">
+            <span>Total</span>
+            <span id="os-total">{{ subtotal|floatformat:2 }}</span>
+          </div>
+
+        <form method="post" action="{% url 'shop:create_checkout_session' %}" class="mt-3" style="width:100%; max-width:none;">
+            {% csrf_token %}
+            {% if default_address %}
+                <input type="hidden" name="address_id" value="{{ default_address.id }}">
+                <input type="hidden" name="shipping_method" id="shipping_method" value="regular">
+                <input type="hidden" name="shipping_fee" id="shipping_fee" value="10.00">
+                <input type="hidden" name="tax_amount" id="tax_amount" value="0.00">
+                <input type="hidden" name="total_amount" id="total_amount" value="{{ subtotal|floatformat:2 }}">
+
+                <button type="submit"
+                        class="btn btn-success btn-update w-100"
+                        style="display:block; width:100%;">
+                Place Order
+                </button>
+            {% else %}
+                <a class="btn btn-primary btn-update w-100"
+                style="display:block; width:100%;"
+                href="{% url 'main:add_address' %}">
+                Add Address to Continue
+                </a>
+            {% endif %}
+        </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+{{ block.super }}
+<script>
+(function () {
+  const wrap = document.getElementById('order-summary');
+  if (!wrap) return;
+
+  const toNum = (v) => parseFloat(String(v).replace(',', '.')) || 0;
+  const fmt  = (n) => n.toFixed(2) + ' $';
+
+  const subtotal = toNum(wrap.dataset.subtotal);
+  const taxRate  = toNum(wrap.dataset.taxrate || 0.20);
+
+  const elSub = document.getElementById('os-subtotal');
+  const elShip= document.getElementById('os-shipping');
+  const elTax = document.getElementById('os-tax');
+  const elTot = document.getElementById('os-total');
+
+  const inMethod = document.getElementById('shipping_method');
+  const inFee    = document.getElementById('shipping_fee');
+  const inTax    = document.getElementById('tax_amount');
+  const inTotal  = document.getElementById('total_amount');
+
+  function recalc() {
+    const checked = document.querySelector('input[name="shipping_choice"]:checked');
+    const shipFee = toNum(checked?.dataset.fee || 0);
+    const tax = subtotal * taxRate;
+    const total = subtotal + tax + shipFee;
+
+    elShip.textContent = fmt(shipFee);
+    elTax.textContent  = fmt(tax);
+    elTot.textContent  = fmt(total);
+
+    if (inMethod) inMethod.value = checked?.value || '';
+    if (inFee)    inFee.value    = fmt(shipFee);
+    if (inTax)    inTax.value    = fmt(tax);
+    if (inTotal)  inTotal.value  = fmt(total);
+  }
+
+  // init + bind
+  recalc();
+  document.querySelectorAll('input[name="shipping_choice"]').forEach(r => {
+    r.addEventListener('change', recalc);
+  });
+})();
+</script>
+{% endblock %}

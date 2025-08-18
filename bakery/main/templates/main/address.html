@@ -1,0 +1,78 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Add Address{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-page">
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="pc-header">
+        <h2 class="pc-title">Add New Address</h2>
+        <div class="pc-actions">
+          <a href="{% url 'main:profile' %}" class="btn btn-outline-secondary btn-sm">Back to Profile</a>
+        </div>
+      </div>
+
+      <div class="pc-body" style="grid-template-columns: 1fr;">
+        <div class="profile-form">
+          <form method="post" autocomplete="on" novalidate>
+            {% csrf_token %}
+            
+            <div>
+              <label for="id_full_name">Full name</label>
+              {{ form.full_name }}
+              {{ form.full_name.errors }}
+              {% if form.full_name.help_text %}<span class="helptext">{{ form.full_name.help_text }}</span>{% endif %}
+            </div>
+
+            <div>
+              <label for="id_line1">Address line 1</label>
+              {{ form.line1 }}
+              {{ form.line1.errors }}
+            </div>
+
+            <div>
+              <label for="id_line2">Address line 2 (optional)</label>
+              {{ form.line2 }}
+              {{ form.line2.errors }}
+            </div>
+
+            <div>
+              <label for="id_city">City</label>
+              {{ form.city }}
+              {{ form.city.errors }}
+            </div>
+
+            <div>
+              <label for="id_postal_code">Postal code</label>
+              {{ form.postal_code }}
+              {{ form.postal_code.errors }}
+            </div>
+
+            <div>
+              <label for="id_country">Country</label>
+              {{ form.country }}
+              {{ form.country.errors }}
+            </div>
+
+            <div class="form-check">
+              <label for="id_is_default" class="form-check-label">Set as default</label>
+              {{ form.is_default }}
+              {{ form.is_default.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-success btn-update">Save Address</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

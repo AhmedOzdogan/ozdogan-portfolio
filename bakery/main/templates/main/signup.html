@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'main/css/login_signup.css' %}">
+<script src="{% static 'main/js/signup.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">
+    <h2 >Signup</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <!-- General (non-field) errors -->
+        {% if form.non_field_errors %}
+            <div class="error">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Loop through all form fields -->
+        {% for field in form %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="signup-btn">
+            Signup
+        </button>
+    </form>
+</div>
+
+{% endblock %}

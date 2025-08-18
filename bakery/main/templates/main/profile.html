@@ -1,0 +1,77 @@
+{% extends "main/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'main/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-page">
+  <div class="profile-container">
+    <div class="profile-card">
+      <div class="pc-header">
+        <h2 class="pc-title">My Profile</h2>
+        <div class="pc-actions">
+          <a href="#" class="btn btn-outline-primary btn-sm">Change Password</a>
+        </div>
+      </div>
+
+      <div class="pc-body">
+        <div class="profile-form">
+            <form method="post" class="mb-4" autocomplete="on">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit" class="btn btn-success">Update Profile</button>
+            </form>
+        </div>
+
+        <div class="addresses">
+          <div class="addr-header">
+            <h5 class="m-0">My Addresses</h5>
+            <a href="{% url 'main:add_address' %}" class="btn btn-sm btn-primary btn-add-addr">Add New Address</a>
+          </div>
+          <ul class="addr-list">
+            <!-- each address -->
+            {% if addresses %}
+              {% for address in addresses %}
+              <li class="addr-item">
+                  <div class="addr-lines">
+                      <strong>{{ address.full_name }}</strong>
+                      {% if address.is_default %}
+                          <span class="badge-default">Default</span>
+                      {% endif %}
+                      <div class="meta">
+                          {{ address.line1 }}{% if address.line2 %}, {{ address.line2 }}{% endif %} <br>
+                          {{ address.city }} -- {{ address.postal_code }} <br> {{ address.country }}
+                      </div>
+                  </div>
+                  <div class="addr-actions">
+                      <a class="btn btn-outline-secondary btn-sm" href="{% url 'main:edit_address' address.id %}">Edit</a>
+                      <form method="post" action="{% url 'main:delete_address' address.id %}" class="d-inline">
+                          {% csrf_token %}
+                          <button class="btn btn-outline-danger btn-sm">Delete</button>
+                      </form>
+                  </div>
+              </li>
+              {% endfor %}
+            {% else %}
+              <li class="addr-item">
+                <div class="addr-lines">
+                  <strong>No Address Found</strong>
+                </div>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

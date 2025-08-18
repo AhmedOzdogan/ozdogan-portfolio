@@ -7,6 +7,19 @@ from PIL import Image
 from pathlib import Path
 
 
+class Role(models.TextChoices):
+    CUSTOMER = "CUSTOMER", "Customer"
+    MANAGER = "MANAGER", "Restaurant Manager"
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
+    role = models.CharField(max_length=20, choices=Role.choices, default=Role.CUSTOMER)
+
+    def __str__(self):
+        return f"{self.user.username} ({self.get_role_display()})" #type:ignore
+
+
+
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -91,12 +104,10 @@ class Product(TimeStampedModel):
         return self.name
 
     def save(self, *args, **kwargs):
-        # Auto slugify, ensure uniqueness within the category
         if not self.slug:
             base = slugify(self.name)[:150]
             slug = base or "product"
             i = 1
-            # Ensure uniqueness per category
             qs = Product.objects.filter(category=self.category, slug=slug)
             if self.pk:
                 qs = qs.exclude(pk=self.pk)
@@ -138,6 +149,23 @@ class Address(TimeStampedModel):
 
     class Meta:
         ordering = ["-is_default", "created_at"]
+        
+    def save(self, *args, **kwargs):
+        if self.is_default:
+            Address.objects.filter(user=self.user, is_default=True).exclude(pk=self.pk).update(is_default=False)
+        super().save(*args, **kwargs)
+        
+    def delete(self, *args, **kwargs):
+        user = self.user
+        is_default = self.is_default
+        super().delete(*args, **kwargs)
+
+        if is_default:
+            other = Address.objects.filter(user=user).first()
+            if other and not other.is_default:
+                other.is_default = True
+                other.save()
+        
 
     def __str__(self):
         return f"{self.full_name}, {self.line1}"
