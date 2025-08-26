@@ -1,0 +1,213 @@
+<!-- prettier-ignore -->
+{% extends "maincvapp/base.html" %} {% load static %} {% block title %}Resume{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}" />
+{% endblock %} {% block content %}
+<main class="resume">
+  <div class="sidebar">
+    <ul class="sidebar-list">
+      <li><a href="#education-box">Education</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li>
+        <a href="#languages">Programming <br />Languages</a>
+      </li>
+      <li><a href="#experience">Work Experience</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="education-box" id="education-box">
+      <div class="edu-header">
+        <h2 class="edu-title">Education</h2>
+      </div>
+      <div class="edu-content">
+        <p class="edu-degree">English Language and Literature BA's Degree</p>
+        <p class="edu-years">2017–2021</p>
+        <p class="edu-detail">
+          Gained strong analytical and critical thinking skills through close
+          study of literature, theory, and historical texts. Developed the
+          ability to interpret complex information, write clearly, and analyze
+          patterns — strengths now applied in data analysis and full-stack web
+          development.
+        </p>
+      </div>
+    </div>
+
+    <section class="certificates" id="certificates">
+      <div class="certificates-main-box">
+        <p class="certificates-main-title">Certificates</p>
+
+        {% for group in certificate_groups %}
+        <div class="cert-group-box">
+          <h2 class="cert-group-title">
+            {{ group.name }} {% if group.credential_url %}
+            <a
+              href="{{ group.credential_url }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="View group certificate"
+              class="cert-link-icon"
+            >
+              <i class="bi bi-link-45deg"></i>
+            </a>
+
+            {% endif %}
+          </h2>
+
+          {% for cert in group.certificates.all %}
+          <!-- prettier-ignore -->
+          {% with pid="panel-"|add:forloop.parentloop.counter0|add:"-"|add:forloop.counter0 %}
+          <div class="cert-box">
+            <button
+              class="accordion"
+              id="panel-{{ forloop.parentloop.counter }}-{{ forloop.counter }}-btn"
+              type="button"
+              aria-expanded="false"
+              aria-controls="panel-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+            >
+              {{ cert.name }}
+            </button>
+
+            <div
+              class="panel"
+              id="panel-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+              role="region"
+              aria-labelledby="panel-{{ forloop.parentloop.counter }}-{{ forloop.counter }}-btn"
+              aria-hidden="true"
+            >
+              <div class="panel-grid">
+                <p class="meta-left">
+                  <!-- prettier-ignore -->
+                  <strong>Issued Date:</strong>
+                  {{ cert.date_issued|date:"Y/m"}}
+                </p>
+                <p class="meta-right">
+                  <strong>ID:</strong> {{ cert.credential_id }}
+                </p>
+
+                <div class="panel-skills">
+                  <div class="skills-grid">
+                    <h2>Skills</h2>
+                    {% for skill in cert.skills.all %}
+                    <span class="skill-chip">{{ skill.name }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <p class="panel-link">
+                  <a
+                    class="verify-btn"
+                    href="{{ cert.credential_url }}"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    View Certificate
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {% endwith %} {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="languages" id="languages">
+      <div class="languages-box">
+        <h2 class="languages-title">Programming Languages</h2>
+
+        <div class="languages-list">
+          {% for language in languages %}
+          <div class="language-item">
+            <div class="lang-card">
+              <div class="lang-face lang-front">
+                <span class="lang-icon" aria-label="{{ language.name }}">
+                  <!-- {{ language.name }} -->
+                  <img
+                    class="lang-icon-img"
+                    src="{{ language.picture.url }}"
+                    alt="{{ language.name }} icon"
+                  />
+                </span>
+                <p class="language-name">{{ language.name }}</p>
+              </div>
+              <div class="lang-face lang-back">
+                <p class="language-details">{{ language.details }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="experience-box">
+        <h2>Work Experience</h2>
+        <div class="job-box">
+          <ul>
+            {% for job in experience %}
+            <li>
+              <h3>{{ job.job_title }}</h3>
+              <p>
+                <!-- prettier-ignore -->
+                {{ job.company_name }} | {{ job.start_date|date:"Y/m" }} - 
+              {% if job.is_current %}Present{% else %}{{job.end_date|date:"Y/m" }}{% endif %}
+              </p>
+              <p>{{ job.location }}</p>
+              <p>{{ job.description }}</p>
+              <hr />
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+{% endblock %} {% block extra_scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".accordion").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const panelId = btn.getAttribute("aria-controls");
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+
+        const isOpen = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!isOpen));
+        panel.setAttribute("aria-hidden", String(isOpen)); // "true" means hidden
+      });
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll(
+      "main .content section, .education-box"
+    );
+    const listItems = document.querySelectorAll(".sidebar-list li");
+
+    function onScroll() {
+      let current = "";
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 120 && rect.bottom > 120) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      listItems.forEach((li) => {
+        li.classList.remove("active");
+        const link = li.querySelector("a");
+        if (link && link.getAttribute("href") === "#" + current) {
+          li.classList.add("active");
+        }
+      });
+    }
+
+    document.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // run once on load
+  });
+</script>
+
+{% endblock %}

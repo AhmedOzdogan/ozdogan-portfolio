@@ -1,0 +1,39 @@
+<!-- prettier-ignore -->
+{% extends "maincvapp/base.html" %}
+{% load static %}
+
+{% block title %}Projects{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/projects.css' %}" />
+{% endblock %} {% block content %}
+<div id="projects">
+  <h1 class="projects-title">Projects</h1>
+  <div id="project-intro-box">
+    <p class="intro">{{ intro_text }}</p>
+    <a href="{{ intro_url }}" target="_blank">Read full README</a>
+  </div>
+
+  {% for project in projects %}
+  <div class="project-item">
+    <h2>{{ project.name }}</h2>
+    <p>{{ project.readme }}</p>
+    <a href="{{ project.url }}" target="_blank">Read full README</a>
+    <div class="screenshots">
+      <img
+        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/1.png"
+        alt="{{ project.name }} screenshot 1"
+      />
+      <img
+        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/2.png"
+        alt="{{ project.name }} screenshot 2"
+      />
+      <img
+        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/3.png"
+        alt="{{ project.name }} screenshot 3"
+      />
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

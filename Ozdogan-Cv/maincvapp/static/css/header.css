@@ -1,0 +1,191 @@
+body {
+  padding-top: 72px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  min-height: 72px;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 0;
+  gap: 0px;
+  list-style: none;
+}
+
+.name-list {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding: 0 10px;
+}
+
+.name-list li {
+  list-style-type: none;
+  font-size: 1em;
+  margin-right: auto;
+  white-space: nowrap;
+}
+
+.name-list li a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-list li {
+  display: inline-block;
+  padding: 0.5rem 2rem;
+  border-right: 2px solid black;
+}
+
+.nav-list li:last-child {
+  border-right: none;
+}
+
+.nav-list li:last-child:hover {
+  border-right: 5px solid darkred;
+  font-weight: bolder;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: black;
+}
+.nav-list li:hover:not(:has(a[aria-current="page"])) {
+  border-color: darkred;
+  border-width: 5px;
+  font-weight: 900;
+}
+
+.nav-list a[aria-current="page"] {
+  font-weight: 900;
+  color: #239b63;
+  cursor: default;
+}
+
+/* hamburger button (hidden on desktop) */
+.menu-btn {
+  display: inline-flex;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.menu-btn .bar {
+  position: absolute;
+  left: 50%;
+  width: 24px;
+  height: 2px;
+  background: #000;
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: top 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  margin: 0 !important;
+}
+
+.menu-btn .bar:nth-child(1) {
+  top: 16px;
+}
+.menu-btn .bar:nth-child(2) {
+  top: 22px;
+}
+.menu-btn .bar:nth-child(3) {
+  top: 28px;
+}
+.header.is-open .menu-btn .bar:nth-child(1) {
+  top: 22px;
+  transform: translateX(-50%) rotate(45deg);
+}
+.header.is-open .menu-btn .bar:nth-child(2) {
+  opacity: 0;
+}
+.header.is-open .menu-btn .bar:nth-child(3) {
+  top: 22px;
+  transform: translateX(-50%) rotate(-45deg);
+}
+
+.header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== Mobile dropdown ===== */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: inline-flex;
+    visibility: visible;
+  }
+
+  .navbar {
+    gap: 8px;
+    padding: 0.5rem 1rem;
+  }
+
+  .nav-list {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #eee;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+    top: 72px;
+  }
+
+  .nav-list li {
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    padding: 0;
+  }
+  .nav-list li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-list li a {
+    display: block;
+    padding: 14px 16px;
+  }
+
+  .header.is-open .nav-list {
+    max-height: calc(100vh - 56px);
+  }
+
+  .header.is-open .menu-btn .bar:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .header.is-open .menu-btn .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .header.is-open .menu-btn .bar:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+}

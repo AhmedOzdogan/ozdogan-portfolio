@@ -1,0 +1,32 @@
+<header class="header">
+  <nav class="navbar">
+    <ul class="name-list">
+      <li>
+        <a href="{% url 'main:index' %}"> <strong>Ahmed Özdoğan </strong> / Full-Stack Developer </a>
+      </li>
+    </ul>
+    <!-- Mobile toggle button -->
+    <button
+      class="menu-btn"
+      aria-label="Toggle menu"
+      aria-controls="nav-menu"
+      aria-expanded="false"
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <ul class="nav-list">
+      <li><a href="{% url 'main:index' %}"
+     {% if request.resolver_match.url_name == 'index' %}aria-current="page"{% endif %}>
+     Home
+  </a></li>
+      <li><a href="">About Me</a></li>
+      <li><a href="{% url 'main:resume' %}"{% if request.resolver_match.url_name == 'resume' %}aria-current="page"{% endif %}>
+     Resume</a></li>
+      <li><a href="{% url 'main:projects' %}"{% if request.resolver_match.url_name == 'projects' %}aria-current="page"{% endif %}>
+     Projects</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</header>
