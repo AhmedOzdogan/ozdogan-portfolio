@@ -1,41 +1,36 @@
-{% extends "main/base.html" %}
-{% load static %}
-
-{% block title %}Menu - {{ item_slug|title }}{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="{% static 'restaurant_main/css/menu_item.css' %}">
-{% endblock %}
-
-
-{% block content %}
+{% extends "main/base.html" %} {% load static %} {% block title %}Menu - {{
+item_slug|title }}{% endblock %} {% block extra_head %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+/>
+<link
+  rel="stylesheet"
+  href="{% static 'restaurant_main/css/menu_item.css' %}"
+/>
+{% endblock %} {% block content %}
 <section class="menu-section">
   <h1>Item Details</h1>
-  <div id="item-container" >
+  <div id="item-container">
     <!-- Item details will be rendered here -->
   </div>
 
-
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
 </section>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const itemSlug = "{{ item_slug|lower }}";
 
-    fetch(`/api/menu/${itemSlug}/`)  // <-- this is correct for your endpoint
-      .then(response => {
+    fetch(`/api/menu/${itemSlug}/`)
+      .then((response) => {
         if (response.status === 404) {
           window.location.href = "/404/";
           return Promise.reject();
@@ -45,12 +40,12 @@
         }
         return response.json();
       })
-      .then(data => {
-        const container = document.getElementById('item-container');
+      .then((data) => {
+        const container = document.getElementById("item-container");
         const imagePath = `/static/main/img/menu/${data.slug}.png`;
 
-        const card = document.createElement('div');
-        card.classList.add('menu-item');
+        const card = document.createElement("div");
+        card.classList.add("menu-item");
 
         card.innerHTML = `
         <div class="menu-item-image">
@@ -66,18 +61,14 @@
         </button>
         `;
 
-
-
         container.appendChild(card);
       })
-    .catch(err => {
-      if (err) {
-        // for non-404 errors, show a nicer fallback
-        document.getElementById("item-container").innerHTML =
-          "<p>Sorry, something went wrong loading this item.</p>";
-      }
-    });
+      .catch((err) => {
+        if (err) {
+          document.getElementById("item-container").innerHTML =
+            "<p>Sorry, something went wrong loading this item.</p>";
+        }
+      });
   });
-
 </script>
 {% endblock %}

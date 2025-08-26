@@ -1,140 +1,135 @@
 /* Page background */
 body {
-    background-image: url('../img/contact.png?v=2');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-image: url("../img/contact.png?v=2");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /* Contact heading */
 h2 {
-    font-size: 2em;
-    color: #fff;
-    margin: 40px 0 10px 300px;
-    text-align: left;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  font-size: 2em;
+  color: #fff;
+  margin: 40px 0 10px 300px;
+  text-align: left;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Form container */
 form {
-    max-width: 600px;
-    margin: 40px 0 40px 60px;
-    padding: 30px;
-    background-color: rgba(255, 255, 255, 0.95);
-    /* Semi-transparent background */
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: 40px 0 40px 60px;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Form fields */
 form input[type="text"],
 form input[type="email"],
 form textarea {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    box-sizing: border-box;
-    background-color: #fdfdfd;
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  box-sizing: border-box;
+  background-color: #fdfdfd;
 }
 
 /* Button style */
 form button[type="submit"] {
-    background-color: #f5a623;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1em;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
+  background-color: #f5a623;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 form button[type="submit"]:hover {
-    background-color: #e6951c;
+  background-color: #e6951c;
 }
 
 /* Error and label tweaks */
 form p {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 form label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    color: #444;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
 }
 
 .success-popup {
-    position: fixed;
-    top: 50%;
-    left: 65%;
-    transform: translate(-50%, -50%);
-    background-color: #4BB543;
-    color: white;
-    padding: 40px 60px;
-    /* ⬅️ Bigger padding */
-    font-size: 1.25rem;
-    /* ⬅️ Larger text */
-    border-radius: 12px;
-    /* ⬅️ Slightly rounder */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-    z-index: 9999;
-    display: none;
-    min-width: 300px;
-    /* ⬅️ Optional: make sure it's not too narrow */
-    text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  background-color: #4bb543;
+  color: white;
+  padding: 40px 60px;
+  font-size: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  display: none;
+  min-width: 300px;
+  text-align: center;
 }
 
 .success-popup.show {
-    display: block;
+  display: block;
 }
 
 .success-popup button {
-    margin-top: 15px;
-    background-color: #f5a623;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+  margin-top: 15px;
+  background-color: #f5a623;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .success-popup button:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 @media (max-width: 768px) {
-    h2 {
-        font-size: 1.5em;
-        margin: 20px auto 10px;
-        text-align: center;
-    }
+  h2 {
+    font-size: 1.5em;
+    margin: 20px auto 10px;
+    text-align: center;
+  }
 
-    form {
-        margin: 20px auto;
-        padding: 20px;
-        width: 90%;
-    }
+  form {
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+  }
 
-    .success-popup {
-        left: 50%;
-        padding: 20px 25px;
-        font-size: 1rem;
-        min-width: unset;
-        width: 80%;
-    }
+  .success-popup {
+    left: 50%;
+    padding: 20px 25px;
+    font-size: 1rem;
+    min-width: unset;
+    width: 80%;
+  }
 
-    .success-popup button {
-        width: 100%;
-        padding: 10px;
-    }
+  .success-popup button {
+    width: 100%;
+    padding: 10px;
+  }
 }

@@ -1,175 +1,158 @@
 h1 {
-    font-size: 36px;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 #item-container {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
 }
 
 .menu-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 30px;
-    padding: 30px;
-    border: 1px solid #eee;
-    border-radius: 16px;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    max-width: 900px;
-    width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 30px;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  width: 100%;
 }
 
 .menu-item-image img {
-    width: 240px;
-    height: 240px;
-    object-fit: cover;
-    border-radius: 12px;
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .menu-item-image img:active {
-    transform: scale(2);
-    transition: transform 0.3s ease;
-    z-index: 3;
+  transform: scale(2);
+  transition: transform 0.3s ease;
+  z-index: 3;
 }
 
 .menu-item-details {
-    flex: 1;
+  flex: 1;
 }
 
 .menu-item-details h3 {
-    font-size: 28px;
-    margin: 0 0 15px;
-    color: #222;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  font-size: 28px;
+  margin: 0 0 15px;
+  color: #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menu-item-details h3 span {
-    font-size: 24px;
-    font-weight: bold;
-    color: #e67e22;
+  font-size: 24px;
+  font-weight: bold;
+  color: #e67e22;
 }
 
 .menu-item-details p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 10px;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .menu-section {
-    position: relative;
+  position: relative;
 }
-
-/* ===== Back button (only this part adjusted) ===== */
 #back-button {
-    background-color: #f5a623;
-    /* orange background */
-    color: #000000;
-    /* white text & icon */
-    border: none;
-    border-radius: 6px;
-    /* soft edges */
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1;
+  background-color: #f5a623;
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
 
-    display: inline-flex;
-    /* align text & icon in one line */
-    align-items: center;
-    gap: 8px;
-    /* space between text & icon */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .12);
-    transition: background-color .2s ease, transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease, transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 #back-button i {
-    font-size: 20px;
-    /* fixed typo: px (not x) */
+  font-size: 20px;
 }
 
 #back-button:hover {
-    background-color: #e2931d;
-    /* darker orange on hover */
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, .18);
+  background-color: #e2931d;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
 #back-button:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 #back-button:focus-visible {
-    outline: 2px solid #333;
-    outline-offset: 2px;
-    border-radius: 8px;
+  outline: 2px solid #333;
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 @media (max-width: 720px) {
+  #item-container {
+    padding: 16px;
+  }
 
-    /* Page & heading */
-    #item-container {
-        padding: 16px;
-    }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
 
-    h1 {
-        font-size: 28px;
-        margin-bottom: 12px;
-    }
+  #item-container .menu-item {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 12px;
+  }
 
-    /* Card layout */
-    #item-container .menu-item {
-        flex-direction: column;
-        gap: 14px;
-        padding: 16px;
-        border-radius: 12px;
-    }
+  .menu-item-image,
+  .menu-item-image img {
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
 
-    /* Image full width */
-    .menu-item-image,
-    .menu-item-image img {
-        width: 100%;
-        max-width: 100%;
-        height: 220px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
+  .menu-item-details h3 {
+    font-size: 22px;
+    align-items: flex-start;
+    gap: 8px;
+  }
 
-    /* Details */
-    .menu-item-details h3 {
-        font-size: 22px;
-        align-items: flex-start;
-        /* avoid price pushing text down */
-        gap: 8px;
-    }
+  .menu-item-details h3 span {
+    font-size: 16px;
+  }
 
-    .menu-item-details h3 span {
-        font-size: 16px;
-        /* smaller price badge */
-    }
+  .menu-item-details p {
+    font-size: 16px;
+  }
 
-    .menu-item-details p {
-        font-size: 16px;
-    }
+  #back-button {
+    align-self: flex-end;
+    font-size: 14px;
+    padding: 10px 14px;
+    gap: 6px;
+  }
 
-    /* Back button: comfy tap target, right-aligned in stacked layout */
-    #back-button {
-        align-self: flex-end;
-        /* push to the right */
-        font-size: 14px;
-        padding: 10px 14px;
-        gap: 6px;
-    }
-
-    #back-button i {
-        font-size: 16px;
-    }
+  #back-button i {
+    font-size: 16px;
+  }
 }

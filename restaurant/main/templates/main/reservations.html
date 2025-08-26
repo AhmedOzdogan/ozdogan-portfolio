@@ -1,18 +1,16 @@
-{% extends 'main/base.html' %}
-
-{% load static %}
-
-{% block title %}
-  Reservations
-{% endblock %}
-
-{% block extra_head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'restaurant_main/css/reservations.css' %}">
-  <script src="{% static 'restaurant_main/js/reservations.js' %}" defer></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-{% endblock %}
-
-{% block content %}
+{% extends 'main/base.html' %} {% load static %} {% block title %} Reservations
+{% endblock %} {% block extra_head %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'restaurant_main/css/reservations.css' %}"
+/>
+<script src="{% static 'restaurant_main/js/reservations.js' %}" defer></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+/>
+{% endblock %} {% block content %}
 
 <div class="reservation-intro">
   <h1>Reservations</h1>
@@ -22,7 +20,7 @@
 <div class="reservation-wrapper">
   <div class="reservation-form">
     <h1>Make a Reservation</h1>
-      <form id="reservation-form" method="post">
+    <form id="reservation-form" method="post">
       {% csrf_token %}
 
       <label for="{{ form.name.id_for_label }}">Name:</label>
@@ -31,12 +29,13 @@
       <label for="{{ form.email.id_for_label }}">Email:</label>
       {{ form.email }}
 
-      <label for="{{ form.reservation_date.id_for_label }}">Reservation date:</label>
+      <label for="{{ form.reservation_date.id_for_label }}"
+        >Reservation date:</label
+      >
       {{ form.reservation_date }}
 
       <p class="range-wrapper">
-        {{ form.number_of_guests.label_tag }}
-        {{ form.number_of_guests }}
+        {{ form.number_of_guests.label_tag }} {{ form.number_of_guests }}
         <output id="guests-output">5</output>
       </p>
 
@@ -45,42 +44,44 @@
   </div>
 
   <div class="reservation-details">
-  <div class="reservation-check">
-    <h1>Check Your Reservation</h1>
-    <form id="reservation-check-form" method="post">
-      {% csrf_token %}
-      <label for="reservation_id">Reservation ID:</label>
-      <input type="text" name="reservation_id" placeholder="Reservation ID" required>
-      <label for="email">Email:</label>
-      <input type="email" name="email" placeholder="Email" required>
-      <button type="submit">Check</button>
-    </form>
+    <div class="reservation-check">
+      <h1>Check Your Reservation</h1>
+      <form id="reservation-check-form" method="post">
+        {% csrf_token %}
+        <label for="reservation_id">Reservation ID:</label>
+        <input
+          type="text"
+          name="reservation_id"
+          placeholder="Reservation ID"
+          required
+        />
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Email" required />
+        <button type="submit">Check</button>
+      </form>
     </div>
 
     <div id="reservation-status">
       <h1>Your Reservation Status</h1>
-        <p id="status-message">No reservation found.</p>
+      <p id="status-message">No reservation found.</p>
     </div>
   </div>
 </div>
 
-
 <div id="reservation-popup" class="reservation-popup hidden">
   <h2>Reservation Confirmed</h2>
-  <div id="reservation-details"></div> <!-- Details will go here -->
+  <div id="reservation-details"></div>
   <button id="close-reservation-popup">OK</button>
 </div>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-   flatpickr("#reservation_date", {
-      enableTime: true,
-      dateFormat: "Y-m-d H:i",
-      time_24hr: true,
-      minuteIncrement: 30,
-      minDate: "today"
-   });
+  flatpickr("#reservation_date", {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    time_24hr: true,
+    minuteIncrement: 30,
+    minDate: "today",
+  });
 </script>
 {% endblock %}
