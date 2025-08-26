@@ -1,62 +1,63 @@
-# ScheduleV6 — Desktop Teaching Schedule Manager
+# 📅 ScheduleV6 — Desktop Teaching Schedule Manager (Python + Tkinter + MySQL)
 
-A desktop app for freelance teachers to plan weekly lessons, track payments, and manage simple monthly finances.  
-_Built with Python, Tkinter, tkcalendar, and MySQL._
+A desktop teaching schedule manager built for freelance educators to streamline lesson planning, payment tracking, and monthly income management. Developed with Python 3, Tkinter for the user interface, tkcalendar for calendar navigation, and MySQL for persistent data storage, the application combines a clean, interactive GUI with a robust relational database. It supports full CRUD operations, financial reporting, and real-time weekly scheduling, providing a week-at-a-glance timetable, context menus for quick edits, and an integrated finance tracker that automatically calculates salaries and savings. This project demonstrates expertise in Python application development, database-driven design, GUI/UX principles, and financial data management, making it highly relevant for software engineering, backend development, and full-stack roles.
 
 ---
 
 ## 🗂 Overview
 
-ScheduleV6 displays a week-at-a-glance grid (Mon–Sun), listing classes for each day (ID, class, school, date/time, rate, paid status), powered by a MySQL backend.  
-A side calendar lets you jump weeks quickly; totals and money breakdowns update automatically.  
-Right-click any class for a context menu with edit, duplicate, and payment shortcuts.  
-A small “Account” window logs monthly savings and auto-computes salary from scheduled classes.
+- **Week-at-a-glance timetable** (Mon–Sun):  
+   Displays classes with ID, name, school, date/time, rate, and payment status.
+- **Calendar widget** for fast navigation.
+- **Automatic financial breakdowns**.
+- **Context menu** for editing, duplicating, and payment toggling.
+- **“Account” module**: Logs monthly savings and computes salaries.
 
 ---
 
 ## ✨ Key Features
 
-- **Weekly schedule grid**  
-    Auto-grouping and sorting by start time. Unpaid classes highlighted (e.g., `NO !!`).
-
-- **Date picker**  
-    Quickly jump to any week using tkcalendar.
-
-- **Totals panel**  
-    Weekly/monthly hours, salary, received vs expected; ARC/OEA/private hour splits; ARC “periods” conversion (35-minute periods).
-
-- **CRUD operations**  
-    - Add class (dialog with date + time spinboxes)
-    - Edit class (dialog, updates DB)
-    - Duplicate class (dialog)
-    - Delete by class or bulk delete by week (with confirmation)
-
-- **Payment management**  
-    Toggle paid/unpaid per class; mark all classes in a month as paid.
-
-- **Copy Week tool**  
-    Select classes from a week and copy to the same weekdays of another week.
-
-- **Monthly Income (Account)**  
-    Table of months, savings, computed salary; update buttons for savings and salary.
-
-- **Menus & Shortcuts**  
-    - File → Connection Settings / Exit  
-    - Edit → New Class (F1), Copy Classes (F4), Calculate Hours (F10), Account  
-    - F5 refreshes the current week
+- **Weekly Schedule Grid**
+  - Auto-sorting by start time
+  - Highlight unpaid classes (`NO !!`)
+- **Date Picker (tkcalendar)**
+  - Quickly jump to any week
+- **Financial Dashboard**
+  - Weekly/monthly totals: hours, salary, received vs expected
+  - ARC/OEA/private splits and ARC “periods” conversion
+- **CRUD Operations**
+  - Add, edit, duplicate, delete classes
+  - Bulk delete by week
+- **Payment Management**
+  - Toggle paid/unpaid per class
+  - Mark entire months as paid
+- **Copy Week Tool**
+  - Duplicate a week’s schedule
+- **Monthly Income (Account)**
+  - Track savings and salaries by month
+- **Menus & Shortcuts**
+  - File → Connection Settings / Exit
+  - Edit → New Class (F1), Copy Classes (F4), Calculate Hours (F10), Account
+  - F5 to refresh
 
 ---
 
 ## 🏗 Architecture & Data
 
-- **GUI:** Tkinter Treeview for weekly grid, themed with clam, larger row height for multi-line class cells.
-- **Calendar:** tkcalendar.Calendar + DateEntry in dialogs.
-- **Database:** MySQL (via `mysql.connector`). Credentials read from local `SQL.txt` (host, user, password, database).
-- **Tables:**
-    - `teaching_schedule(id, class, date, starttime, endtime, school, rate, paid)`
-    - `account(month, savings, salary)`
+- **Frontend (GUI):** Tkinter Treeview, clam theme, multi-line class cells
+- **Calendar:** tkcalendar.Calendar & DateEntry in dialogs
+- **Backend (Database):** MySQL (`mysql.connector`)
+- **Configuration:** Credentials from local `SQL.txt` (host, user, password, database)
 
-💡 _Salary math:_ Money rates are in thousands of VND; totals multiply by 1000 and round up for display. ARC “periods” convert from hours at 60/35, then displayed in hours again by reversing the factor.
+**Database Tables:**
+
+```sql
+teaching_schedule(id, class, date, starttime, endtime, school, rate, paid)
+account(month, savings, salary)
+```
+
+💡 _Financial logic:_  
+Rates stored in thousands of VND; totals multiply by 1000 and round. ARC periods converted at 60/35.
 
 ---
 
@@ -65,14 +66,14 @@ A small “Account” window logs monthly savings and auto-computes salary from 
 ### Requirements
 
 - Python 3.x
-- MySQL server & database with the two tables above
+- MySQL server & database (see schema below)
 - Packages: `mysql-connector-python`, `tkcalendar`, Tkinter (standard)
 
 ### Configuration
 
-1. Create `SQL.txt` with 4 lines: host, user, password, database.
-2. Place it where the app expects, or update the path.
-3. _(Windows)_ Optional icon and button images: update paths for `icon.ico`, `refresh.png`, `payment.png`, `delete.png`.
+1. Create `SQL.txt` with host, user, password, database (one per line).
+2. Place it in the expected path (or update the code).
+3. (Windows) Update optional assets: `icon.ico`, `refresh.png`, `payment.png`, `delete.png`.
 
 ### Run
 
@@ -80,35 +81,33 @@ A small “Account” window logs monthly savings and auto-computes salary from 
 python ScheduleV6.2.py
 ```
 
-The main window appears centered with a fixed size; the week table and calendar load immediately.
-
 ---
 
 ## 🚀 Using the App
 
-- **Pick a date:** Use the left calendar; app computes Monday–Sunday range and loads classes for that week.
-- **Refresh:** F5 or the refresh button.
-- **Add a class:** Edit → New Class (F1), fill fields, Submit.
-- **Right-click a class:** Details, Delete, Edit, Duplicate, mark Un/Paid.
-- **Copy Classes:** Edit → Copy Classes (F4), “Get Classes”, select or “Select All”, “Copy”.
-- **Calculate Hours:** Edit → Calculate Hours (F10), choose Year/Month/Company/School → Calculate.
-- **Account (Monthly Income):** Edit → Account, pick month, update Savings or compute Salary from schedule.
+- Pick a week via calendar → auto loads Mon–Sun
+- F5 refreshes
+- F1 adds a class (dialog with spinboxes & DateEntry)
+- Right-click for context menu (edit, duplicate, delete, toggle paid/unpaid)
+- F4 copies classes between weeks
+- F10 calculates hours (filter by year/month/company/school)
+- “Account” tracks savings and computed salary
 
 ---
 
 ## 🖥 UX Details
 
-- Row height & multi-line cells show ID, class, school, date/time, paid, and rate in one cell.
-- Visual cues for unpaid (`NO !!`).
-- Dialogs reuse DateEntry and time spinboxes; paid state edited via combobox.
+- Multi-line Treeview rows (ID, class, school, date/time, paid status, rate)
+- Highlight unpaid (`NO !!`)
+- Standardized dialogs with DateEntry, spinboxes, and comboboxes
 
 ---
 
-## 🔒 Security & Portability Notes
+## 🔒 Security & Portability
 
-- Credentials in plain text (`SQL.txt`) — consider environment variables or a secure config store.
-- Hard-coded Windows paths for icon/images — make these relative or configurable for cross-platform use.
-- Parameterized queries used throughout (good against SQL injection).
+- Credentials in plain text → should use env variables or config manager
+- Hardcoded Windows paths → make relative for cross-platform support
+- All SQL uses parameterized queries (safe from injection)
 
 ---
 
@@ -116,57 +115,54 @@ The main window appears centered with a fixed size; the week table and calendar 
 
 ```sql
 CREATE TABLE teaching_schedule (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    class VARCHAR(100) NOT NULL,
-    date DATE NOT NULL,
-    starttime TIME NOT NULL,
-    endtime TIME NOT NULL,
-    school VARCHAR(100),
-    rate INT NOT NULL,      -- in 'thousands of VND'
-    paid ENUM('yes','no') DEFAULT 'no'
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        class VARCHAR(100) NOT NULL,
+        date DATE NOT NULL,
+        starttime TIME NOT NULL,
+        endtime TIME NOT NULL,
+        school VARCHAR(100),
+        rate INT NOT NULL,      -- thousands of VND
+        paid ENUM('yes','no') DEFAULT 'no'
 );
 
 CREATE TABLE account (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    month TINYINT NOT NULL, -- 1..12
-    savings BIGINT DEFAULT 0,
-    salary BIGINT DEFAULT 0
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        month TINYINT NOT NULL, -- 1..12
+        savings BIGINT DEFAULT 0,
+        salary BIGINT DEFAULT 0
 );
 ```
 
 ---
 
-## 🛣 Roadmap Ideas
+## 🛣 Roadmap
 
-- Make asset/config paths relative; add a settings dialog to pick icon/images.
-- Export weekly/monthly reports (CSV/PDF).
-- Role-based schools/clients; separate rates per school or class type.
-- Replace plain-text `SQL.txt` with env-based config.
-- Package as a standalone executable (PyInstaller) for non-technical users.
+- Settings dialog for assets & config
+- Export reports (CSV, PDF)
+- Per-school rates
+- Replace SQL.txt with environment config
+- Package executable with PyInstaller
 
 ---
 
 ## 🆘 Troubleshooting
 
-- **Nothing loads:** Verify `SQL.txt` (host/user/pass/db) and DB connectivity.
-- **Icons/buttons missing:** Update image paths or remove image-based buttons.
-- **Totals look odd:** Rates are multiplied by 1000 for VND; ensure your rate is set to “thousands of VND”.
+- Nothing loads: Check SQL.txt & DB connection
+- Missing icons: Update/remove image paths
+- Totals mismatch: Rates are in thousands of VND
 
 ---
 
-## ⌨️ Shortcuts & Menus
+## ⌨️ Shortcuts
 
-- **F1:** New Class
-- **F4:** Copy Classes
-- **F5:** Refresh
-- **F10:** Calculate Hours
-
-_File:_ Connection Settings / Exit  
-_Edit:_ New Class, Copy, Calculate Hours, Account
+- F1: New Class
+- F4: Copy Classes
+- F5: Refresh
+- F10: Calculate Hours
 
 ---
 
 ## 📄 License
 
 Personal/portfolio project.  
-_Add a license (e.g., MIT) if you plan to distribute._
+Add MIT or another license if distributing.
