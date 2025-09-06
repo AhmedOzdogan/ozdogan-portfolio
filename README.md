@@ -10,6 +10,7 @@ Welcome to my personal portfolio! Here you'll find a showcase of my work and ski
 It helps freelance teachers organize weekly lessons, track payments, and monitor monthly income.
 
 **Key Features:**
+
 - Week-at-a-glance grid with multi-line cells for class details
 - Interactive calendar for quick navigation
 - Automatic calculations of hours, earnings, and unpaid lessons
@@ -29,6 +30,7 @@ It helps freelance teachers organize weekly lessons, track payments, and monitor
 A full-stack web application built with **Django 5** and **Django REST Framework**.
 
 **Highlights:**
+
 - Visually appealing, mobile-responsive menu with detailed item pages
 - Real-time reservations via REST API
 - Engaging sections: Home, About, Contact
@@ -40,11 +42,14 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 
 ---
 
-## 📅 SchedEye ([www.schedeye.com](https://www.schedeye.com))
+## 📅 SchedEye
+
+[www.schedeye.com](https://www.schedeye.com)
 
 **SchedEye** is a modern, mobile-friendly web app for freelance teachers and small institutes.
 
 **Features:**
+
 - Secure authentication
 - Responsive design (Bootstrap 5)
 - Organize lessons, calculate earnings, and monitor login history
@@ -55,3 +60,20 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 [🌐 Visit SchedEye Website](https://www.schedeye.com)
 
 ---
+
+## 🥐 Bakery & Restaurant App
+
+A full-stack bakery & restaurant application built with **Django 5**, **Django REST Framework**, and **vanilla JavaScript**.  
+It combines a modern shopping cart, checkout flow with Stripe integration, and a mobile-first frontend for an engaging customer experience.
+
+**Highlights:**
+
+- Mobile-responsive design with menu browsing & product detail pages
+- Shopping cart for both anonymous and logged-in users (cart persistence after login)
+- Checkout system powered by Stripe (demo/test mode)
+- User accounts with profile, address management, and order history
+- REST API endpoints for products, addons, cart, and orders
+- Admin panel for managing menu items, orders, and addons
+- Custom error pages (400, 404, 500) for a polished user experience
+
+[🔗 View Bakery Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/bakery)
