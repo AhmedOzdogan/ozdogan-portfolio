@@ -42,9 +42,7 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 
 ---
 
-## 📅 SchedEye
-
-[www.schedeye.com](https://www.schedeye.com)
+## 📅 SchedEye ([www.schedeye.com](https://www.schedeye.com))
 
 **SchedEye** is a modern, mobile-friendly web app for freelance teachers and small institutes.
 
@@ -74,6 +72,5 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 - User accounts with profile, address management, and order history
 - REST API endpoints for products, addons, cart, and orders
 - Admin panel for managing menu items, orders, and addons
-- Custom error pages (400, 404, 500) for a polished user experience
 
 [🔗 View Bakery Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/bakery)
