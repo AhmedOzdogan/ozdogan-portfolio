@@ -269,6 +269,7 @@ def order_list_view(request):
     if role == "CUSTOMER":
         orders = Order.objects.filter(user=request.user).order_by("-created_at")
         template = "shop/customer_order_list.html"
+        status_choices = None
     elif role == "MANAGER":
         status_choices = Order._meta.get_field("order_status").choices
         restaurant = getattr(request.user, "restaurant", None)

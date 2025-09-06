@@ -8,7 +8,7 @@
       <li><a href="#education-box">Education</a></li>
       <li><a href="#certificates">Certificates</a></li>
       <li>
-        <a href="#languages">Programming <br />Languages</a>
+        <a href="#languages">Technical Skills</a>
       </li>
       <li><a href="#experience">Work Experience</a></li>
     </ul>
@@ -113,28 +113,31 @@
     </section>
 
     <section class="languages" id="languages">
-      <div class="languages-box">
-        <h2 class="languages-title">Programming Languages</h2>
+      <div class="technical-skills-box">
+        <h2 class="technical-skills-title">Technical Skills</h2>
 
         <div class="languages-list">
-          {% for language in languages %}
-          <div class="language-item">
+          {% for category in skills_by_category %}
+          <div class="category-item">
+            <h3 class="category-title">{{ category.label }}</h3>
+            {% for skill in category.skills %}
             <div class="lang-card">
               <div class="lang-face lang-front">
-                <span class="lang-icon" aria-label="{{ language.name }}">
+                <span class="lang-icon" aria-label="{{ skill.name }}">
                   <!-- {{ language.name }} -->
                   <img
                     class="lang-icon-img"
-                    src="{{ language.picture.url }}"
-                    alt="{{ language.name }} icon"
+                    src="{{ skill.picture.url }}"
+                    alt="{{ skill.name }} icon"
                   />
                 </span>
-                <p class="language-name">{{ language.name }}</p>
+                <p class="language-name">{{ skill.name }}</p>
               </div>
               <div class="lang-face lang-back">
-                <p class="language-details">{{ language.details }}</p>
+                <p class="language-details">{{ skill.details }}</p>
               </div>
             </div>
+            {% endfor %}
           </div>
           {% endfor %}
         </div>

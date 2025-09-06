@@ -26,5 +26,5 @@ class WorkExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Languages)
 class LanguagesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'details', 'picture')
+    list_display = ('id', 'name', 'category', 'details', 'picture')
     search_fields = ('name',)

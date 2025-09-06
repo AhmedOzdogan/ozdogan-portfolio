@@ -1,21 +1,35 @@
 <!-- Topbar -->
-<div class="site-topbar text-light">
+<div class="site-topbar text-light d-none d-lg-block">
   <div class="container-fluid">
-    <div class="row gx-0 align-items-center d-none d-lg-flex" style="min-height:48px">
+    <div class="row gx-0 align-items-center" style="min-height: 48px">
       <div class="col-lg-6 px-4 text-start">
         <ol class="breadcrumb mb-0 topbar-breadcrumb">
-          <li class="breadcrumb-item"><a class="small text-light" href="{% url 'main:index' %}">Home</a></li>
-          <li class="breadcrumb-item"><a class="small text-light" href="#">Career</a></li>
-          <li class="breadcrumb-item"><a class="small text-light" href="#">Terms</a></li>
-          <li class="breadcrumb-item"><a class="small text-light" href="#">Privacy</a></li>
+          <li class="breadcrumb-item">
+            <a class="small text-light" href="{% url 'main:index' %}">Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="small text-light" href="#">Career</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="small text-light" href="#">Terms</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a class="small text-light" href="#">Privacy</a>
+          </li>
         </ol>
       </div>
       <div class="col-lg-6 px-4 text-end">
         <small class="follow-label me-2">Follow us:</small>
         <span class="social-icons d-inline-flex align-items-center">
-          <a class="social-btn border-end" href="#"><i class="fab fa-facebook-f"></i></a>
-          <a class="social-btn border-end" href="#"><i class="fab fa-twitter"></i></a>
-          <a class="social-btn border-end" href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a class="social-btn border-end" href="#"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a class="social-btn border-end" href="#"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a class="social-btn border-end" href="#"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
           <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
         </span>
       </div>
@@ -26,14 +40,22 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark site-navbar fixed-top">
   <div class="container-fluid px-lg-5">
+    <!-- Brand -->
     <a href="{% url 'main:index' %}" class="navbar-brand ms-2 ms-lg-0">
       <span class="text-primary h3 mb-0">Baker</span>
     </a>
 
-    <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+    <!-- Toggler -->
+    <button
+      class="navbar-toggler me-2"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Collapsed Nav -->
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mx-auto p-3 p-lg-0">
         <li class="nav-item">
@@ -42,73 +64,146 @@
 
         <!-- Menu dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="menuDropdown" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
+          <a
+            class="nav-link dropdown-toggle"
+            id="menuDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             Products
           </a>
           <ul class="dropdown-menu m-0" aria-labelledby="menuDropdown">
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}">All Products</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=cookies">Cookies</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=breads">Breads</a></li>
-            <li><a class="dropdown-item" href="{% url 'main:menu' %}?category=cakes">Cakes</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'main:menu' %}"
+                >All Products</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{% url 'main:menu' %}?category=cookies"
+                >Cookies</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{% url 'main:menu' %}?category=breads"
+                >Breads</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{% url 'main:menu' %}?category=cakes"
+                >Cakes</a
+              >
+            </li>
           </ul>
         </li>
 
-
-        
-        <li class="nav-item">
-          <a href="#" class="nav-link">About</a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
       </ul>
-    </div>
 
+      <!-- User + Cart side by side -->
+      <div
+        class="d-flex flex-row gap-2 mt-2 mt-lg-0 justify-content-lg-end w-100 w-lg-auto"
+      >
+        <!-- User / Login -->
+        <div
+          class="button-cart-group d-flex flex-column justify-content-end flex-lg-row align-items-lg-center w-100 w-lg-auto"
+        >
+          {% if request.user.is_authenticated %}
+          <div
+            class="user-dropdown dropdown w-40 w-lg-auto text-center text-lg-center"
+          >
+            <button
+              class="dropdown-toggle btn btn-outline-light w-100 w-lg-auto"
+              id="userMenuBtn"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Hello {{ request.user.first_name }}
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-end"
+              aria-labelledby="userMenuBtn"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'main:profile' %}"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'main:address_list' %}"
+                  >Address List</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'shop:order_list' %}"
+                  >Orders</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'main:logout' %}"
+                  >Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+          {% else %}
+          <div
+            class="button-group d-flex flex-column flex-lg-row justify-content-end w-100 w-lg-auto text-center text-lg-end"
+          >
+            <a
+              href="{% url 'main:login' %}"
+              class="login btn btn-primary w-100 w-lg-auto mb-2 mb-lg-0"
+              >Login</a
+            >
+            <a
+              href="{% url 'main:signup' %}"
+              class="sign-up btn btn-outline-light w-100 w-lg-auto ms-lg-2"
+              >Sign Up</a
+            >
+          </div>
+          {% endif %}
+        </div>
 
-    <div class="button-cart-group d-none d-lg-flex align-items-center m-0">
-    {% if request.user.is_authenticated %}
-      <div class="user-dropdown dropdown">  <!-- add .dropdown for bootstrap behaviour -->
-        <button
-          class="dropdown-toggle nav-control"
-          id="userMenuBtn"
-          data-bs-toggle="dropdown"
-          aria-expanded="false">
-          Hello {{ request.user.first_name }}
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="userMenuBtn">
-          <li><a class="dropdown-item" href="{% url 'main:profile' %}">Profile</a></li>
-          <li><a class="dropdown-item" href="{% url 'main:address_list' %}">Address List</a></li>
-          <li><a class="dropdown-item" href="{% url 'shop:order_list' %}">Orders</a></li>
-          <li><a class="dropdown-item" href="{% url 'main:logout' %}">Logout</a></li>
-        </ul>
-      </div>
-    {% else %}
-      <div class="button-group">
-        <a href="{% url 'main:login' %}" class="login btn btn-primary">Login</a>
-        <a href="{% url 'main:signup' %}" class="sign-up btn btn-outline-light ms-2">Sign Up</a>
-      </div>
-    {% endif %}
-
-
-        <<div class="cart-group btn-group dropdown-center">
+        <!-- Cart -->
+        <div class="cart-group btn-group dropdown-center">
           <button
-            class="cart-price-box dropdown-toggle nav-control" 
-            id="cartPriceBtn"        
+            class="cart-price-box dropdown-toggle nav-control"
+            id="cartPriceBtn"
             data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <span id="cartTotal"></span>
+            aria-expanded="false"
+          >
+            <span id="cartTotal">$0.00</span>
           </button>
-
-          <!-- keep ONE dropdown menu and bind it to the button's id -->
-          <ul class="dropdown-menu cart-dropdown" aria-labelledby="cartPriceBtn">
+          <ul
+            class="dropdown-menu cart-dropdown"
+            aria-labelledby="cartPriceBtn"
+          >
             <li class="dropdown-header">Your cart</li>
-            <li id="cartItems"><div class="px-3 py-2 text-muted small">Your cart is empty</div></li>
+            <li id="cartItems">
+              <div class="px-3 py-2 text-muted small">Your cart is empty</div>
+            </li>
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </nav>
+
+<!-- Custom CSS for mobile navbar height -->
+<style>
+  @media (max-width: 991.98px) {
+    .site-navbar {
+      min-height: 60px;
+    }
+    .navbar-toggler {
+      padding: 0.6rem 0.8rem;
+    }
+  }
+</style>

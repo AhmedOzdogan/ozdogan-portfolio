@@ -21,11 +21,21 @@ def resume(request):
 
 
     experience = WorkExperience.objects.all().order_by('-start_date')
-    languages = Languages.objects.all()
+    categories = Languages.categories  # the choices
+    skills_by_category = []
+
+    for key, label in categories:
+        skills = Languages.objects.filter(category=key)
+        if skills.exists():
+            skills_by_category.append({
+                "label": label,
+                "skills": skills
+            })
+    print(skills_by_category)
 
     return render(request, 'maincvapp/resume.html', {'certificate_groups': certificate_groups, 
                                                      'experience': experience,
-                                                     'languages': languages})
+                                                     'skills_by_category': skills_by_category})
 def projects(request):
     url = "https://api.github.com/repos/AhmedOzdogan/ozdogan-portfolio/contents"
     token = os.getenv("GITHUB_TOKEN")

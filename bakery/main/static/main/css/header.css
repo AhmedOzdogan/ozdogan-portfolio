@@ -23,7 +23,7 @@
   color: #fff;
   background-color: #363636;
   transform: translateY(0);
-  transition: transform .3s ease;
+  transition: transform 0.3s ease;
 }
 
 /* navbar */
@@ -33,7 +33,7 @@
   left: 0;
   right: 0;
   z-index: 1040;
-  transition: top .3s ease;
+  transition: top 0.3s ease;
 }
 
 /* body offset desktop */
@@ -49,11 +49,9 @@
     position: static;
     height: auto;
   }
-
   .site-navbar {
     top: 0;
   }
-
   body {
     padding-top: var(--navbar-h);
   }
@@ -68,7 +66,6 @@ body.topbar-hidden .site-topbar {
   body.topbar-hidden .site-navbar {
     top: 0;
   }
-
   body.topbar-hidden {
     padding-top: var(--navbar-h);
   }
@@ -93,14 +90,14 @@ body.topbar-hidden .site-topbar {
   padding: 0;
 }
 
-.topbar-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
-  color: rgba(255, 255, 255, .55);
+.topbar-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .topbar-breadcrumb .breadcrumb-item a {
   color: #cfcfcf;
   text-decoration: none;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 .topbar-breadcrumb .breadcrumb-item a:hover {
@@ -120,7 +117,7 @@ body.topbar-hidden .site-topbar {
   height: 36px;
   color: var(--header-primary);
   text-decoration: none;
-  transition: background-color .2s, color .2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .social-icons .social-btn:hover {
@@ -129,7 +126,7 @@ body.topbar-hidden .site-topbar {
 }
 
 .social-icons .social-btn.border-end {
-  border-right: 1px solid rgba(255, 255, 255, .2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* topbar fixed desktop only */
@@ -145,14 +142,14 @@ body.topbar-hidden .site-topbar {
 /* navbar look */
 .site-navbar {
   z-index: 1040;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   min-height: 100px;
 }
 
 /* navbar links */
 .site-navbar .nav-link {
-  padding: .75rem 1rem;
-  transition: color .2s ease;
+  padding: 0.75rem 1rem;
+  transition: color 0.2s ease;
 }
 
 .site-navbar .nav-link:hover,
@@ -167,7 +164,7 @@ body.topbar-hidden .site-topbar {
 
 /* brand */
 .site-navbar .navbar-brand .text-primary {
-  letter-spacing: .4px;
+  letter-spacing: 0.4px;
 }
 
 /* phone icon */
@@ -196,9 +193,10 @@ body.topbar-hidden .site-topbar {
     left: 0;
     right: 0;
   }
-
   body {
-    padding-top: calc(var(--header-topbar-height) + var(--header-navbar-height));
+    padding-top: calc(
+      var(--header-topbar-height) + var(--header-navbar-height)
+    );
   }
 }
 
@@ -210,7 +208,6 @@ body.topbar-hidden .site-topbar {
     left: 0;
     right: 0;
   }
-
   body {
     padding-top: var(--header-navbar-height);
   }
@@ -259,11 +256,11 @@ body.topbar-hidden .site-topbar {
 
 /* anchor */
 .cart-group {
-    position: relative;
-    display: inline-block;
-    align-items: center;
-    vertical-align: top;
-    gap: 0;
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  vertical-align: top;
+  gap: 0;
 }
 
 .cart-group .dropdown-menu.cart-dropdown {
@@ -271,41 +268,30 @@ body.topbar-hidden .site-topbar {
   right: 0 !important;
   left: auto !important;
   transform: none !important;
-
-  /* remove Bootstrap's default top margin (spacer) */
   --bs-dropdown-spacer: 0;
   margin: 0 !important;
-
-  /* overlap the button border so there's zero visible gap */
   top: calc(100% - 1px) !important;
-  /* if your button has 2px border, use -2px */
-
   min-width: 240px !important;
   z-index: 1100;
-
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-
-/* narrow screens */
 @media (max-width: 420px) {
   .cart-group .dropdown-menu.cart-dropdown {
     min-width: 200px !important;
   }
 }
 
-/* scroll area */
 .cart-group .dropdown-menu.cart-dropdown .cart-items-scroll {
   max-height: 260px;
   overflow-y: auto;
   padding-right: 4px;
 }
 
-/* item row */
 .cart-dropdown .cart-item {
   display: flex;
   justify-content: space-between;
@@ -320,7 +306,6 @@ body.topbar-hidden .site-topbar {
   border-bottom: none;
 }
 
-/* item text */
 .cart-dropdown .cart-item .ci-name {
   flex: 1 1 auto;
   color: #333;
@@ -328,7 +313,6 @@ body.topbar-hidden .site-topbar {
   min-width: 0;
 }
 
-/* item price */
 .cart-dropdown .cart-item .ci-price {
   flex: 0 0 auto;
   white-space: nowrap;
@@ -336,7 +320,6 @@ body.topbar-hidden .site-topbar {
   font-variant-numeric: tabular-nums;
 }
 
-/* total row */
 .cart-dropdown .cart-total {
   margin-top: 8px;
   padding-top: 8px;
@@ -346,7 +329,6 @@ body.topbar-hidden .site-topbar {
   font-size: 15px;
 }
 
-/* view cart button */
 .cart-dropdown .cart-actions .btn-view-cart,
 .cart-dropdown a.btn-view-cart {
   display: block;
@@ -364,7 +346,6 @@ body.topbar-hidden .site-topbar {
   background: #0b5ed7;
 }
 
-/* empty state */
 .cart-dropdown .cart-empty {
   padding: 8px 0;
   color: #6c757d;
@@ -390,4 +371,98 @@ body.topbar-hidden .site-topbar {
   font-weight: 400;
   color: #cfcfcf;
   margin-top: 4px;
+}
+
+/* ========== Mobile Fixes ========== */
+@media (max-width: 575.98px) {
+  .site-topbar {
+    position: static;
+    height: auto;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    text-align: center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .site-navbar {
+    top: 0 !important;
+    min-height: auto;
+    padding: 6px 10px;
+  }
+
+  .site-navbar .nav-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .login,
+  .sign-up,
+  .cart-price-box {
+    width: auto;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    margin-right: 6px;
+  }
+
+  .cart-group .dropdown-menu.cart-dropdown {
+    min-width: 90% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
+  }
+
+  .cart-group .dropdown-menu.cart-dropdown .cart-items-scroll {
+    max-height: 200px;
+  }
+
+  .cart-dropdown .cart-item {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .cart-dropdown .cart-total {
+    font-size: 14px;
+  }
+
+  .cart-dropdown .cart-actions .btn-view-cart {
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+
+  .dropdown-menu .dropdown-header {
+    font-size: 14px;
+    padding: 8px 0;
+  }
+}
+
+/* Mobile: make navbar and buttons taller + full width */
+@media (max-width: 991.98px) {
+  .user-dropdown .btn,
+  .button-group .btn,
+  .cart-price-box {
+    height: 60px !important;
+    line-height: 60px !important;
+    font-size: 1rem !important;
+    width: 100% !important;
+  }
+}
+
+/* Desktop: keep buttons compact and aligned right */
+@media (min-width: 992px) {
+  .user-dropdown .btn,
+  .button-group .btn,
+  .cart-price-box {
+    height: auto !important;
+    line-height: normal !important;
+    width: 100px !important;
+    font-size: 0.95rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+
+  /* wrapper alignment */
+  .button-cart-group,
+  .cart-group {
+    margin-left: auto !important; /* push them to the far right */
+  }
 }

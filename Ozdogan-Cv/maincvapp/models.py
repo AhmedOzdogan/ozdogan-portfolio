@@ -8,6 +8,7 @@ class Skills(models.Model):
     def __str__(self):
         return self.name
 
+
 class Certificates(models.Model):
     name = models.CharField(max_length=255)
     issued_by = models.CharField(max_length=255)
@@ -50,8 +51,17 @@ class WorkExperience(models.Model):
         return f"{self.job_title} at {self.company_name}"
     
 class Languages(models.Model):
+    categories = [
+        ('programming_languages', 'Programming Languages'),
+        ('frameworks_libraries', 'Frameworks & Libraries'),
+        ('databases', 'Databases'),
+        ('tools', 'Tools'),
+        ('design_prototyping', 'Design & Prototyping'),
+    ]
+        
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
+    category = models.CharField(max_length=50, choices=categories, null=True, blank=True)
     details = models.TextField(null=True, blank=True)
     picture = models.ImageField(upload_to='img/', null=True, blank=True)
 
