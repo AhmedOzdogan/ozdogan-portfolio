@@ -1,10 +1,9 @@
 # 🍞 Full-Stack Bakery & Restaurant Application
 
-A full-stack bakery & restaurant web application built with Django 5, Django REST Framework, and a vanilla JavaScript frontend.
-The app demonstrates scalable backend design with clean APIs, a modern cart and checkout flow, Stripe integration for payments, and a responsive mobile-first frontend.
-It highlights role-based views, session persistence for anonymous carts, and an extendable order management system — making it ideal for full-stack and backend-focused developers.
-
-**Tech:** Django 5 · Django REST Framework · Stripe · Vanilla JS
+Experience a modern full-stack bakery & restaurant web app, crafted with Django 5, Django REST Framework, and a sleek vanilla JavaScript frontend.  
+This project showcases scalable backend architecture, robust REST APIs, and a seamless Stripe-powered checkout.  
+Enjoy a mobile-first responsive design, smart cart persistence for anonymous users, and flexible role-based views.  
+Perfect for developers seeking hands-on experience with extendable order management, secure session handling, and real-world payment integration.
 
 ---
 
