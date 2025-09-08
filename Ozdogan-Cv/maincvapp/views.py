@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Prefetch
 import os, requests
-from dotenv import load_dotenv
+from decouple import config
 
 from .models import Certificates, CertificateGroups, WorkExperience, Languages
 
-load_dotenv()
+from django.core.mail import send_mail
 
 def index(request):
     return render(request, 'maincvapp/index.html')
@@ -17,9 +17,7 @@ def resume(request):
     .order_by("-date_issued")      # groups sorted newest → oldest
     .prefetch_related("certificates")  # certs come pre-sorted by sort_value
 )
-
-
-
+    
     experience = WorkExperience.objects.all().order_by('-start_date')
     categories = Languages.categories  # the choices
     skills_by_category = []
@@ -31,59 +29,70 @@ def resume(request):
                 "label": label,
                 "skills": skills
             })
-    print(skills_by_category)
 
     return render(request, 'maincvapp/resume.html', {'certificate_groups': certificate_groups, 
                                                      'experience': experience,
                                                      'skills_by_category': skills_by_category})
 def projects(request):
-    url = "https://api.github.com/repos/AhmedOzdogan/ozdogan-portfolio/contents"
-    token = os.getenv("GITHUB_TOKEN")
+    return render(request, 'maincvapp/projects.html')
 
-    headers = {"Authorization": f"Bearer {token}"}
-    r = requests.get(url, headers=headers)
-    contents = r.json()
-    
-    projects = []
-    intro_text = ""
+def contact(request):
+    captcha_site = config("RECAPTCHA_SITE_KEY", default="")
+    captcha_secret = config("RECAPTCHA_SECRET_KEY", default="")
 
-    for item in contents:
-        # Main README.md → portfolio intro
-        if item["name"].lower() == "readme.md":
-            readme = requests.get(item["download_url"]).text
-            intro_text = readme[:600] + "..."
-            intro_url = item["html_url"]
+    if request.method == "POST":
+        token = request.POST.get("g-recaptcha-response", "")
+        if not token:
+            return render(request, "maincvapp/contact.html", {
+                "captcha": captcha_site, "error": True,
+                "error_message": "reCAPTCHA token missing. Please try again."
+            })
 
-        # project folders
-        elif item["type"] == "dir":
-            sub = requests.get(item["url"], headers=headers).json()
-            readme_file = next((f for f in sub if f["name"].lower() == "readme.md"), None)
-            if readme_file:
-                readme_text = requests.get(readme_file["download_url"]).text
-                projects.append({
-                    "name": item["name"],
-                    "readme": readme_text[:600] + "...",
-                    "url": readme_file["html_url"]
-                })
+        r = requests.post("https://www.google.com/recaptcha/api/siteverify", data={
+            "secret": captcha_secret,
+            "response": token,
+            "remoteip": request.META.get("REMOTE_ADDR"),
+        })
+        result = r.json()
+        score = result.get("score", 0)
+        action_ok = result.get("action") in (None, "submit")  
+        print("reCAPTCHA result:", result)
 
-        # Handle submodules
-        elif item["type"] == "file" and item["download_url"] is None:
-            repo_name = item["name"]
-            readme_res = requests.get(
-                f"https://api.github.com/repos/AhmedOzdogan/{repo_name}/readme",
-                headers=headers
-            ).json()
+        if not result.get("success") or score < 0.5 or not action_ok:
+            return render(request, "maincvapp/contact.html", {
+                "captcha": captcha_site, "error": True,
+                "error_message": "reCAPTCHA verification failed. Please try again."
+            })
 
-            if "download_url" in readme_res and readme_res["download_url"]:
-                text = requests.get(readme_res["download_url"]).text
-                projects.append({
-                    "name": repo_name,
-                    "readme": text[:600] + "...",
-                    "url": readme_res["html_url"]
-                })
+        subject = f"[Portfolio Contact] {request.POST.get('subject','No Subject')}"
+        sender  = request.POST.get("email","")
+        name    = request.POST.get("name","Anonymous")
+        body    = f"From: {name} <{sender}>\n\n{request.POST.get('message','')}"
 
-    return render(request, "maincvapp/projects.html", {
-        "intro_text": intro_text,
-        "intro_url": intro_url,
-        "projects": projects
-    })
+        send_mail(subject, body, "ahmeddozdogan@gmail.com", ["ahmeddozdogan@gmail.com"], fail_silently=False)
+
+        if sender:
+            ack = (
+                f"Hello {name},\n\n"
+                "Thank you for reaching out! I’ve received your message and will get back to you as soon as possible.\n\n"
+                "Best regards,\nAhmed Özdoğan\n📧 Email: ahmeddozdogan@gmail.com\n📞 Phone: +84 353 572 862"
+            )
+            send_mail("Message received – thank you!", ack, "ahmeddozdogan@gmail.com", [sender], fail_silently=False)
+
+        return render(request, "maincvapp/contact.html", {"captcha": captcha_site, "success": True})
+
+    return render(request, "maincvapp/contact.html", {"captcha": captcha_site})
+
+
+
+def details(request, content):
+    templates = {
+        "schedeye": "maincvapp/details-schedeye.html",
+        "restaurant": "maincvapp/details-restaurant.html",
+        "bakery": "maincvapp/details-bakery.html",
+        "schedule": "maincvapp/details-schedule.html",
+    }
+    template = templates.get(content)
+    if template:
+        return render(request, template)
+    return render(request, "maincvapp/404.html", status=404)

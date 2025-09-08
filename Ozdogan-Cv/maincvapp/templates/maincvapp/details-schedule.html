@@ -1,0 +1,267 @@
+{% extends "maincvapp/base.html" %} {% load static %} {% block title %}Ahmed
+Özdoğan - Schedule{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}" />
+
+{% endblock %} {% block content %}
+<main>
+  <h1>Schedule Desktop App</h1>
+  <div class="tab-container">
+    <div class="tabs">
+      <button class="tab active" data-tab="tab1">Overview</button>
+      <button class="tab" data-tab="tab2">Tech Stack</button>
+      <button class="tab" data-tab="tab3">Pictures</button>
+    </div>
+    <div class="tab-content">
+      <div id="tab1" class="content active">
+        <h3>Overview</h3>
+        <div class="overview-text">
+          <p>
+            A desktop teaching schedule manager built for freelance educators to
+            streamline lesson planning, payment tracking, and monthly income
+            management. Developed with Python 3, Tkinter for the user interface,
+            tkcalendar for calendar navigation, and MySQL for persistent data
+            storage, the application combines a clean, interactive GUI with a
+            robust relational database. It supports full CRUD operations,
+            financial reporting, and real-time weekly scheduling, providing a
+            week-at-a-glance timetable, context menus for quick edits, and an
+            integrated finance tracker that automatically calculates salaries
+            and savings. Designed for ease of use and efficiency, it helps
+            educators focus on teaching rather than administrative tasks.
+          </p>
+        </div>
+        <div class="overview-image">
+          <img
+            src="{% static 'img/schedule_project/cover-page.png' %}"
+            alt="Schedule Dashboard"
+          />
+        </div>
+      </div>
+      <div id="tab2" class="content">
+        <h3>Tech Stack & Features</h3>
+
+        <div class="tech-details">
+          <div class="features-section">
+            <h4>💻 Features</h4>
+            <!-- 💻 Features table -->
+            <table class="features-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Highlights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Weekly Schedule Grid</td>
+                  <td>
+                    Auto-sorting by start time; Date Picker (tkcalendar); quick
+                    week jump; highlight unpaid classes
+                  </td>
+                </tr>
+                <tr>
+                  <td>Financial Dashboard</td>
+                  <td>
+                    Weekly/monthly totals (hours, salary, received vs expected);
+                    ARC/OEA/private splits; ARC “periods” conversion
+                  </td>
+                </tr>
+                <tr>
+                  <td>CRUD Operations</td>
+                  <td>
+                    Add, edit, duplicate, delete classes; bulk delete by week
+                  </td>
+                </tr>
+                <tr>
+                  <td>Payment Management</td>
+                  <td>
+                    Toggle paid/unpaid per class; mark entire months as paid
+                  </td>
+                </tr>
+                <tr>
+                  <td>Copy Week Tool</td>
+                  <td>Duplicate a week’s schedule</td>
+                </tr>
+                <tr>
+                  <td>Monthly Income (Account)</td>
+                  <td>Track savings and salaries by month</td>
+                </tr>
+                <tr>
+                  <td>Menus & Shortcuts</td>
+                  <td>
+                    File → Connection Settings / Exit; Edit → New Class (F1),
+                    Copy Classes (F4), Calculate Hours (F10), F5 to refresh
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tech-stack-section">
+            <h4>🛠 Tech Stack</h4>
+            <!-- 🏗 Architecture & Data table -->
+            <table class="features-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Highlights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Frontend (GUI)</td>
+                  <td>Tkinter Treeview (clam theme); multi-line class cells</td>
+                </tr>
+                <tr>
+                  <td>Calendar</td>
+                  <td>tkcalendar.Calendar & DateEntry in dialogs</td>
+                </tr>
+                <tr>
+                  <td>Backend (Database)</td>
+                  <td>MySQL via <code>mysql.connector</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab3" class="content">
+        <h3>Pictures</h3>
+        <div class="image-navigation">
+          <button class="previous" onclick="previousImage()">
+            <i class="fa-solid fa-angle-double-left"></i>
+          </button>
+          <div id="imageWrap" class="overview-image">
+            <img
+              id="mainImage"
+              src="{% static 'img/schedule_project/cover-page.png' %}"
+              alt="SchedEye Screenshot"
+            />
+          </div>
+          <button class="next" onclick="nextImage()">
+            <i class="fa-solid fa-angle-double-right"></i>
+          </button>
+        </div>
+        <!-- dots -->
+        <div class="dots" id="dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".content");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      contents.forEach((c) => c.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+
+  function getFileName(path) {
+    return path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  const images = [
+    "{% static 'img/schedule_project/cover-page.png' %}",
+    "{% static 'img/schedule_project/picture1.png' %}",
+    "{% static 'img/schedule_project/picture2.png' %}",
+    "{% static 'img/schedule_project/picture3.png' %}",
+    "{% static 'img/schedule_project/picture4.png' %}",
+    "{% static 'img/schedule_project/picture5.png' %}",
+  ];
+
+  let currentIndex = 0;
+  const mainImage = document.getElementById("mainImage");
+  const dots = document.querySelectorAll(".dot");
+
+  function updateDots(index) {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === index);
+    });
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    mainImage.src = images[currentIndex];
+    runFadeIn();
+    updateDots(currentIndex);
+  }
+
+  function previousImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    mainImage.src = images[currentIndex];
+    runFadeIn();
+    updateDots(currentIndex);
+  }
+
+  // Clicking Dots
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      mainImage.src = images[currentIndex];
+      runFadeIn();
+      updateDots(currentIndex);
+    });
+  });
+
+  function runFadeIn() {
+    mainImage.style.animation = "none";
+    // force reflow
+    void mainImage.offsetWidth;
+    mainImage.style.animation = "fadeIn 0.5s";
+  }
+
+  // Swipe functionality
+  (function addSwipe() {
+    const wrap = document.getElementById("imageWrap");
+    if (!wrap) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isDown = false;
+    const SWIPE_THRESHOLD = 50;
+    const MAX_ANGLE_RATIO = 0.6;
+
+    wrap.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    wrap.addEventListener("pointerup", (e) => {
+      if (!isDown) return;
+      isDown = false;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (
+        Math.abs(dx) > SWIPE_THRESHOLD &&
+        Math.abs(dx) > Math.abs(dy) * MAX_ANGLE_RATIO
+      ) {
+        if (dx < 0) {
+          nextImage();
+        } else {
+          previousImage();
+        }
+      }
+    });
+
+    wrap.addEventListener("pointercancel", () => {
+      isDown = false;
+    });
+    wrap.addEventListener("pointerleave", () => {
+      isDown = false;
+    });
+  })();
+</script>
+{% endblock %}

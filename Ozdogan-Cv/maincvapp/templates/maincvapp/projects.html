@@ -2,38 +2,222 @@
 {% extends "maincvapp/base.html" %}
 {% load static %}
 
-{% block title %}Projects{% endblock %}
+{% block title %}Ahmed Özdoğan - Projects{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/projects.css' %}" />
 {% endblock %} {% block content %}
-<div id="projects">
-  <h1 class="projects-title">Projects</h1>
-  <div id="project-intro-box">
-    <p class="intro">{{ intro_text }}</p>
-    <a href="{{ intro_url }}" target="_blank">Read full README</a>
-  </div>
+<main>
+  <section class="intro">
+    <h1 class="title">Projects</h1>
+    <p class="description">
+      This portfolio highlights a range of full-stack web development projects
+      built using Python, JavaScript, CSS, and React. Each application
+      integrates RESTful APIs with multiple database solutions, demonstrating
+      proficiency in backend logic, data management, and secure authentication.
+      On the frontend, I focus on building responsive, user-friendly interfaces
+      with modern frameworks and clean design principles. These projects reflect
+      my ability to design scalable architectures, implement role-based access,
+      and deliver complete end-to-end solutions that align with real-world
+      requirements.
+    </p>
+  </section>
 
-  {% for project in projects %}
-  <div class="project-item">
-    <h2>{{ project.name }}</h2>
-    <p>{{ project.readme }}</p>
-    <a href="{{ project.url }}" target="_blank">Read full README</a>
-    <div class="screenshots">
+  <section class="projects">
+    <div class="title-div">
+      <h1 class="title">Schedeye (Schedeye.com)</h1>
+      <div class="links">
+        <a class="projects-link" href="https://schedeye.com" target="_blank">
+          <i class="fas fa-globe"></i> Visit Schedeye
+        </a>
+
+        <a
+          class="projects-github"
+          href="https://github.com/AhmedOzdogan/SchedEye"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+    <div class="project-detail">
+      <div class="project-info">
+        <p class="project-description">
+          SchedEye is a modern, mobile-first web app that lets freelance
+          teachers and small institutes plan weekly lessons, track payments, and
+          audit login activity from a single dashboard. Built with Flask
+          (Python), Bootstrap 5, and MySQL, it delivers secure, session-based
+          authentication (hashed passwords and rate limiting), intuitive CRUD
+          scheduling, and clear payment/status reporting in a fast, responsive
+          UI. Designed for real-world use, SchedEye supports bulk actions,
+          monthly/hourly rollups, and admin management, while remaining simple
+          to deploy on platforms like Railway.
+        </p>
+        <a
+          class="project-details-button"
+          href="{% url 'main:details' 'schedeye' %}"
+          ><i class="fa-solid fa-circle-info"></i> More Details and
+          Screnshots</a
+        >
+      </div>
       <img
-        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/1.png"
-        alt="{{ project.name }} screenshot 1"
-      />
-      <img
-        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/2.png"
-        alt="{{ project.name }} screenshot 2"
-      />
-      <img
-        src="https://raw.githubusercontent.com/AhmedOzdogan/ozdogan-portfolio/main/{{ project.name }}/screenshots/3.png"
-        alt="{{ project.name }} screenshot 3"
+        class="project-image"
+        src="{% static 'img/schedeye/cover-page.png' %}"
+        alt="Screenshot of SchedEye dashboard"
       />
     </div>
-  </div>
-  {% endfor %}
-</div>
+  </section>
+
+  <section class="projects">
+    <div class="title-div">
+      <h1 class="title">Bakery</h1>
+      <div class="links">
+        <a
+          class="projects-github"
+          href="https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/bakery"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+    <div class="project-detail">
+      <div class="project-info">
+        <p class="project-description">
+          Experience a modern full-stack bakery & restaurant web app, crafted
+          with Django 5, Django REST Framework, and a sleek vanilla JavaScript
+          frontend. This project showcases scalable backend architecture, robust
+          REST APIs, and a seamless Stripe-powered checkout. Enjoy a
+          mobile-first responsive design, smart cart persistence for anonymous
+          users, and flexible role-based views. Perfect for developers seeking
+          hands-on experience with extendable order management, secure session
+          handling, and real-world payment integration.
+        </p>
+        <a
+          class="project-details-button"
+          href="{% url 'main:details' 'bakery' %}"
+          ><i class="fa-solid fa-circle-info"></i> More Details and
+          Screnshots</a
+        >
+      </div>
+      <img
+        class="project-image"
+        src="{% static 'img/bakery/cover-page.png' %}"
+        alt="Screenshot of Bakery dashboard"
+      />
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="title-div">
+      <h1 class="title">Restaurant</h1>
+      <div class="links">
+        <a
+          class="projects-github"
+          href="https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/restaurant"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+    <div class="project-detail">
+      <div class="project-info">
+        <p class="project-description">
+          A full-stack restaurant web application built with Django 5 and Django
+          REST Framework (DRF), designed to demonstrate scalable backend
+          development, clean API design, and responsive frontend implementation.
+          The backend follows RESTful API best practices with structured
+          endpoints for menu management and reservation handling, while the
+          frontend leverages HTML5, CSS3, and JavaScript (vanilla ES6) for a
+          mobile-first, interactive user experience. The project emphasizes
+          clean architecture, database-driven design (SQLite), role-based views,
+          and production-ready static file handling (WhiteNoise) — showcasing
+          skills highly relevant for backend engineers, full-stack developers,
+          and API integration specialists.
+        </p>
+        <a
+          class="project-details-button"
+          href="{% url 'main:details' 'restaurant' %}"
+          ><i class="fa-solid fa-circle-info"></i> More Details and
+          Screnshots</a
+        >
+      </div>
+      <img
+        class="project-image"
+        src="{% static 'img/restaurant/cover-page.png' %}"
+        alt="Screenshot of Restaurant dashboard"
+      />
+    </div>
+  </section>
+  <section class="projects">
+    <div class="title-div">
+      <h1 class="title">Schedule Desktop App</h1>
+      <div class="links">
+        <a
+          class="projects-github"
+          href="https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/Schedule_Project"
+          target="_blank"
+        >
+          <i class="fab fa-github"></i> GitHub Repository
+        </a>
+      </div>
+    </div>
+    <div class="project-detail">
+      <div class="project-info">
+        <p class="project-description">
+          A desktop teaching schedule manager built for freelance educators to
+          streamline lesson planning, payment tracking, and monthly income
+          management. Developed with Python 3, Tkinter for the user interface,
+          tkcalendar for calendar navigation, and MySQL for persistent data
+          storage, the application combines a clean, interactive GUI with a
+          robust relational database. It supports full CRUD operations,
+          financial reporting, and real-time weekly scheduling, providing a
+          week-at-a-glance timetable, context menus for quick edits, and an
+          integrated finance tracker that automatically calculates salaries and
+          savings. Designed for ease of use and efficiency, it helps educators
+          focus on teaching rather than administrative tasks.
+        </p>
+        <a
+          class="project-details-button"
+          href="{% url 'main:details' 'schedule' %}"
+          ><i class="fa-solid fa-circle-info"></i> More Details and
+          Screnshots</a
+        >
+      </div>
+      <img
+        class="project-image"
+        src="{% static 'img/schedule_project/cover-page.png' %}"
+        alt="Screenshot of Schedule Desktop App"
+      />
+    </div>
+  </section>
+</main>
+<div class="image-overlay" id="imageOverlay"></div>
+<script>
+  const overlay = document.getElementById("imageOverlay");
+
+  document.querySelectorAll("img.project-image").forEach((img) => {
+    img.addEventListener("click", () => {
+      const isClicked = img.classList.toggle("clicked");
+      document.body.classList.toggle("no-scroll", isClicked);
+
+      if (isClicked) {
+        overlay.style.display = "block"; // show dark background
+      } else {
+        overlay.style.display = "none"; // hide it when unzoomed
+      }
+    });
+  });
+
+  // Close zoom when overlay is clicked
+  overlay.addEventListener("click", () => {
+    document
+      .querySelectorAll("img.project-image.clicked")
+      .forEach((img) => img.classList.remove("clicked"));
+
+    document.body.classList.remove("no-scroll");
+    overlay.style.display = "none";
+  });
+</script>
 {% endblock %}

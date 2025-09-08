@@ -9,6 +9,8 @@ pillow = "*"
 django-sortedm2m = "*"
 requests = "*"
 dotenv = "*"
+python-decouple = "*"
+whitenoise = "*"
 
 [dev-packages]
 

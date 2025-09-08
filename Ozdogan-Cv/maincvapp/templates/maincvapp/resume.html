@@ -1,5 +1,5 @@
 <!-- prettier-ignore -->
-{% extends "maincvapp/base.html" %} {% load static %} {% block title %}Resume{% endblock %} {% block extra_head %}
+{% extends "maincvapp/base.html" %} {% load static %} {% block title %}Ahmed Özdoğan - Resume{% endblock %} {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/resume.css' %}" />
 {% endblock %} {% block content %}
 <main class="resume">
@@ -132,9 +132,6 @@
                   />
                 </span>
                 <p class="language-name">{{ skill.name }}</p>
-              </div>
-              <div class="lang-face lang-back">
-                <p class="language-details">{{ skill.details }}</p>
               </div>
             </div>
             {% endfor %}

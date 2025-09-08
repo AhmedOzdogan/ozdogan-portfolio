@@ -1,0 +1,280 @@
+{% extends "maincvapp/base.html" %} {% load static %} {% block title %}Ahmed
+Özdoğan - Baker{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}" />
+
+{% endblock %} {% block content %}
+<main>
+  <h1>Baker</h1>
+  <div class="tab-container">
+    <div class="tabs">
+      <button class="tab active" data-tab="tab1">Overview</button>
+      <button class="tab" data-tab="tab2">Tech Stack</button>
+      <button class="tab" data-tab="tab3">Pictures</button>
+    </div>
+    <div class="tab-content">
+      <div id="tab1" class="content active">
+        <h3>Overview</h3>
+        <div class="overview-text">
+          <p>
+            Experience a modern full-stack bakery & restaurant web app, crafted
+            with Django 5, Django REST Framework, and a sleek vanilla JavaScript
+            frontend. This project showcases scalable backend architecture,
+            robust REST APIs, and a seamless Stripe-powered checkout. Enjoy a
+            mobile-first responsive design, smart cart persistence for anonymous
+            users, and flexible role-based views. Perfect for developers seeking
+            hands-on experience with extendable order management, secure session
+            handling, and real-world payment integration.
+          </p>
+        </div>
+        <div class="overview-image">
+          <img
+            src="{% static 'img/bakery/desktop_page1.png' %}"
+            alt="Bakery Dashboard"
+          />
+        </div>
+      </div>
+      <div id="tab2" class="content">
+        <h3>Tech Stack & Features</h3>
+
+        <div class="tech-details">
+          <div class="features-section">
+            <h4>💻 Features</h4>
+            <table class="features-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Highlights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>UX & Responsive Design</td>
+                  <td>Responsive design for desktop, tablet, and mobile</td>
+                </tr>
+                <tr>
+                  <td>Menu & Product Browsing</td>
+                  <td>Dynamic menu browsing with categories & item details</td>
+                </tr>
+                <tr>
+                  <td>Shopping Cart</td>
+                  <td>
+                    Add items as anonymous user; cart persists & merges after
+                    login
+                  </td>
+                </tr>
+                <tr>
+                  <td>Checkout & Payments</td>
+                  <td>Stripe-powered checkout flow (test/demo mode)</td>
+                </tr>
+                <tr>
+                  <td>User Profiles & Addresses</td>
+                  <td>Profile management and address book</td>
+                </tr>
+                <tr>
+                  <td>Orders & Admin</td>
+                  <td>Order history for users; admin status updates</td>
+                </tr>
+                <tr>
+                  <td>REST API</td>
+                  <td>Endpoints for products, addons, cart, and orders</td>
+                </tr>
+                <tr>
+                  <td>Security & Performance</td>
+                  <td>Secure session handling; optimized static files</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tech-stack-section">
+            <h4>🛠 Tech Stack</h4>
+            <table class="features-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Highlights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Backend</td>
+                  <td>Django 5, Django REST Framework (DRF)</td>
+                </tr>
+                <tr>
+                  <td>Frontend</td>
+                  <td>HTML5, CSS3, Vanilla JavaScript (ES6)</td>
+                </tr>
+                <tr>
+                  <td>Database</td>
+                  <td>SQLite (default); swappable to PostgreSQL/MySQL</td>
+                </tr>
+                <tr>
+                  <td>Payments</td>
+                  <td>Stripe (demo/test mode)</td>
+                </tr>
+                <tr>
+                  <td>Auth</td>
+                  <td>
+                    Django Auth; cart persistence from anonymous → authenticated
+                  </td>
+                </tr>
+                <tr>
+                  <td>Static Files</td>
+                  <td>WhiteNoise</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab3" class="content">
+        <h3>Pictures</h3>
+        <div class="image-navigation">
+          <button class="previous" onclick="previousImage()">
+            <i class="fa-solid fa-angle-double-left"></i>
+          </button>
+          <div id="imageWrap" class="overview-image">
+            <img
+              id="mainImage"
+              src="{% static 'img/bakery/desktop_page1.png' %}"
+              alt="Baker Screenshot"
+            />
+          </div>
+          <button class="next" onclick="nextImage()">
+            <i class="fa-solid fa-angle-double-right"></i>
+          </button>
+        </div>
+        <!-- dots -->
+        <div class="dots" id="dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".content");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => t.classList.remove("active"));
+      contents.forEach((c) => c.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+
+  function getFileName(path) {
+    return path.substring(path.lastIndexOf("/") + 1);
+  }
+
+  const images = [
+    "{% static 'img/bakery/desktop_page1.png' %}",
+    "{% static 'img/bakery/desktop_page2.png' %}",
+    "{% static 'img/bakery/desktop_page3.png' %}",
+    "{% static 'img/bakery/desktop_page4.png' %}",
+    "{% static 'img/bakery/desktop_page5.png' %}",
+    "{% static 'img/bakery/desktop_page6.png' %}",
+    "{% static 'img/bakery/mobile_page1.png' %}",
+    "{% static 'img/bakery/mobile_page2.png' %}",
+    "{% static 'img/bakery/mobile_page3.png' %}",
+    "{% static 'img/bakery/mobile_page4.png' %}",
+    "{% static 'img/bakery/mobile_page5.png' %}",
+  ];
+
+  let currentIndex = 0;
+  const mainImage = document.getElementById("mainImage");
+  const dots = document.querySelectorAll(".dot");
+
+  function updateDots(index) {
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === index);
+    });
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    mainImage.src = images[currentIndex];
+    runFadeIn();
+    updateDots(currentIndex);
+  }
+
+  function previousImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    mainImage.src = images[currentIndex];
+    runFadeIn();
+    updateDots(currentIndex);
+  }
+
+  // Clicking Dots
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      mainImage.src = images[currentIndex];
+      runFadeIn();
+      updateDots(currentIndex);
+    });
+  });
+
+  function runFadeIn() {
+    mainImage.style.animation = "none";
+    // force reflow
+    void mainImage.offsetWidth;
+    mainImage.style.animation = "fadeIn 0.5s";
+  }
+
+  // Swipe functionality
+  (function addSwipe() {
+    const wrap = document.getElementById("imageWrap");
+    if (!wrap) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isDown = false;
+    const SWIPE_THRESHOLD = 50;
+    const MAX_ANGLE_RATIO = 0.6;
+
+    wrap.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    });
+
+    wrap.addEventListener("pointerup", (e) => {
+      if (!isDown) return;
+      isDown = false;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (
+        Math.abs(dx) > SWIPE_THRESHOLD &&
+        Math.abs(dx) > Math.abs(dy) * MAX_ANGLE_RATIO
+      ) {
+        if (dx < 0) {
+          nextImage();
+        } else {
+          previousImage();
+        }
+      }
+    });
+
+    wrap.addEventListener("pointercancel", () => {
+      isDown = false;
+    });
+    wrap.addEventListener("pointerleave", () => {
+      isDown = false;
+    });
+  })();
+</script>
+{% endblock %}
