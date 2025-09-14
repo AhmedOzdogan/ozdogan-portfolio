@@ -3,7 +3,7 @@
 }
 .hero {
   background-image: url("../img/hero3.png");
-  background-size: cover;
+  background-size: stretch;
   background-position: center;
   min-height: 400px;
   padding: 100px 20px;
