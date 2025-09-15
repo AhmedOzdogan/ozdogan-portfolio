@@ -1,0 +1,152 @@
+:root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #4ecdc4;
+  --background-color: #1e1e2f;
+  --text-color: #ffffff;
+  --accent-color: #ffe66d;
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.app-name {
+  font-size: 3em;
+  font-weight: 900;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  animation: shake 2s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.welcome-header h2 {
+  color: var(--accent-color);
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.welcome-text p {
+  color: var(--text-color);
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+.welcome-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.welcome-footer label {
+  color: var(--text-color);
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.welcome-footer select {
+  appearance: none;
+  -webkit-appearance: none; /* Chrome / Safari */
+  -moz-appearance: none; /* Firefox */
+
+  width: 70%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: 500;
+  color: #333;
+  text-align-last: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background-image: none;
+}
+
+.welcome-button {
+  width: 70%;
+  margin-top: 25px;
+  padding: 14px 32px;
+  background: var(--accent-color);
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-button:hover {
+  background: #fff176;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 768px) {
+  .app-name {
+    font-size: 4em;
+  }
+  .welcome-header h2 {
+    font-size: 2.2em;
+  }
+  .welcome-text p {
+    font-size: 1.3em;
+  }
+  .welcome-footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .welcome-footer select {
+    width: auto;
+    min-width: 150px;
+  }
+  .welcome-button {
+    width: auto;
+    min-width: 200px;
+  }
+}

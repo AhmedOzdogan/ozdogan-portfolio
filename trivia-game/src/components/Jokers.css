@@ -1,0 +1,38 @@
+.jokers {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.joker-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-size: 1.1em;
+  font-weight: bold;
+  background: #ffe66d;
+  color: #1e1e2f;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.joker-button:hover:not(:disabled) {
+  background: #ffd633;
+  transform: translateY(-2px);
+}
+
+.joker-button:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.joker-icon {
+  font-size: 1.2em;
+}
