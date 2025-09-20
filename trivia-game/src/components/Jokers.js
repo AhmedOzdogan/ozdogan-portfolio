@@ -1,5 +1,5 @@
 import { FaClock, FaPercent, FaRedoAlt } from "react-icons/fa";
-import "./Jokers.css";
+import "../styles/Jokers.css";
 
 function Jokers({ jokers, useExtraTime, useFiftyFifty, useDoubleAnswer }) {
   return (

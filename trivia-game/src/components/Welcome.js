@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import "./Welcome.css";
+import "../styles/Welcome.css";
+import SoundControls from "./SoundControls";
+import HowToPlay from "./HowToPlay";
 
 function Welcome({ startGame }) {
   const [selectedNum, setSelectedNum] = useState(5);
@@ -7,6 +9,10 @@ function Welcome({ startGame }) {
 
   return (
     <main className="welcome-container">
+      <header className="welcome-header-top">
+        <SoundControls />
+        <HowToPlay />
+      </header>
       <div className="app-name">MindMaze</div>
 
       <div className="welcome-header">

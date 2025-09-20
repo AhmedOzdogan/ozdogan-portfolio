@@ -1,48 +1,57 @@
 import React, { useState } from "react";
 import Welcome from "./components/Welcome";
 import Quiz from "./components/Quiz";
-import { fetchQuestions } from "./components/Api";
+import { fetchQuestions } from "./utils/Api";
+import Loading from "./components/Loading";
+import Error from "./components/Error";
+import GameOver from "./components/GameOver";
+import { QuizProvider } from "./contexts/QuizContext";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [numQuestions, setNumQuestions] = useState(5);
   const [difficulty, setDifficulty] = useState("easy");
-  const [questions, setQuestions] = useState([]); // store fetched questions
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   const startGame = async (questionsCount, level) => {
     setNumQuestions(questionsCount);
     setDifficulty(level);
     setLoading(true);
+    setError(false);
 
-    console.log(
-      `Starting game with ${questionsCount} questions at ${level} difficulty.`
-    );
     try {
-      const data = await fetchQuestions(questionsCount, level);
+      const data = await fetchQuestions(1, level);
       setQuestions(data);
       setGameStarted(true);
     } catch (error) {
       console.error("Error fetching questions:", error);
+      setError(true);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <h2>Loading questions...</h2>;
+  if (loading) return <Loading />;
+  if (error) return <Error />;
 
   return (
-    <div>
+    <QuizProvider>
       {!gameStarted ? (
         <Welcome startGame={startGame} />
+      ) : gameOver ? (
+        <GameOver questions={questions} />
       ) : (
         <Quiz
           questions={questions}
           numQuestions={numQuestions}
           difficulty={difficulty}
+          setGameOver={setGameOver}
         />
       )}
-    </div>
+    </QuizProvider>
   );
 }
 

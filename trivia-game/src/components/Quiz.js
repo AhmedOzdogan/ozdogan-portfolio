@@ -3,8 +3,13 @@ import Header from "./Header";
 import GameOver from "./GameOver";
 import Jokers from "./Jokers";
 import MidQuestions from "./MidQuestions";
+import AnswerOptions from "./AnswerOptions";
+import Timer from "./Timer";
+import Loading from "./Loading";
 import mockQuestions from "./MockData";
-import "./Quiz.css";
+import "../styles/Quiz.css";
+import { useQuiz } from "../contexts/QuizContext";
+import SoundControls from "./SoundControls";
 
 //Sounds Import
 
@@ -13,7 +18,7 @@ import {
   playWrongSound,
   thirtySecSound,
   playDecisionSound,
-} from "./soundUtils";
+} from "../utils/soundUtils";
 
 /**
  * Quiz Component
@@ -25,11 +30,14 @@ import {
  */
 
 function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
+  // import Context
+
+  const { score, setScore, jokers, setJokers, maxScore, setMaxScore } =
+    useQuiz();
   // Core state
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
 
   // Answer/result state
   const [selectedAnswer, setSelectedAnswer] = useState(null); // chosen option
@@ -47,11 +55,6 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
   const [doubleActive, setDoubleActive] = useState(false);
   const [wrongAttempts, setWrongAttempts] = useState([]);
   const [tries, setTries] = useState(0);
-  const [jokers, setJokers] = useState({
-    extraTime: true,
-    fiftyFifty: true,
-    doubleAnswer: true,
-  });
 
   // Overlay (between questions)
   const [showMidQuestions, setShowMidQuestions] = useState(false);
@@ -110,6 +113,7 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
       //const sliced = mockQuestions.slice(0, numQuestions);
       const sliced = initialQuestions.slice(0, numQuestions);
       setQuestions(sliced);
+      setMaxScore(sliced.length * 100);
       setCurrentIndex(0);
       setScore(0);
       setSelectedAnswer(null);
@@ -223,15 +227,31 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
 
   const currentQuestion = questions[currentIndex];
 
-  if (loading) return <h2>Loading questions...</h2>;
-  if (!currentQuestion) return <h2>No question available</h2>;
+  // 1. Loading state first
+  if (loading) return <Loading />;
+
+  // 2. If all questions answered → Game Over
+  if (currentIndex >= questions.length) {
+    return <GameOver />;
+  }
+
+  // 3. If no current question (safety check)
+  if (!currentQuestion) {
+    return <Loading />;
+  }
 
   return (
     <main>
       {/* Score + question counter */}
       <Header score={score} currentIndex={currentIndex} questions={questions} />
+      {/* Sound controls */}
+      <SoundControls />
+      {/* Actual question area */}
 
       <div className="question">
+        {/* Question */}
+        <h2 dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
+
         {/* Joker buttons */}
         <Jokers
           jokers={jokers}
@@ -241,56 +261,17 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
         />
 
         {/* Timer */}
-        <div className="timer-bar">
-          <div
-            className="timer-fill"
-            style={{
-              width: `${(timer / maxTime) * 100}%`,
-              backgroundColor: timer > 10 ? "green" : "red",
-              transition: "width 1s linear, background-color 0.5s ease",
-            }}
-          >
-            {timer}
-          </div>
-        </div>
-
-        {/* Question */}
-        <h2 dangerouslySetInnerHTML={{ __html: currentQuestion.question }} />
+        <Timer timer={timer} maxTime={maxTime} />
 
         {/* Answer options */}
-        <div className="answers">
-          {shuffledAnswers.map((answer, index) => (
-            <button
-              key={index}
-              onClick={() => handleAnswer(answer)}
-              disabled={selectedAnswer !== null}
-              className={`answer-button
-              ${selectedAnswer === answer && !revealResult ? "selected" : ""}
-              ${
-                revealResult &&
-                answer === questions[currentIndex].correct_answer
-                  ? "correct"
-                  : ""
-              }
-              ${
-                revealResult &&
-                selectedAnswer === answer &&
-                answer !== questions[currentIndex].correct_answer
-                  ? "wrong"
-                  : ""
-              }
-              ${
-                selectedAnswer !== answer &&
-                selectedAnswer !== null &&
-                !revealResult
-                  ? "disabled-gray"
-                  : ""
-              }
-            `}
-              dangerouslySetInnerHTML={{ __html: answer }}
-            />
-          ))}
-        </div>
+        <AnswerOptions
+          answers={shuffledAnswers}
+          selectedAnswer={selectedAnswer}
+          revealResult={revealResult}
+          currentQuestion={questions[currentIndex]}
+          wrongAttempts={wrongAttempts}
+          onAnswerClick={handleAnswer}
+        />
       </div>
 
       {/* Overlay feedback after answering */}

@@ -1,4 +1,4 @@
-import "./Quiz.css";
+import "../styles/Quiz.css";
 
 function MidQuestions({ answer, onNext }) {
   const isCorrect = answer === "correct";
