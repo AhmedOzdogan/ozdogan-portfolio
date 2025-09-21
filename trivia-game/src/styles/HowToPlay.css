@@ -1,0 +1,141 @@
+/* Button */
+.howto-btn {
+  width: 200px;
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #ffe66d;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.howto-btn:active {
+  transform: scale(0.96);
+}
+
+/* Overlay */
+.rules-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  animation: slideDown 0.5s ease forwards;
+}
+
+.rules-overlay.closing {
+  animation: slideUp 0.5s ease forwards;
+}
+
+.rules-content {
+  margin-top: 80px;
+  background: #fff;
+  color: #333;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Title */
+.rules-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Sections */
+.rules-section {
+  margin: 50px 0;
+}
+
+.rules-section h3 {
+  text-align: center;
+  margin-bottom: 12px;
+  color: #444;
+  font-size: 1.2rem;
+}
+
+/* Tables */
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rules-table td {
+  padding: 10px;
+  font-size: 1rem;
+  border-bottom: 2px solid #000000;
+  vertical-align: top;
+}
+
+.rules-table td:first-child {
+  font-weight: bold;
+  width: 120px;
+}
+
+/* Highlights */
+.correct {
+  color: #28a745;
+}
+
+.wrong {
+  color: #dc3545;
+}
+
+/* Close button */
+.close-btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background: #ffe66d;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:active {
+  transform: scale(0.96);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

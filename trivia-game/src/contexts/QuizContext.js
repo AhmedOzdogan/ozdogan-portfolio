@@ -12,11 +12,14 @@ export const QuizProvider = ({ children }) => {
     fiftyFifty: true,
     doubleAnswer: true,
   });
-  const [soundOn, setSoundOn] = useState(true);
+  const [soundOn, setSoundOn] = useState(() => {
+    const saved = localStorage.getItem("soundOn");
+    return saved ? JSON.parse(saved) : true;
+  });
 
   useEffect(() => {
-    setSoundEnabled(soundOn); // mute/unmute globally
-    console.log("Sound setting changed:", soundOn);
+    setSoundEnabled(soundOn);
+    localStorage.setItem("soundOn", JSON.stringify(soundOn));
   }, [soundOn]);
 
   return (

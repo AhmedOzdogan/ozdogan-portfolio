@@ -5,37 +5,22 @@ const SoundControls = () => {
   const { soundOn, setSoundOn } = useQuiz();
 
   const buttonStyle = {
-    backgroundColor: "#282833ff",
+    backgroundColor: "#ffe66d",
     border: "none",
     borderRadius: "50%",
     width: "50px",
     height: "50px",
     fontSize: "1.5rem",
     cursor: "pointer",
-    color: "#ffb703",
+    color: "#333",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    transition: "all 0.2s ease-in-out",
-  };
-
-  const hoverStyle = {
-    transform: "scale(1.1)",
-    backgroundColor: "#2c2c40",
   };
 
   return (
     <div className="sound-controls">
-      <button
-        style={buttonStyle}
-        onMouseEnter={(e) => {
-          Object.assign(e.target.style, hoverStyle);
-        }}
-        onMouseLeave={(e) => {
-          Object.assign(e.target.style, buttonStyle);
-        }}
-        onClick={() => setSoundOn(!soundOn)}
-      >
+      <button style={buttonStyle} onClick={() => setSoundOn(!soundOn)}>
         {soundOn ? <FaVolumeUp /> : <FaVolumeMute />}
       </button>
     </div>

@@ -241,11 +241,10 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
   }
 
   return (
-    <main>
+    <main className="quiz">
       {/* Score + question counter */}
       <Header score={score} currentIndex={currentIndex} questions={questions} />
-      {/* Sound controls */}
-      <SoundControls />
+
       {/* Actual question area */}
 
       <div className="question">
