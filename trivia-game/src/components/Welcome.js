@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "../styles/Welcome.css";
 import SoundControls from "./SoundControls";
 import HowToPlay from "./HowToPlay";
+import CategorySelector from "./CategorySelector";
 
 function Welcome({ startGame }) {
   const [selectedNum, setSelectedNum] = useState(5);
   const [selectedDifficulty, setSelectedDifficulty] = useState("easy");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   return (
     <main className="welcome-container">
@@ -47,11 +49,18 @@ function Welcome({ startGame }) {
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
+
+        <CategorySelector
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </div>
 
       <button
         className="welcome-button"
-        onClick={() => startGame(selectedNum, selectedDifficulty)}
+        onClick={() =>
+          startGame(selectedNum, selectedDifficulty, selectedCategory)
+        }
       >
         BEGIN
       </button>

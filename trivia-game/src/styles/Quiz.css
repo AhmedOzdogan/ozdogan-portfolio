@@ -43,7 +43,7 @@ main {
 }
 
 .quiz-header h1 {
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: bold;
   letter-spacing: 2px;
   color: var(--accent-color);
@@ -79,7 +79,7 @@ main {
 }
 
 .question h2 {
-  font-size: 2em;
+  font-size: 1.5em;
   margin-bottom: 25px;
   max-width: 700px;
   line-height: 1.4;
@@ -114,7 +114,7 @@ main {
 .answer-button {
   width: 100%;
   padding: 14px 18px;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   background: var(--button-color);
   color: #1e1e2f;
