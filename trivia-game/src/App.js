@@ -23,7 +23,7 @@ function App() {
     setError(false);
 
     try {
-      const data = await fetchQuestions(1, level);
+      const data = await fetchQuestions(numQuestions, level);
       setQuestions(data);
       setGameStarted(true);
     } catch (error) {
