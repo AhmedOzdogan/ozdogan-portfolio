@@ -14,19 +14,14 @@ const sounds = {
 
 export const unlockAudio = () => {
   if (Howler.ctx && Howler.ctx.state === "suspended") {
-    Howler.ctx.resume().then(() => {
-      console.log("Audio context resumed after user interaction");
-    });
+    Howler.ctx.resume();
   }
 };
 
 // Enforce mute/unmute globally
 export const setSoundEnabled = (enabled) => {
-  console.log("Sound enabled:", enabled);
   Howler.mute(!enabled);
-  Howler.volume(enabled ? 1 : 0); // keep consistent
-  console.log("Global volume:", Howler.volume());
-  console.log("Global muted:", Howler._muted);
+  Howler.volume(enabled ? 1 : 0);
 };
 
 // Safe wrapper to play a sound if not muted
