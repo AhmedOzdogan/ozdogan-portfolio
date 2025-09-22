@@ -195,6 +195,7 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
       if (answer !== questions[currentIndex].correct_answer && tries === 0) {
         setSelectedAnswer(answer); // highlight the button
         thirtySecSound("pause");
+        setIsFrozen(true); // freeze timer
         playDecisionSound();
         setTries(1);
 
@@ -202,6 +203,7 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
         setTimeout(() => {
           setWrongAttempts((prev) => [...prev, answer]);
           setSelectedAnswer(null); // clear so they can pick again
+          setIsFrozen(false);
           thirtySecSound("play");
         }, 5000);
 
