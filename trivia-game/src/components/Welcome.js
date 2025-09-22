@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Welcome.css";
 import SoundControls from "./SoundControls";
+import { unlockAudio } from "../utils/soundUtils";
 import HowToPlay from "./HowToPlay";
 import CategorySelector from "./CategorySelector";
 
@@ -31,7 +32,9 @@ function Welcome({ startGame }) {
         <select
           id="numQuestions"
           value={selectedNum}
-          onChange={(e) => setSelectedNum(Number(e.target.value))}
+          onChange={(e) => {
+            setSelectedNum(Number(e.target.value));
+          }}
         >
           <option value="5">5</option>
           <option value="10">10</option>
@@ -58,9 +61,10 @@ function Welcome({ startGame }) {
 
       <button
         className="welcome-button"
-        onClick={() =>
-          startGame(selectedNum, selectedDifficulty, selectedCategory)
-        }
+        onClick={() => {
+          unlockAudio();
+          startGame(selectedNum, selectedDifficulty, selectedCategory);
+        }}
       >
         BEGIN
       </button>

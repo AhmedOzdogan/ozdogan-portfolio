@@ -9,25 +9,20 @@ import { QuizProvider } from "./contexts/QuizContext";
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
-  const [numQuestions, setNumQuestions] = useState(5);
-  const [difficulty, setDifficulty] = useState("easy");
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  const startGame = async (questionsCount, level) => {
-    setNumQuestions(questionsCount);
-    setDifficulty(level);
+  const startGame = async (questionsCount, level, category) => {
     setLoading(true);
     setError(false);
-
     try {
-      const data = await fetchQuestions(numQuestions, level);
+      const data = await fetchQuestions(questionsCount, level, category);
       setQuestions(data);
       setGameStarted(true);
-    } catch (error) {
-      console.error("Error fetching questions:", error);
+    } catch (err) {
+      console.error("Error fetching questions:", err);
       setError(true);
     } finally {
       setLoading(false);
@@ -44,12 +39,7 @@ function App() {
       ) : gameOver ? (
         <GameOver questions={questions} />
       ) : (
-        <Quiz
-          questions={questions}
-          numQuestions={numQuestions}
-          difficulty={difficulty}
-          setGameOver={setGameOver}
-        />
+        <Quiz questions={questions} setGameOver={setGameOver} />
       )}
     </QuizProvider>
   );

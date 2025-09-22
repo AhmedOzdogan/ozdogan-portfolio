@@ -12,6 +12,14 @@ const sounds = {
   decision: new Howl({ src: [decisionSound] }),
 };
 
+export const unlockAudio = () => {
+  if (Howler.ctx && Howler.ctx.state === "suspended") {
+    Howler.ctx.resume().then(() => {
+      console.log("Audio context resumed after user interaction");
+    });
+  }
+};
+
 // Enforce mute/unmute globally
 export const setSoundEnabled = (enabled) => {
   console.log("Sound enabled:", enabled);
