@@ -91,8 +91,8 @@ mindmaze/
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/mindmaze.git
-   cd mindmaze
+   https://github.com/AhmedOzdogan/ozdogan-portfolio.git
+   cd trivia-game
    ```
 
 2. **Install dependencies:**
