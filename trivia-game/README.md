@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+# 🧠 MindMaze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**MindMaze** is an interactive trivia quiz game built with **React**. Challenge yourself with dynamic multiple-choice questions, immersive sound effects, and strategic power-ups ("jokers")—all designed to test your knowledge under pressure in a fun, game-like experience.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Features
 
-### `npm start`
+- 🎯 **Live Trivia API** – Fetches fresh questions from [The Trivia API](https://the-trivia-api.com/).
+- 🎶 **Sound Effects** – Hear the ticking timer, correct/wrong answer cues, and suspenseful decisions.
+- 🧩 **Jokers (Power-Ups):**
+  - ⏱ **Extra Time** – Adds 30 seconds to the timer.
+  - ➗ **50/50** – Removes two incorrect answers.
+  - 🔁 **Double Answer** – Retry if your first answer is wrong.
+- ⏳ **Countdown Timer** – 30 seconds per question, with a suspenseful tick.
+- 🏆 **Score System** – +100 for correct, -50 for wrong (never below zero).
+- 📊 **Max Score Tracking** – See your perfect score target.
+- 📱 **Responsive UI** – Optimized for desktop and mobile.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🕹 How to Play
 
-### `npm test`
+1. **Start the Game**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   - Select question count, difficulty, and category.
+   - Click **Start**.
 
-### `npm run build`
+2. **Answer Questions**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   - You have **30 seconds** per question.
+   - Click your answer.
+   - Correct: +100 points. Wrong: -50 points.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Use Jokers**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - Click a joker for an advantage:
+     - **Extra Time**: +30s to timer.
+     - **50/50**: Only two options remain.
+     - **Double Answer**: Retry once if wrong.
 
-### `npm run eject`
+4. **Between Questions**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   - See feedback overlays ("Correct" or "Wrong").
+   - Click **Next** to continue.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. **Game Over**
+   - View your final score on the **Game Over** screen.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠 Tech Stack
 
-## Learn More
+- **React 18**
+- **Context API** – Global state (score, jokers, etc.)
+- **Custom Hooks** – Game logic and refresh limits
+- **Trivia API** – Question source
+- **CSS Modules** – Component styling
+- **Sound Management** – Custom `soundUtils.js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📂 Project Structure
 
-### Code Splitting
+```
+mindmaze/
+├── src/
+│   ├── components/
+│   │   ├── Quiz.js           # Main game loop
+│   │   ├── Welcome.js        # Start screen
+│   │   ├── GameOver.js       # End screen
+│   │   ├── Jokers.js         # Power-up buttons
+│   │   ├── Timer.js          # Countdown timer
+│   │   ├── MidQuestions.js   # Overlay feedback
+│   │   ├── AnswerOptions.js  # Multiple choice answers
+│   │   └── SoundControls.js  # Mute/Unmute buttons
+│   ├── contexts/
+│   │   └── QuizContext.js    # Global state provider
+│   ├── utils/
+│   │   ├── Api.js            # Fetches questions
+│   │   └── soundUtils.js     # Plays/stops sounds
+│   └── styles/
+│       └── Quiz.css
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## ⚙️ Installation & Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Clone the repository:**
 
-### Making a Progressive Web App
+   ```bash
+   git clone https://github.com/yourusername/mindmaze.git
+   cd mindmaze
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. **Install dependencies:**
 
-### Advanced Configuration
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. **Run the development server:**
 
-### Deployment
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🖼️ Screenshots
+
+Below are 12 screenshots showcasing MindMaze's gameplay and features.  
+All images are located in `public/img/screenshots/`.

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "./Header";
 import GameOver from "./GameOver";
 import Jokers from "./Jokers";
@@ -6,10 +6,9 @@ import MidQuestions from "./MidQuestions";
 import AnswerOptions from "./AnswerOptions";
 import Timer from "./Timer";
 import Loading from "./Loading";
-import mockQuestions from "./MockData";
+//import mockQuestions from "./MockData";
 import "../styles/Quiz.css";
 import { useQuiz } from "../contexts/QuizContext";
-import SoundControls from "./SoundControls";
 
 //Sounds Import
 
@@ -32,8 +31,7 @@ import {
 function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
   // import Context
 
-  const { score, setScore, jokers, setJokers, maxScore, setMaxScore } =
-    useQuiz();
+  const { score, setScore, jokers, setJokers, setMaxScore } = useQuiz();
   // Core state
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,7 +68,12 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
     setTimer(30);
     setMaxTime(30);
     setTries(0);
-    thirtySecSound("play");
+    if (currentIndex <= questions.length) {
+      thirtySecSound("play");
+    } else {
+      thirtySecSound("stop");
+      setIsFrozen(true);
+    }
   };
 
   /**
@@ -86,9 +89,11 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
       playDecisionSound();
 
       setTimeout(() => {
-        const correct = questions[currentIndex].correct_answer;
-
-        if (!timedOut && answer === questions[currentIndex].correct_answer) {
+        if (currentIndex >= questions.length) return;
+        else if (
+          !timedOut &&
+          answer === questions[currentIndex].correct_answer
+        ) {
           setScore((prev) => prev + 100);
           setMidAnswer("correct");
           playCorrectSound();
@@ -101,12 +106,9 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
         setRevealResult(true);
       }, 5000);
     },
-    [questions, currentIndex, score] // dependencies to keep it stable
+    [questions, currentIndex, setScore] // dependencies to keep it stable
   );
 
-  /**
-   * Load mock questions when game starts
-   */
   useEffect(() => {
     async function loadQuestions() {
       setLoading(true);
@@ -123,7 +125,7 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
       thirtySecSound("play");
     }
     loadQuestions();
-  }, [numQuestions, difficulty]);
+  }, [numQuestions, difficulty, setScore, setMaxScore, initialQuestions]);
 
   /**
    * Shuffle answers for current question
