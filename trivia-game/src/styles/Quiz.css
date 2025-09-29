@@ -57,7 +57,7 @@ main {
 }
 
 .score-board h2 {
-  font-size: 1.3em;
+  font-size: 1em;
   color: var(--text-color);
   font-weight: normal;
 }
@@ -140,6 +140,8 @@ main {
   background: #ffb703 !important;
   color: #1e1e2f;
   box-shadow: 0 4px 12px rgba(255, 183, 3, 0.6);
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .answer-button.correct {

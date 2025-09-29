@@ -58,23 +58,24 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
   const [showMidQuestions, setShowMidQuestions] = useState(false);
   const [midAnswer, setMidAnswer] = useState(null);
 
+  const [gameOver, setGameOver] = useState(false);
+
   /**
    * Move to the next question
    */
   const handleNext = () => {
-    setSelectedAnswer(null);
-    setWrongAttempts([]); // reset
     setCurrentIndex((prev) => prev + 1);
-    setTimer(30);
-    setMaxTime(30);
-    setTries(0);
-    console.log("Next Question", currentIndex + 2, questions.length);
     if (currentIndex + 2 <= questions.length) {
       thirtySecSound("play");
+      setTimer(30);
+      setMaxTime(30);
+      setSelectedAnswer(null);
+      setWrongAttempts([]); // reset
+      setTries(0);
     } else {
       thirtySecSound("stop");
-      console.log("Game Over");
       setIsFrozen(true);
+      setGameOver(true);
     }
   };
 
@@ -84,18 +85,16 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
    */
 
   const revealAnswer = useCallback(
-    (answer, timedOut = false) => {
+    (answer, timedOut) => {
+      if (revealResult) return; // prevent double calls
+      if (currentIndex >= questions.length) return; // safety check
       setSelectedAnswer(answer);
       setIsFrozen(true);
       thirtySecSound("stop");
       playDecisionSound();
 
       setTimeout(() => {
-        if (currentIndex >= questions.length) return;
-        else if (
-          !timedOut &&
-          answer === questions[currentIndex].correct_answer
-        ) {
+        if (!timedOut && answer === questions[currentIndex].correct_answer) {
           setScore((prev) => prev + 100);
           setMidAnswer("correct");
           playCorrectSound();
@@ -108,7 +107,7 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
         setRevealResult(true);
       }, 5000);
     },
-    [questions, currentIndex, setScore] // dependencies to keep it stable
+    [questions, currentIndex, setScore, gameOver] // dependencies to keep it stable
   );
 
   useEffect(() => {
