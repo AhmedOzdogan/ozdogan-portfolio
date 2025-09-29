@@ -107,10 +107,15 @@ mindmaze/
    npm start
    ```
 
+   > Use this for local development and testing.
+
 4. **Build for production:**
+
    ```bash
    npm run build
    ```
+
+   > Run this after development to create an optimized production build.
 
 ---
 

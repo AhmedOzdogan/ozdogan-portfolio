@@ -68,10 +68,12 @@ function Quiz({ questions: initialQuestions, numQuestions, difficulty }) {
     setTimer(30);
     setMaxTime(30);
     setTries(0);
-    if (currentIndex <= questions.length) {
+    console.log("Next Question", currentIndex + 2, questions.length);
+    if (currentIndex + 2 <= questions.length) {
       thirtySecSound("play");
     } else {
       thirtySecSound("stop");
+      console.log("Game Over");
       setIsFrozen(true);
     }
   };
