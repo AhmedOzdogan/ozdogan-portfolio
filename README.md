@@ -74,3 +74,20 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 - Admin panel for managing menu items, orders, and addons
 
 [🔗 View Bakery Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/bakery)
+
+## � MindMaze - Trivia Game
+
+**MindMaze** is an interactive trivia quiz game built with **React**. Challenge yourself with dynamic multiple-choice questions, immersive sound effects, and strategic power-ups ("jokers")—all designed to test your knowledge under pressure in a fun, game-like experience.
+
+**Highlights:**
+
+- Mobile-first responsive design for seamless gameplay on any device
+- Dynamic questions fetched from the Open Trivia Database API
+- Interactive power-ups: Extra Time, 50/50, and Double Answer jokers
+- Immersive sound effects and visual feedback for enhanced user experience
+- Real-time countdown timer with freeze mechanics during answer reveals
+- Score tracking and progress indicators throughout the game
+- Deployed on Vercel for fast, reliable performance
+
+[🔗 View MindMaze Trivia Game on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/trivia-game)
+[🔗 Play the game](https://ozdogan-portfolio.vercel.app)
