@@ -6,7 +6,7 @@ Welcome to my personal portfolio! Here you'll find a showcase of my work and ski
 
 ## 📅 SchedEye ([www.schedeye.com](https://www.schedeye.com))
 
-**SchedEye** is a modern, mobile-friendly web app for freelance teachers and small institutes.
+**SchedEye** is a modern, mobile-friendly web app for freelance teachers and small institutes, built with **Flask** (Python), **Bootstrap 5**, and a **MySQL** server backend. Designed for seamless online access from any device, SchedEye enables users to manage schedules, lessons, and earnings securely in real time. Its responsive interface ensures an optimal experience on both desktop and mobile, making it easy to organize teaching workflows wherever you are.
 
 **Features:**
 
