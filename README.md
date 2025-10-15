@@ -21,7 +21,7 @@ Welcome to my personal portfolio! Here you'll find a showcase of my work and ski
 
 ---
 
-## 🥐 Bakery & Restaurant App
+🥐 Bakery & Restaurant App
 
 A full-stack bakery & restaurant application built with **Django 5**, **Django REST Framework**, and **vanilla JavaScript**.  
 It combines a modern shopping cart, checkout flow with Stripe integration, and a mobile-first frontend for an engaging customer experience.
@@ -39,7 +39,7 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 ---
 
-## � MindMaze - Trivia Game
+� MindMaze - Trivia Game
 
 **MindMaze** is an interactive trivia quiz game built with **React**. Challenge yourself with dynamic multiple-choice questions, immersive sound effects, and strategic power-ups ("jokers")—all designed to test your knowledge under pressure in a fun, game-like experience.
 
@@ -56,7 +56,7 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 ---
 
-## Full-Stack Gift & E-Commerce Application (MERN)
+🎁 Full-Stack Gift & E-Commerce Application (MERN)
 
 Full-Stack Gift & E-Commerce App is a modern MERN (MongoDB, Express, React, Node.js) web application for managing and discovering gifts.
 It showcases secure authentication, scalable REST APIs, and a responsive React frontend with Bootstrap styling.
@@ -89,7 +89,7 @@ Config: dotenv
 
 ---
 
-## 🍽️ Simple Restaurant
+🍽️ Simple Restaurant
 
 A full-stack web application built with **Django 5** and **Django REST Framework**.
 
@@ -106,7 +106,7 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 
 ---
 
-## 🖥️ Schedule Project Desktop APP
+🖥️ Schedule Project Desktop APP
 
 **ScheduleV6** is a desktop teaching schedule manager built with **Python**, **Tkinter**, **tkcalendar**, and **MySQL**.  
 It helps freelance teachers organize weekly lessons, track payments, and monitor monthly income.
