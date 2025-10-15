@@ -57,8 +57,6 @@ A full-stack web application built with **Django 5** and **Django REST Framework
 [🔗 View SchedEye on GitHub](https://github.com/AhmedOzdogan/SchedEye/tree/1137a154fea578f2488507c04b71834c89f4a4af)  
 [🌐 Visit SchedEye Website](https://www.schedeye.com)
 
----
-
 ## 🥐 Bakery & Restaurant App
 
 A full-stack bakery & restaurant application built with **Django 5**, **Django REST Framework**, and **vanilla JavaScript**.  
@@ -75,6 +73,8 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 [🔗 View Bakery Project on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/bakery)
 
+---
+
 ## � MindMaze - Trivia Game
 
 **MindMaze** is an interactive trivia quiz game built with **React**. Challenge yourself with dynamic multiple-choice questions, immersive sound effects, and strategic power-ups ("jokers")—all designed to test your knowledge under pressure in a fun, game-like experience.
@@ -89,6 +89,8 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 [🔗 View MindMaze Trivia Game on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/trivia-game)
 [🔗 Play the game](https://ozdogan-portfolio.vercel.app)
+
+---
 
 ## Full-Stack Gift & E-Commerce Application (MERN)
 
