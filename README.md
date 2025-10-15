@@ -79,8 +79,6 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 **MindMaze** is an interactive trivia quiz game built with **React**. Challenge yourself with dynamic multiple-choice questions, immersive sound effects, and strategic power-ups ("jokers")—all designed to test your knowledge under pressure in a fun, game-like experience.
 
-**Highlights:**
-
 - Mobile-first responsive design for seamless gameplay on any device
 - Dynamic questions fetched from the Open Trivia Database API
 - Interactive power-ups: Extra Time, 50/50, and Double Answer jokers
@@ -91,3 +89,34 @@ It combines a modern shopping cart, checkout flow with Stripe integration, and a
 
 [🔗 View MindMaze Trivia Game on GitHub](https://github.com/AhmedOzdogan/ozdogan-portfolio/tree/main/trivia-game)
 [🔗 Play the game](https://ozdogan-portfolio.vercel.app)
+
+## Full-Stack Gift & E-Commerce Application (MERN)
+
+Full-Stack Gift & E-Commerce App is a modern MERN (MongoDB, Express, React, Node.js) web application for managing and discovering gifts.
+It showcases secure authentication, scalable REST APIs, and a responsive React frontend with Bootstrap styling.
+
+**Highlights:**
+
+🔐 User Authentication — Register, login, and update profile with JWT security
+
+🎁 Gift Management — Add, edit, and browse gifts with category-ready structure
+
+🔍 Search Support — Quick search interface (API ready for integration)
+
+⚙️ MongoDB Integration — Centralized, cached connection with pooling
+
+🧠 Error Handling & Logging — Structured logs via Pino and global error handler
+
+💻 Modern Frontend — React Router navigation, responsive UI, conditional Navbar
+
+🧾 Validation & Security — bcrypt password hashing, express-validator checks
+
+🛠️ Stack
+
+Frontend: React 18, React Router, Bootstrap
+Backend: Node.js, Express.js, MongoDB
+Auth: JWT, bcryptjs
+Logging: Pino
+Config: dotenv
+
+[🔗 View Project on GitHub](https://github.com/AhmedOzdogan/fullstack-capstone-project/tree/15b1a9b194474173583d225cf23e41e82bbb4d70)
