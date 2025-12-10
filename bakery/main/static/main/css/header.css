@@ -393,7 +393,7 @@ body.topbar-hidden .site-topbar {
 
   .site-navbar .nav-link {
     padding: 0.5rem 0.75rem;
-    font-size: 0.9rem;
+    font-size: 1.3rem;
   }
 
   .login,
@@ -442,7 +442,6 @@ body.topbar-hidden .site-topbar {
   .button-group .btn,
   .cart-price-box {
     height: 60px !important;
-    line-height: 60px !important;
     font-size: 1rem !important;
     width: 100% !important;
   }
@@ -464,5 +463,47 @@ body.topbar-hidden .site-topbar {
   .button-cart-group,
   .cart-group {
     margin-left: auto !important; /* push them to the far right */
+  }
+}
+/* ---------- MOBILE NAVBAR FIX ---------- */
+@media (max-width: 991.98px) {
+  /* Stack buttons with comfortable spacing */
+  .button-group a,
+  .cart-group button {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    margin: 6px 0; /* adds more vertical gap */
+    border-radius: 6px;
+  }
+
+  /* Ensure vertical alignment */
+  .button-cart-group,
+  .cart-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  /* Slightly more breathing room below the group */
+  .button-cart-group {
+    margin-bottom: 12px;
+  }
+
+  /* Adjust navbar padding */
+  .navbar-collapse {
+    padding-bottom: 12px; /* extra space at bottom */
+  }
+}
+
+/* ---------- DESKTOP NAVBAR REMAINS CLEAN ---------- */
+@media (min-width: 992px) {
+  .button-group a,
+  .cart-group button {
+    width: auto;
+    margin: 0 4px;
+    font-size: 0.95rem;
+    padding: 6px 14px;
   }
 }
