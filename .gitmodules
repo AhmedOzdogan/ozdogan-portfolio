@@ -1,9 +1,0 @@
-[submodule "SchedEye"]
-	path = SchedEye
-	url = https://github.com/AhmedOzdogan/SchedEye
-[submodule "fullstack-capstone-project"]
-	path = fullstack-capstone-project
-	url = https://github.com/AhmedOzdogan/fullstack-capstone-project
-[submodule "helphub-web"]
-	path = helphub-web
-	url = https://github.com/AhmedOzdogan/helphub-web.git
